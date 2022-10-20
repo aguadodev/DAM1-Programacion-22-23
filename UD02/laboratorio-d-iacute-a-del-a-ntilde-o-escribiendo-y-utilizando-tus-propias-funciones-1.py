@@ -33,9 +33,14 @@ def day_of_year(year, month, day):
     diasMes = days_in_month(year, month)
     if year > 0 and day > 0 and diasMes != None and day <= diasMes:
         #Calcular número de día
-
-        return "Fecha Correcta. Pendiente calcular número de día"
+        numDias = day
+        for i in range(1,month):
+            numDias += days_in_month(year, i)
+        return numDias
     else:
         return None
 
-print(day_of_year(1999, 2, 22))
+diasDelAnho = day_of_year(2000, 12, 31)
+
+if (diasDelAnho != None):
+       print("Fecha Correcta. Número de día =", diasDelAnho)
