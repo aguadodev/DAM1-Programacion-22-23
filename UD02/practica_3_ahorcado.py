@@ -1,3 +1,11 @@
+# Devuelve una palabra oculta para jugar elegida aleatoriamente de 
+# un listado de palabras implementado en la propia función.
+def obtienePalabraOculta():
+    # 1. Definir listado de palabras, preferiblemente relacionadas con
+    # programación
+    # 2. Elegir aleatoriamente una de esas palabras y devolverla con return
+    pass
+
 # Imprime la palabra que se muestra al usuario con guiones 
 # o letras según las letras ya utilizadas
 def obtienePalabraUsuario(palabra, letras):
@@ -14,8 +22,13 @@ def imprimeAhorcado(fallos):
     print("Número de Fallos:", fallos)
 
 
+
+
 # Programa principal (main)
-palabraOculta = "murcielago"
+palabraOculta = obtienePalabraOculta()
+if palabraOculta == None:
+    palabraOculta = "murcielago"
+    
 palabraUsuario = ""
 letrasUsuario = ""
 numFallos = 0
