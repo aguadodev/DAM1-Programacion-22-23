@@ -6,11 +6,11 @@ import urllib.request, json
 
 def distanciaCoche(latitud_inicio, longitud_inicio, latitud_fin, longitud_fin):
     tipo_ruta = 'driving'
-    url = 'https://router.project-osrm.org/route/v1/'+tipo_ruta+'/'
-    url += str(longitud_inicio)+','+str(latitud_inicio)+';'
-    url += str(longitud_fin)+','+str(latitud_fin)+'?overview=false'
+    url_json = 'https://router.project-osrm.org/route/v1/'+tipo_ruta+'/'
+    url_json += str(longitud_inicio)+','+str(latitud_inicio)+';'
+    url_json += str(longitud_fin)+','+str(latitud_fin)+'?overview=false'
 
-    resp = urllib.request.urlopen(url)
+    resp = urllib.request.urlopen(url_json)
     data = json.loads(resp.read())
 
     return data['routes'][0]['distance']
