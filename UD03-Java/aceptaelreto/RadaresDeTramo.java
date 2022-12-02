@@ -1,6 +1,4 @@
 // https://www.aceptaelreto.com/problem/statement.php?id=112&cat=5
-package aceptaelreto;
-
 import java.util.Scanner;
 
 public class RadaresDeTramo {
