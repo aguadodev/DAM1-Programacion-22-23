@@ -28,10 +28,18 @@ public class App {
             notasReales[i] = Math.random() * 10; // Valora aleatorio entre 0 y 10 inclusives
         }  
 
-        // 
-        
+        // Inicializar notasBoletion a valores redondeados de notasReales. El valor mínimo es 1.
         for(int i = 0; i < NUM_ALUMNOS; i++){
-            System.out.printf("La nota de %s es %.2f %n", nombres[i], notasReales[i]);
+            notasBoletin[i] = (int) Math.round(notasReales[i]);
+            if (notasBoletin[i] == 0)
+                notasBoletin[i] = 1;
+            aprobados[i] = notasBoletin[i] >= 5;
+        }  
+        
+        System.out.println("    Alumn@   NotaReal    Boletin     Aprobado");
+        for(int i = 0; i < NUM_ALUMNOS; i++){
+            System.out.printf("%10s %10.2f %10d", nombres[i], notasReales[i], notasBoletin[i]);
+            System.out.println("\t" + aprobados[i]);
         }
     }
 }
