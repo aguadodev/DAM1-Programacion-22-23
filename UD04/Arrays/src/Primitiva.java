@@ -13,8 +13,10 @@ public class Primitiva {
             ganadora[i] = (int) (1 + Math.random() * MAX_RANDOM);
         }*/
 
-        apuesta = generaSinRepetidos(LONGITUD, 1, MAX_RANDOM);
         ganadora = generaSinRepetidos(LONGITUD, 1, MAX_RANDOM);
+
+        apuesta = generaSinRepetidos(LONGITUD, 1, MAX_RANDOM);
+
 
         Arrays.sort(ganadora);
 
