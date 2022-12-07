@@ -54,6 +54,25 @@ public class App {
             System.out.printf("%10s %10.2f %10d %10d", nombres[i], notasReales[i], notasBoletin[i], notasAprobadoGeneral[i]);
             System.out.println("\t" + aprobados[i]);
         }
+
+        /*
+        int posicion10 = buscar(notasBoletin, 10);
+        if(posicion10 != -1)
+            System.out.println(nombres[posicion10] + " tiene la máxima nota (10).");
+        */
+        
+        int[] notas10 = buscarVarios(notasBoletin, 10);
+        if(notas10 != null){
+            System.out.println("Alumnado susceptible de tener matrícula:");
+            for(int i = 0; i < notas10.length; i++)
+                System.out.println(i + 1 + " - " + nombres[notas10[i]]);
+        } else {
+            System.out.println("No hay alumnado con nota suficiente (=10)");
+        }
+            
+
+
+
     }
 
     static int[] aprobadoGeneral(int[] t){
@@ -85,6 +104,57 @@ public class App {
             suma += t[i];
         }
         return suma / t.length;
+    }
+ 
+    static int buscar(int t[], int clave){
+        int i = 0;
+        boolean claveEncontrada = false;
+
+        while (i < t.length && !claveEncontrada){
+            if(t[i] == clave){
+                claveEncontrada = true;
+            } else {
+                i++;
+            }                        
+        }
+
+        return claveEncontrada? i : -1;
+    }
+/* 
+    static int buscar(int t[], int clave){
+        for(int i = 0; i < t.length; i++)
+            if(t[i] == clave)
+                return i;
+        return -1;
+    }
+*/
+
+    // Contar las veces que aparece un valor clave en una tabla de enteros.
+    static int contar(int t[], int clave){
+        int contador = 0;
+        for(int i = 0; i < t.length; i++)
+            if(t[i] == clave)
+                contador++;
+        
+        return contador;
+    }
+
+    // Devuelve la lista de posiciones de una tabla en las que se encuentra un valor clave.
+    static int[] buscarVarios(int t[], int clave){
+        int numVeces = contar(t,clave);
+        int[] posiciones = null;
+
+        if(numVeces > 0) {
+            posiciones = new int[numVeces];
+            int iPosiciones = 0;
+            for(int i = 0; i < t.length; i++)
+                if(t[i] == clave){
+                    posiciones[iPosiciones] = i;
+                    iPosiciones++;
+                }
+        }
+
+        return posiciones;  
     }
 
 }
