@@ -1,6 +1,6 @@
 public class ArraysParalelosNotas {
     public static void main(String[] args){
-        /*
+        
         System.out.println("ARRAYS!!!");
         
         // Declaración array de nombres inicializado
@@ -66,10 +66,7 @@ public class ArraysParalelosNotas {
         } else {
             System.out.println("No hay alumnado con nota suficiente (=10)");
         }
-            */
-
-
-
+            
     }
 
     static int[] aprobadoGeneral(int[] t){
