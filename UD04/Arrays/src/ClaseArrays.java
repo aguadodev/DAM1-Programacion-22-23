@@ -112,18 +112,48 @@ public class ClaseArrays {
     }
 
     static public int[] insertarOrdenado(int[] t, int num){
-        int[] aux = null;
-
         // 1. Crear un array con una posición más.
+        int[] aux = new int[t.length + 1];
 
+        int i = 0;
         // 2. Buscar la posición donde insertarlo
-
-        // 3. Copiar elementos anteriores a la posición
+        while (i < t.length && num > t[i]){
+            // 3. Copiar elementos anteriores a la posición
+            aux[i] = t[i];
+            i++;
+        }
         // 4. Insertar num
+        aux[i] = num;
+
         // 5. Copiar el resto de elementos
+        while (i < t.length){
+            aux[i+1] = t[i];
+            i++;
+        }
 
         return aux;
     }
+
+    static public int[] insertarOrdenado2(int[] t, int num){
+        // 1. Crear un array con una posición más.
+        int[] aux = new int[t.length + 1];
+
+        // 2. Buscar la posición donde insertarlo
+        int i = Arrays.binarySearch(t, num);
+        if (i < 0)
+            i = -i - 1;
+        
+        // 3. Copia los elementos anteriores (si los hay)
+        System.arraycopy(t, 0, aux, 0, i);
+
+        // 4. Inserta el elemento
+        aux[i] = num;
+
+        // 5. Copia el resto de elementos
+        System.arraycopy(t, i, aux, i + 1, t.length - i);
+
+        return aux;
+    }    
 
 
       

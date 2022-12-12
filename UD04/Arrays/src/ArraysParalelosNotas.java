@@ -1,5 +1,6 @@
 public class ArraysParalelosNotas {
     public static void main(String[] args){
+        /*
         System.out.println("ARRAYS!!!");
         
         // Declaración array de nombres inicializado
@@ -55,11 +56,7 @@ public class ArraysParalelosNotas {
             System.out.println("\t" + aprobados[i]);
         }
 
-        /*
-        int posicion10 = buscar(notasBoletin, 10);
-        if(posicion10 != -1)
-            System.out.println(nombres[posicion10] + " tiene la máxima nota (10).");
-        */
+
         
         int[] notas10 = ClaseArrays.buscarVarios(notasBoletin, 10);
         if(notas10 != null){
@@ -69,7 +66,7 @@ public class ArraysParalelosNotas {
         } else {
             System.out.println("No hay alumnado con nota suficiente (=10)");
         }
-            
+            */
 
 
 
