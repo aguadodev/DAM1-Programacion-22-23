@@ -156,7 +156,17 @@ public class ClaseArrays {
     }    
 
     static public int[] borrarOrdenado(int[] t, int num){
-        return null;        
+        int [] aux = new int[t.length];
+
+        int i = 0;
+        for(int e: t){
+            if (e != num){
+                aux[i] = e;
+                i++;                
+            }
+        }
+        
+        return Arrays.copyOf(aux, i);
     }
 
       
