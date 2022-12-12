@@ -155,6 +155,9 @@ public class ClaseArrays {
         return aux;
     }    
 
+    static public int[] borrarOrdenado(int[] t, int num){
+        return null;        
+    }
 
       
 }

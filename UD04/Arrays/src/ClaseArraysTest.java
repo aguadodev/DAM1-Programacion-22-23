@@ -92,4 +92,22 @@ public class ClaseArraysTest {
         assertArrayEquals(tr3, ClaseArrays.insertarOrdenado2(t3, num3));        
     }
 
+    @Test
+    public void testBorrarOrdenado() {
+        int[] t1 = {3, 4, 6, 6, 9, 10, 15, 20};
+        int num1 = 5;
+        int[] tr1 = {3, 4, 6, 6, 9, 10, 15, 20};
+        assertArrayEquals(tr1, ClaseArrays.borrarOrdenado(t1, num1));
+
+        int[] t2 = {3, 4, 6, 6, 9, 10, 15, 20};
+        int num2 = 10;
+        int[] tr2 = {3, 4, 6, 6, 9, 15, 20};
+        assertArrayEquals(tr2, ClaseArrays.borrarOrdenado(t2, num2));
+
+        int[] t3 = {3, 4, 6, 6, 9, 10, 15, 20};
+        int num3 = 6;
+        int[] tr3 = {3, 4, 9, 10, 15, 20};
+        assertArrayEquals(tr3, ClaseArrays.borrarOrdenado(t3, num3));          
+    }
+
 }
