@@ -50,24 +50,22 @@ public class ClaseArrays {
     }
 
     static public int[] sinRepetidos(int[] t){
-        int[] tsr = new int[t.length]; // Array auxiliar sin repetidos
-        int j = 0; // índice para recorrer el array sin repetidos
-
+        int[] tsr = new int[t.length];
+        int j = 0;
         for(int e:t){
-            // Buscamos cada elemento en el array auxiliar sin repetidos
+            // Para cada elemento 
+            // 1. Si ya está en tsr
             boolean Repetido = false;
             for(int k = 0; k < j; k++){
                 if(e == tsr[k])
                     Repetido = true;                    
             }
-            // Si no está en tsr, lo añadimos          
             if (!Repetido){
                 tsr[j] = e;
                 j++;
             }                
         }
         
-        // Truncamos las posiciones no utilizadas del array sin repetidos con copyOf()
         return Arrays.copyOf(tsr, j);
     }
 
@@ -85,99 +83,48 @@ public class ClaseArrays {
         return t;
     }
 
-
-    static double media(int[] t){
-        // Devuelve la media de los elementos del array
-        double suma = 0;
-
-        for(int i = 0; i < t.length; i++){
-            suma += t[i];
-        }
-        return suma / t.length;
-    }    
-
-    static double media(double[] t){
-        // Devuelve la media de los elementos del array
-        double suma = 0;
-
-        for(int i = 0; i < t.length; i++){
-            suma += t[i];
-        }
-        return suma / t.length;
-    }
- 
-    static int buscar(int t[], int clave){
-        int i = 0;
-        boolean claveEncontrada = false;
-
-        while (i < t.length && !claveEncontrada){
-            if(t[i] == clave){
-                claveEncontrada = true;
-            } else {
-                i++;
-            }                        
-        }
-
-        return claveEncontrada? i : -1;
-    }
-
-    // Contar las veces que aparece un valor clave en una tabla de enteros.
-    static int contar(int t[], int clave){
-        int contador = 0;
-        for(int i = 0; i < t.length; i++)
-            if(t[i] == clave)
-                contador++;
-        
-        return contador;
-    }
-
-    /**
-     * Devuelve la lista de posiciones de una tabla en las que se encuentra un valor clave.
-     */
-    static int[] buscarVarios(int t[], int clave){
-        int numVeces = contar(t,clave);
-        int[] posiciones = null;
-
-        if(numVeces > 0) {
-            posiciones = new int[numVeces];
-            int iPosiciones = 0;
-            for(int i = 0; i < t.length; i++)
-                if(t[i] == clave){
-                    posiciones[iPosiciones] = i;
-                    iPosiciones++;
-                }
-        }
-
-        return posiciones;  
-    }
-
-
-    static int[] generaSinRepetidos(int longitud, int min, int max){
-        int[] t = new int[longitud];
-
-        for(int i = 0; i < longitud; i++){
-            boolean valorNuevo;
-            do {
-                // Asignar a t[i] un valor aleatorio entre min y max (no repetido!)
-                int rnd = (int) (min + Math.random() * (max - min + 1)); 
-
-                // Buscar rnd en t
-                valorNuevo = buscar(t, rnd) == -1;
-                if (valorNuevo)
-                    t[i] = rnd;
-            } while (!valorNuevo);
-        }
-
-        return t;
-    }
-
     public static int[] getPares(int t[]){
-        return null;
+        int[] aux = new int[t.length];
+        int i = 0; // indice del array auxiliar
+
+        for(int e:t){
+            if(e % 2 == 0){
+                aux[i] = e;
+                i++;
+            }                
+        }
+
+        return Arrays.copyOf(aux, i);
     }
 
     public static int[] getImpares(int t[]){
-        return null;
+        int[] aux = new int[t.length];
+        int i = 0; // indice del array auxiliar
+
+        for(int e:t){
+            if(e % 2 != 0){
+                aux[i] = e;
+                i++;
+            }                
+        }
+
+        return Arrays.copyOf(aux, i);
     }
+
+    static public int[] insertarOrdenado(int[] t, int num){
+        int[] aux = null;
+
+        // 1. Crear un array con una posición más.
+
+        // 2. Buscar la posición donde insertarlo
+
+        // 3. Copiar elementos anteriores a la posición
+        // 4. Insertar num
+        // 5. Copiar el resto de elementos
+
+        return aux;
+    }
+
 
       
 }

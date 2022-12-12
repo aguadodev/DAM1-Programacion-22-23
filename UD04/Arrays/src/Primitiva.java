@@ -1,26 +1,21 @@
 import java.util.Arrays;
 
 public class Primitiva {
-    /**
-     * Ejercicio 5.6. de https://docs.google.com/document/d/1ZS8D0Rc_Y72wKhkmBECAz0aC8UtlVAuTHNdTtX8nAoc/edit?usp=sharing
-     * 
-     * Definir una función que tome como parámetros dos tablas, 
-     * la primera con los 6 números de una apuesta de la primitiva, 
-     * y la segunda (ordenada) con los 6 números de la combinación ganadora. 
-     * La función devolverá el número de aciertos.
-     * 
-     * El programa principal genera los arrays aleatoriamente, los muestra e 
-     * invoca la función para mostrar el número de aciertos.
-     */
     public static void main(String[] args) {
+        final int MAX = 6;
         final int MAX_RANDOM = 50;
         final int LONGITUD = 6;
-        int[] apuesta = new int[LONGITUD];        
-        int[] ganadora = new int[LONGITUD];
+        int[] apuesta = new int[MAX];        
+        int[] ganadora = new int[MAX];
 
-        ganadora = ClaseArrays.generaSinRepetidos(LONGITUD, 1, MAX_RANDOM);
+        /*for(int i = 0; i < MAX; i++) {
+            apuesta[i] = (int) (1 + Math.random() * MAX_RANDOM);
+            ganadora[i] = (int) (1 + Math.random() * MAX_RANDOM);
+        }*/
 
-        apuesta = ClaseArrays.generaSinRepetidos(LONGITUD, 1, MAX_RANDOM);
+        ganadora = generaSinRepetidos(LONGITUD, 1, MAX_RANDOM);
+
+        apuesta = generaSinRepetidos(LONGITUD, 1, MAX_RANDOM);
 
 
         Arrays.sort(ganadora);
@@ -36,12 +31,6 @@ public class Primitiva {
 
     }
 
-    /**
-     * 
-     * @param apuesta  - array con los números de la apuesta del jugador
-     * @param ganadora - array con la combinación ganadora (ordenado)
-     * @return
-     */
     static int numAciertos(int[] apuesta, int[] ganadora){
         int cont = 0;
 
@@ -51,4 +40,31 @@ public class Primitiva {
 
         return cont;
     }
+
+    static int buscar(int t[], int clave){
+        for(int i = 0; i < t.length; i++)
+            if(t[i] == clave)
+                return i;
+        return -1;
+    }
+    
+    static int[] generaSinRepetidos(int longitud, int min, int max){
+        int[] t = new int[longitud];
+
+        for(int i = 0; i < longitud; i++){
+            boolean valorNuevo;
+            do {
+                // Asignar a t[i] un valor aleatorio entre min y max (no repetido!)
+                int rnd = (int) (min + Math.random() * (max - min + 1)); 
+
+                // Buscar rnd en t
+                valorNuevo = buscar(t, rnd) == -1;
+                if (valorNuevo)
+                    t[i] = rnd;
+            } while (!valorNuevo);
+        }
+
+        return t;
+    }
+
 }
