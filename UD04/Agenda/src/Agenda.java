@@ -57,6 +57,7 @@ public class Agenda {
     }
     
     static public void eliminarContacto(){
+        // PENDIENTE DE REVISAR!!!!!!!
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Índice de contacto a eliminar? ");
