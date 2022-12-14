@@ -5,7 +5,14 @@ public class Persona {
     private String correoE;
     
 
+    
 
+    @Override
+    public String toString() {
+        return "Persona [nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", correoE="
+                + correoE + "]";
+    }
+    
     public String getNombre() {
         return nombre;
     }

@@ -14,7 +14,7 @@ public class Agenda {
             switch(opcion){
                 case 1: anhadirContacto(); break;
                 case 2: listarContactos(); break;
-                case 3: break;
+                case 3: eliminarContacto(); break;
                 case 4: break;
                 case 5: break;
             }
@@ -27,12 +27,11 @@ public class Agenda {
         System.out.println("====\n");
         System.out.println("1. Añadir contacto");
         System.out.println("2. Listar contactos");
-        System.out.println("3. Eliminar contactos");
+        System.out.println("3. Eliminar contacto");
         System.out.println("4. Vaciar agenda");
         System.out.println("5. Buscar contacto");
         System.out.println("0. SALIR");    
     }
-
 
     static public void anhadirContacto(){
         Scanner sc = new Scanner(System.in);
@@ -52,7 +51,28 @@ public class Agenda {
     }
 
     static public void listarContactos(){
-        System.out.println(Arrays.toString(contactos));
+        for(int i = 0; i < contactos.length; i++){
+            System.out.println(i+1 + " - " + contactos[i]);
+        }
     }
     
+    static public void eliminarContacto(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Índice de contacto a eliminar? ");
+        int indice = sc.nextInt();
+
+        if (indice < 1 || indice > contactos.length)
+            System.out.println("Ese contacto no existe.");
+        else {        
+            Persona[] aux = new Persona[contactos.length - 1];            
+            for (int i = 0; i < contactos.length; i++){
+                if(i != indice - 1)
+                    aux[i] = contactos[i];
+            }
+            contactos = aux;
+        }
+
+    }
+
 }
