@@ -66,14 +66,20 @@ public class Agenda {
         if (indice < 1 || indice > contactos.length)
             System.out.println("Ese contacto no existe.");
         else {        
-            Persona[] aux = new Persona[contactos.length - 1];            
-            for (int i = 0; i < contactos.length; i++){
-                if(i != indice - 1)
+            Persona[] aux = new Persona[contactos.length - 1];  
+            System.arraycopy(contactos, 0, aux, 0, indice - 1);                      
+            System.arraycopy(contactos, indice, aux, indice-1, contactos.length - indice);                      
+            /*for (int i = 0; i < contactos.length; i++){
+                if(i < indice - 1)
                     aux[i] = contactos[i];
-            }
+                else if (i > indice - 1){
+                    aux[i-1] = contactos[i];
+                }*/
             contactos = aux;
+            }
+            
         }
 
     }
 
-}
+
