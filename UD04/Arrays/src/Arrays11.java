@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Arrays11 {
-    
-    static char[][] tablero = new char[3][3];
+    final static int TAM = 3; // Tamaño de Tablero
+    static char[][] tablero = new char[TAM][TAM];
 
     public static void main(String[] args) {
         inicializarTablero();
@@ -28,43 +28,49 @@ public class Arrays11 {
         // TODO: comprobar que la entrada es correcta:
         // - Rangos, caracteres válidos, casilla no ocupada
         Scanner sc = new Scanner(System.in);
-        System.out.print("Fila: ");
-        int f = sc.nextInt();
-        System.out.print("Columna: ");
-        int c = sc.nextInt();
+        int f, c;
+        do {
+            System.out.println("Coloca una casilla (" + turno + ") en el tablero: ");
+            System.out.print("Fila: ");
+            f = sc.nextInt();
+            System.out.print("Columna: ");
+            c = sc.nextInt();  
+
+        } while (f < 0 || f >= TAM || c < 0 || c >= TAM);
+
 
         tablero[f][c] = turno;
     }    
 
     static boolean victoria(char turno){
         boolean f = false; // victoria por filas
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < TAM; i++){
             int num = 0; 
-            for(int j = 0; j < 3; j++){
+            for(int j = 0; j < TAM; j++){
                 if(tablero[i][j] == turno)
                     num++;
             }
-            if(num == 3) 
+            if(num == TAM) 
                 f = true;
         }  
 
         boolean c = false; // victoria por columnas
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < TAM; i++){
             int num = 0; 
-            for(int j = 0; j < 3; j++){
+            for(int j = 0; j < TAM; j++){
                 if(tablero[j][i] == turno)
                     num++;
             }
-            if(num == 3) 
+            if(num == TAM) 
                 c = true;
         }  
 
         boolean d = true; // diagonal
         boolean di = true; // diagonal inversa
-        for(int i = 0; i < 3; i++){            
+        for(int i = 0; i < TAM; i++){            
             if(tablero[i][i] != turno)
                 d = false;
-            if(tablero[i][3 - 1 - i] != turno)
+            if(tablero[i][TAM - 1 - i] != turno)
                 di = false;                                       
         }
 
@@ -72,8 +78,8 @@ public class Arrays11 {
     }
 
     static void mostrarTablero(){
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
+        for(int i = 0; i < TAM; i++){
+            for(int j = 0; j < TAM; j++){
                 System.out.print(tablero[i][j] + " ");
             }
             System.out.println();
@@ -81,8 +87,8 @@ public class Arrays11 {
     }
 
     static void inicializarTablero(){
-        for(int i = 0; i < 3; i++)
-            for(int j = 0; j < 3; j++)
+        for(int i = 0; i < TAM; i++)
+            for(int j = 0; j < TAM; j++)
                 tablero[i][j] = '-';
 
     }
