@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ArraysOperacionesBasicas {
 
     /**
@@ -307,4 +309,98 @@ public class ArraysOperacionesBasicas {
 
     //static int[] invertir(int[] t){}
     
+
+
+    static int moda(int[] t){
+        int moda = -1;
+        int maxRepe = 0;
+    
+        Arrays.sort(t);
+    
+        int numActual = t[0];
+        int repeActual = 0;
+    
+        for (int i = 0; i < t.length; i++) {
+            if (t[i]  == numActual){
+                repeActual++;
+                if (repeActual > maxRepe) {
+                    maxRepe++;
+                    moda = numActual;
+                } else if (repeActual == maxRepe) {
+                    moda = -1;
+                }
+            } else {
+                numActual = t[i];
+                repeActual = 1;
+            }
+        }
+    
+        return moda;
+    }
+    
+    
+    static double mediana(int[] t) {
+        double mediana;
+    
+        Arrays.sort(t);
+    
+        if (t.length % 2 == 0) {
+            mediana = (t[t.length / 2] + t[t.length / 2 - 1]) / 2.0;
+        } else {
+            mediana = t[t.length / 2];
+        }       
+    
+        return mediana;
+    }    
+    
+    
+    static int suma(int[] t) {
+        int suma = 0;
+    
+        for (int i = 0; i < t.length; i++) {
+            suma += t[i];
+        }        
+    
+        return suma;
+    }
+    
+    
+    static int media(int[] t) {
+        int suma = 0;
+    
+        for (int i = 0; i < t.length; i++) {
+            suma += t[i];
+        }        
+    
+        return suma / t.length;
+    }
+    
+    
+    static int minimo(int[] t) {
+        int minimo = t[0];
+    
+        for (int i = 1; i < t.length; i++) {
+            if (t[i] < minimo) {
+                minimo = t[i];
+            }
+        }        
+    
+        return minimo;
+    }   
+    
+    
+    static int maximo(int[] t) {
+        int maximo = t[0];
+    
+        for (int i = 1; i < t.length; i++) {
+            if (t[i] < maximo) {
+                maximo = t[i];
+            }
+        }        
+    
+        return maximo;
+    }  
+    
+
+
 }
