@@ -1,4 +1,4 @@
-public class ArraysResumen {
+public class ArraysOperacionesBasicas {
 
     /**
      * Inicializa los elementos de un array de enteros a un valor fijo que se pasa como parámetro.
@@ -11,6 +11,7 @@ public class ArraysResumen {
         }
     }
 
+
     /**
      * Inicializa los elementos de un array de enteros a un valor aleatorio entre 0 y 9 inclusives.
      * @param t
@@ -21,6 +22,7 @@ public class ArraysResumen {
         }
     }
     
+
     /**
      * Comprueba si un array de enteros está ordenado ascendentemente.
      * @param t
@@ -69,6 +71,7 @@ public class ArraysResumen {
         }         
     }
     
+
     /**
      * Ordena un array de enteros descendentemente usando el algoritmo de Burbuja.
      * @param t
@@ -98,8 +101,9 @@ public class ArraysResumen {
         }         
     }
     
+
     /**
-     * Busca un valor en un array de enteros y devuelve la posición de la primera ocurrencia.
+     * Búsqueda lineal de un valor en un array de enteros y devuelve la posición de la primera ocurrencia.
      * Si no se encuentra devuelve -1.
      * @param t
      * @param val
@@ -119,8 +123,9 @@ public class ArraysResumen {
         return posicion;
     }
     
+
     /**
-     * Busca un valor en un array de enteros ordenado. Si no se encuentra devuelve -1.
+     * Búsqueda lineal de un valor en un array de enteros ordenado. Si no se encuentra devuelve -1.
      * @param t
      * @param val
      * @return
@@ -138,5 +143,161 @@ public class ArraysResumen {
     
         return posicion;
     }
+
+    /**
+     * Búsqueda dicotómica en un valor en un array de enteros ordenado. Si no se encuentra devuelve -1.
+     * @param t
+     * @param val
+     * @return
+     */
+    static int busquedaBinaria(int[] t, int val) {
+        int posicion = -1; // resultado, inicialmente suponemos no encontrado
+        int inicio = 0, fin = t.length - 1; // indices del rango a buscar
+        int centro = (fin + inicio) / 2; // Indice central
+    
+        // Mientras exista rango a buscar y no se encuentre el valor buscado
+        while (inicio <= fin && posicion == -1) {          
+            if (val == t[centro]) {
+                // Si se encuentra el valor en la posicion central
+                posicion = centro;
+            } else {
+                // Si no se encuentra en la posicion central actualizamos el rango
+                if (val > t[centro]) {
+                    // Busca en la parte derecha del array => adelanta el inicio
+                    inicio = centro + 1;
+                } else {
+                    // Busca en la parte izquierda del array => retrocede el final
+                    fin = centro - 1;
+                }
+                // Calcula de nuevo el índice central
+                centro = (fin + inicio) / 2;
+            }                        
+        }
+    
+        return posicion;
+    } 
+    
+
+    /**
+     * Inserta un valor al final de un array de enteros.
+     * @param t
+     * @param val
+     * @return
+     */
+    static int[] insertarFinal(int[] t, int val) {
+        int[] t2 = new int[t.length+1];
+        
+        for(int i = 0; i < t.length; i++) {
+            t2[i] = t[i];
+        }
+        t2[t.length] = val;
+
+        return t2;
+    }
+    
+
+    
+    /**
+     * Inserta un valor al inicio de un array de enteros.
+     * @param t
+     * @param val
+     * @return
+     */
+    static int[] insertarInicio(int[] t, int val) {
+        int[] t2 = new int[t.length + 1];
+        
+        t2[0] = val;
+        
+        for(int i = 0; i < t.length; i++) {
+            t2[i+1] = t[i];
+        }
+            
+        return t2;
+    }
+    
+
+    /**
+     * Inserta un valor en una posición dada de un array de enteros.
+     * @param t
+     * @param val
+     * @param pos
+     * @return
+     */
+    static int[] insertarEnPosicion(int[] t, int val, int pos) {
+        int[] t2 = new int[t.length + 1];
+    
+        for(int i = 0; i < pos; i++) {
+            t2[i] = t[i];
+        }   
+        
+        t2[pos] = val;
+        
+        for(int i = pos; i < t.length; i++) {
+            t2[i+1] = t[i];
+        }
+            
+        return t2;
+    }
+
+
+    /**
+     * Inserta un elemento en un array de enteros ordenado ascendentemente.
+     * @param t
+     * @param val
+     * @return
+     */
+    static int[] insertarEnOrdenadoAsc(int[] t, int val) {
+        int[] t2 = new int[t.length + 1];
+        
+        int i = 0;
+        while(i < t.length && t[i] < val){
+            t2[i] = t[i]; 
+            i++;
+        }
+        
+        t2[i] = val;
+        
+        for(int j = i; j < t.length; j++ ){
+            t2[j+1] = t[j];
+        }              
+        
+        return t2;
+    }
+    
+
+    /**
+     * Elimina el elemento al final de un array de enteros.
+     * @param t
+     * @return
+     */
+    static int[] eliminarFinal(int[] t){
+        int[] t2;
+        
+        // Comprueba si el array de entrada está vacío
+        if(t.length > 0) {
+            t2 = new int[t.length - 1]; // crea el array auxiliar
+            
+            // Copia los elementos del array original en el auxiliar 
+            // salvo el último
+            for(int i = 0; i < t.length - 1; i++){
+                t2[i] = t[i];
+            }
+        } else {
+            // Si el array de entrada está vacío devuelve un array vacío
+            t2 = new int[0];
+        }
+        
+        return t2;
+    }
+
+
+    /**
+     * Elimina el elemento al final de un array de enteros.
+     * @param t
+     * @return
+     */
+    static int[] eliminarFinal(int[] t){}
+    
+
     
 }
