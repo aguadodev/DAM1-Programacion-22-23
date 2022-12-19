@@ -310,7 +310,11 @@ public class ArraysOperacionesBasicas {
     //static int[] invertir(int[] t){}
     
 
-
+    /**
+     * Obtiene la moda (el valor que más se repite) de un array de enteros.
+     * @param t
+     * @return
+     */
     static int moda(int[] t){
         int moda = -1;
         int maxRepe = 0;
@@ -339,6 +343,12 @@ public class ArraysOperacionesBasicas {
     }
     
     
+    /**
+     * Obtiene la mediana de un array de enteros.
+     * La mediana es el valor que deja el mismo número de elementos a su derecha y a su izquierda.
+     * @param t
+     * @return
+     */
     static double mediana(int[] t) {
         double mediana;
     
@@ -354,6 +364,11 @@ public class ArraysOperacionesBasicas {
     }    
     
     
+    /**
+     * Devuelve la suma de los elementos de un array.
+     * @param t
+     * @return
+     */
     static int suma(int[] t) {
         int suma = 0;
     
@@ -365,6 +380,11 @@ public class ArraysOperacionesBasicas {
     }
     
     
+    /**
+     * Devuelve la media de los elementos de un array.
+     * @param t
+     * @return
+     */
     static int media(int[] t) {
         int suma = 0;
     
@@ -376,6 +396,11 @@ public class ArraysOperacionesBasicas {
     }
     
     
+    /**
+     * Devuelve el mínimo de los elementos de un array.
+     * @param t
+     * @return
+     */
     static int minimo(int[] t) {
         int minimo = t[0];
     
@@ -389,6 +414,11 @@ public class ArraysOperacionesBasicas {
     }   
     
     
+    /**
+     * Devuelve el máximo de los elementos de un array.
+     * @param t
+     * @return
+     */
     static int maximo(int[] t) {
         int maximo = t[0];
     
