@@ -296,8 +296,15 @@ public class ArraysOperacionesBasicas {
      * @param t
      * @return
      */
-    static int[] eliminarFinal(int[] t){}
-    
+    //static int[] eliminarInicio(int[] t){}
 
+
+    //static int[] eliminarEnPosicion(int[] t, int pos){}
+
+
+    //static int[] eliminarvalores(int[] t, int valor){}
+
+
+    //static int[] invertir(int[] t){}
     
 }
