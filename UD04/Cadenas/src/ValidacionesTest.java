@@ -35,5 +35,6 @@ public class ValidacionesTest {
         assertEquals(Validaciones.siguienteMatricula("9999BBZ"), "0000BCB");
         assertEquals(Validaciones.siguienteMatricula("9999BBD"), "0000BBF");
         assertEquals(Validaciones.siguienteMatricula("9999ZZZ"), "0000BBB");
+        assertEquals(Validaciones.siguienteMatricula("0234BbB"), "0235BBB");
     }
 }

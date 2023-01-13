@@ -16,9 +16,36 @@ public class Validaciones {
         return dniOk;
     }
 
-    static boolean esMatriculaValida(String matricula){
-        return true;
+    static boolean esMatriculaValida2(String matricula){
+        boolean matriculaOk = true;
+
+        String letrasValidas = "BCDFGHJKLMNPQRSTVWXYZ";
+        Character.isDigit(0);
+
+        if (matricula.length() != 7)
+            matriculaOk = false;
+        else {
+            int i = 0;
+            while(i < 4 && matriculaOk){
+                if (!Character.isDigit(matricula.charAt(i)))
+                    matriculaOk = false;
+                i++;
+            }
+            
+            i = 4;
+            while(i < 7 && matriculaOk){
+                if (letrasValidas.indexOf(matricula.toUpperCase().charAt(i)) == -1)
+                    matriculaOk = false;
+                i++;
+            }
+        }
+        return matriculaOk;
     }
+
+    static boolean esMatriculaValida(String matricula){
+        return matricula.toUpperCase().matches("\\d{4}[BCDFGHJKLMNPQRSTVWXYZ]{3}");
+    }
+
 
     static String siguienteMatricula(String matricula){
         return "";
