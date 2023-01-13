@@ -1,5 +1,6 @@
 public class Validaciones {
     public static void main(String[] args) {
+        siguienteMatricula("1234BbB");
         System.out.println(esValidoDNI("23456346F"));
         System.out.println(esValidoDNI("22726985H"));                
         System.out.println(esValidoDNI("22726985H"));                
@@ -48,7 +49,36 @@ public class Validaciones {
 
 
     static String siguienteMatricula(String matricula){
-        return "";
+        String letras = "BCDFGHJKLMNPQRSTVWXYZ";
+        boolean incrementar = true; // Si hay que incrementas un carácter
+        char[] aux = matricula.toUpperCase().toCharArray(); // Resultado
+
+        // PROCESA LOS NÚMEROS DE DERECHA A IZQUIERDA
+        int i = 3;
+        while (incrementar && i >= 0){
+            if (aux[i] == '9'){
+                // Da una vuelta y sigue habiendo que incrementar otro carácter
+                aux[i] = '0';
+            } else {
+                aux[i] =  (char)(aux[i] + 1);
+                incrementar = false; // No hay que incrementar más números de la matrícula
+            }
+            i--;
+        }
+
+        // PROCESA LAS LETRAS DE DERECHA A IZQUIERDA
+        i = 6;
+        while (incrementar && i >= 4){
+            if (aux[i] == 'Z'){
+                aux[i] = 'B';
+            } else {
+                aux[i] = letras.charAt(letras.indexOf(aux[i]) + 1);
+                incrementar = false;
+            }
+            i--;
+        }        
+        
+        return String.valueOf(aux);
     }
 
 }
