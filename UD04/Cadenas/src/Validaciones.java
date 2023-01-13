@@ -20,6 +20,8 @@ public class Validaciones {
         return true;
     }
 
-    
+    static String siguienteMatricula(String matricula){
+        return "";
+    }
 
 }

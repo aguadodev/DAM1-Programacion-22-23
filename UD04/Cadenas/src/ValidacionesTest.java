@@ -27,4 +27,13 @@ public class ValidacionesTest {
     public void testEsValidoDNI() {
 
     }
+
+    @Test
+    public void testSiguienteMatricula() {
+        assertEquals(Validaciones.siguienteMatricula("1234BbB"), "1235BBB");
+        assertEquals(Validaciones.siguienteMatricula("1234BBB"), "1235BBB");
+        assertEquals(Validaciones.siguienteMatricula("9999BBZ"), "0000BCB");
+        assertEquals(Validaciones.siguienteMatricula("9999BBD"), "0000BBF");
+        assertEquals(Validaciones.siguienteMatricula("9999ZZZ"), "0000BBB");
+    }
 }
