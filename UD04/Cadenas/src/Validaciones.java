@@ -81,4 +81,8 @@ public class Validaciones {
         return String.valueOf(aux);
     }
 
+    static int comparaMatriculas(String m1, String m2){
+        return 0;
+    }
+
 }

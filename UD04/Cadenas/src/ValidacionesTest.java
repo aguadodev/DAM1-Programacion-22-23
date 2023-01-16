@@ -37,4 +37,20 @@ public class ValidacionesTest {
         assertEquals(Validaciones.siguienteMatricula("9999ZZZ"), "0000BBB");
         assertEquals(Validaciones.siguienteMatricula("0234BbB"), "0235BBB");
     }
+
+    @Test
+    public void testComparaMatriculas() {
+        assertEquals(0,Validaciones.comparaMatriculas("1234BBB","1234BBB"));
+        assertEquals(-1,Validaciones.comparaMatriculas("1234BBB","1234BBC"));
+        assertEquals(1,Validaciones.comparaMatriculas("1234BBC","1234BBB"));
+        assertEquals(1,Validaciones.comparaMatriculas("1234BBB","1233BBB"));
+        assertEquals(-1,Validaciones.comparaMatriculas("1234BBB","1235BBB"));
+    }
 }
+
+
+
+
+
+
+
