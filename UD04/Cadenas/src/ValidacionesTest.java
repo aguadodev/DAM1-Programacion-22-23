@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -40,11 +41,11 @@ public class ValidacionesTest {
 
     @Test
     public void testComparaMatriculas() {
-        assertEquals(0,Validaciones.comparaMatriculas("1234BBB","1234BBB"));
-        assertEquals(-1,Validaciones.comparaMatriculas("1234BBB","1234BBC"));
-        assertEquals(1,Validaciones.comparaMatriculas("1234BBC","1234BBB"));
-        assertEquals(1,Validaciones.comparaMatriculas("1234BBB","1233BBB"));
-        assertEquals(-1,Validaciones.comparaMatriculas("1234BBB","1235BBB"));
+        assertTrue(Validaciones.comparaMatriculas("1234BBB","1234BBB") == 0);
+        assertTrue(Validaciones.comparaMatriculas("1234BBB","1234BBC") < 0);
+        assertTrue(Validaciones.comparaMatriculas("1234BBC","1234BBB") > 0);
+        assertTrue(Validaciones.comparaMatriculas("1234BBB","1233BBB") > 0);
+        assertTrue(Validaciones.comparaMatriculas("1234BBB","1236BBB") < 0);
     }
 }
 

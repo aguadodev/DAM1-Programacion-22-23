@@ -80,9 +80,42 @@ public class Validaciones {
         
         return String.valueOf(aux);
     }
-
     static int comparaMatriculas(String m1, String m2){
-        return 0;
+        int res = m1.substring(4).compareToIgnoreCase(m2.substring(4));
+
+        if (res == 0)
+            res = m1.substring(0,4).compareTo(m2.substring(0,4));
+
+        return res;
+    }
+
+
+    static int comparaMatriculas2(String m1, String m2){
+        int res;
+        int cl = m1.substring(4).compareToIgnoreCase(m2.substring(4));
+
+        if (cl > 0){
+            // m1 es más nueva
+            res = 1;
+        } else if (cl < 0) {
+            // m1 es más vieja
+            res = -1;
+        } else {
+            // Comparamos números 
+            int cn = m1.substring(0,4).compareTo(m2.substring(0,4));   
+            if (cn > 0){
+                // m1 es más nueva
+                res = 1;
+                } else if (cn < 0) {
+                    // m1 es más vieja
+                    res = -1;
+                } else {
+                    // Son iguales
+                    res = 0;
+                }                            
+        }
+
+        return res;
     }
 
 }
