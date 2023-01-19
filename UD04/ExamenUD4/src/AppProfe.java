@@ -1,4 +1,4 @@
-public class App {
+public class AppProfe {
 
 
     static int rango(int t[]){       
@@ -9,9 +9,8 @@ public class App {
 
             for(int i = 1; i < t.length; i++){
                 if (t[i] > max)
-                    max = t[i];
-                    
-                if (t[i] < min)
+                    max = t[i];                    
+                else if (t[i] < min)
                     min = t[i];
             }
             return max - min;            
@@ -33,21 +32,20 @@ public class App {
     }
 
 
-
     static boolean caminoValido(String[] mapa, String camino){
         boolean caminoOk = true;
 
-        int x, y;
-        int i = 0;
-        while(mapa[i].indexOf('S') == -1 && i < mapa.length){
-            i++;
+        // Obtiene las coordenadas de Salida
+        int x, y = 0;
+        while(mapa[y].indexOf('S') == -1 && y < mapa.length){
+            y++;
         }
+        x = mapa[y].indexOf('S');
 
-        x = mapa[i].indexOf('S');
-        y = i;
-
-        i = 0;
+        // Recorre el camino programado
+        int i = 0;
         while (caminoOk && i < camino.length()){
+            // Evalúa cada movimiento y actualiza las coordenadas
             char mov = camino.charAt(i);
             switch (mov){
                 case 'N': y--; break;
@@ -55,11 +53,13 @@ public class App {
                 case 'E': x++; break;
                 case 'O': x--; break;
             }
+            // Si se sale del tablero o pisa una mina...
             if (y < 0 || x < 0 || y >= mapa.length || x >= mapa[0].length() || mapa[y].charAt(x) == '*')
                 caminoOk = false;
             i++;
         }
 
+        // Si al final del camino no se encuentra en la casilla de Llegada
         if(caminoOk && mapa[y].charAt(x) != 'X'){
             caminoOk = false;
         }

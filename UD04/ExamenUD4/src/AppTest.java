@@ -18,11 +18,12 @@ public class AppTest {
         int[] t4 = {5,8};
         int[] t5 = {4, 6, 2, 9, 10, -2};        
 
-        assertEquals(0, App.rango(t));
-        assertEquals(0, App.rango(t2));
         assertEquals(0, App.rango(t3));
         assertEquals(3, App.rango(t4));
         assertEquals(12, App.rango(t5));
+        assertEquals(0, App.rango(t));
+        assertEquals(0, App.rango(t2));
+
 
 	// NUEVOS TESTS
 	int[] t6 = {-4, -6, -2, -9, -10, -2};
@@ -95,13 +96,40 @@ public class AppTest {
         assertTrue(App.caminoValido(mapa, "EENNNNO"));
         assertTrue(App.caminoValido(mapa, "ENENENENOOO"));            
         assertTrue(App.caminoValido(mapa, "EEEEEEEENOOOOOONNEENOOO"));            
+        assertFalse(App.caminoValido(mapa, "NNNNE"));            
+        assertFalse(App.caminoValido(mapa, "EEEEEEEENOOOOOONNEENOOOO"));            
+        assertFalse(App.caminoValido(mapa, "EEEEEEEENOOOOOONNEENOOONNNN")); 
         assertFalse(App.caminoValido(mapa, "S"));            
         assertFalse(App.caminoValido(mapa, "OO"));            
         assertFalse(App.caminoValido(mapa, "NEEEEEEEEE"));            
         assertFalse(App.caminoValido(mapa, "ONNNNNNN"));            
-        assertFalse(App.caminoValido(mapa, "NNNNE"));            
-        assertFalse(App.caminoValido(mapa, "EEEEEEEENOOOOOONNEENOOOO"));            
-        assertFalse(App.caminoValido(mapa, "EEEEEEEENOOOOOONNEENOOONNNN"));            
+            
+        // NUEVOS TESTS
+        String[] mapa2 = {
+            "  S  ",
+            " *   ",
+            "  *  ",
+            "  *  ",
+            "     ",
+            " * * ",
+            " X * "
+        };
+
+        assertTrue(App.caminoValido(mapa2, "SESSSOOOSSE"));
+        assertTrue(App.caminoValido(mapa2, "OOSSSSSSE"));       
+        assertFalse(App.caminoValido(mapa2, "N"));            
+        assertFalse(App.caminoValido(mapa2, "EEE"));            
+        assertFalse(App.caminoValido(mapa2, "OOO"));            
+        assertFalse(App.caminoValido(mapa2, "SS")); 
+        assertFalse(App.caminoValido(mapa2, "SSSSSSO")); 
+
+        /* Más tests:
+
+        Una casilla de salida en una esquina de una matriz rectangular.
+
+        */
+        
+
     }
 
 }
