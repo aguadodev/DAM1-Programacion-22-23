@@ -11,7 +11,7 @@ public class App {
         // los puntos de salida y llegada (indicando para cada uno un nombre descriptivo
         // y sus coordenadas GPS de latitud y longitud) y el número de plazas
         // ofertadas a pasajeros.
-        LocalDateTime fechaHoraSalida = LocalDateTime.of(2015, 06, 29, 19, 30, 40);
+        LocalDateTime fechaHoraSalida = LocalDateTime.of(2023, 01, 30, 07, 50, 00);
         PuntoEncuentro puntoSalida = new PuntoEncuentro("Praza de Galicia (Pontevedra)",42.42801,-8.64441);
         PuntoEncuentro puntoLlegada = new PuntoEncuentro("IES Chan do Monte (Marín)",42.38962,-8.7096);
         Viaje viaje1 = new Viaje(conductor1, fechaHoraSalida, puntoSalida, puntoLlegada, 3);
