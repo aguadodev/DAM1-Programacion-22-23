@@ -23,6 +23,14 @@ public class Texto {
     }   
 
     // - Otros métodos
+    public boolean add(char ch){
+        return add(ch, false);
+    }
+
+    public boolean add(String str){
+        return add(str, false);
+    }
+
     public boolean add(char ch, boolean inicio){
         boolean modificado = false;
         if (cad.length() < maxLength){
@@ -80,13 +88,13 @@ public class Texto {
         Texto nombre = new Texto(5);
 
         nombre.add('Ó', true);
-        nombre.add('s', false);
-        nombre.add("car", false);
+        nombre.add('s');
+        nombre.add("car");
 
         nombre.mostrar();
         System.out.println(nombre);
 
-        nombre.add(" Aguado", false);
+        nombre.add(" Aguado");
 
         nombre.mostrar();
         System.out.println(nombre);        
