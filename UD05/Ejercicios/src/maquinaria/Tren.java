@@ -9,7 +9,8 @@ public class Tren {
     private Vagon[] vagones;
     private Maquinista maquinista;
 
-    
+    /***** CONTRUCTORES */
+
     public Tren(Locomotora locomotora, Vagon[] vagones, Maquinista maquinista) {
         this.locomotora = locomotora;
         this.vagones = vagones;
@@ -18,6 +19,35 @@ public class Tren {
 
     public Tren() {
     }
+
+    public int getCargaActual(){
+        int carga = 0;
+        
+        for(Vagon v: vagones)
+            carga += v.getCargaActual();
+
+        return carga;
+    }
+
+    public int getCapacidadMaxima(){
+        int capacidad = 0;
+
+        for(Vagon v: vagones)
+        capacidad += v.getCargaMaxima();
+        
+        return capacidad;
+    }    
+
+    public double getPorcentajeCarga(){
+        int capacidad = getCapacidadMaxima();
+
+        if (capacidad > 0)
+            return (double)getCargaActual()/getCapacidadMaxima();
+        else
+            return 0;
+    }
+
+    /*****  GETTERS Y SETTERS  */
 
     public Locomotora getLocomotora() {
         return locomotora;

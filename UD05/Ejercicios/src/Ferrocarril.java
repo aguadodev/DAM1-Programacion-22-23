@@ -17,5 +17,8 @@ public class Ferrocarril {
         tren.setMaquinista(maq);                                 
         
         System.out.println(tren);
+        System.out.print("CARGA: " + tren.getCargaActual() + "/" + 
+                            tren.getCapacidadMaxima() + " : ");
+        System.out.printf("%.2f %% %n", tren.getPorcentajeCarga() * 100);                     
     }
 }
