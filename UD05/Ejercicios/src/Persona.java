@@ -1,17 +1,24 @@
 public class Persona {
-    private String nombre;
-    private String apellidos;
-    private String telefono;
-    private String correoE;
+    protected String nombre;
+    protected String apellidos;
+    protected String telefono;
+    protected String correoE;
     
     
-    
-
     public Persona(String nombre) {
         this.nombre = nombre;
     }
 
-    
+    public Persona() {
+    }
+
+
+    public Persona(String nombre, String apellidos, String telefono, String correoE) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.correoE = correoE;
+    }
 
     @Override
     public String toString() {
