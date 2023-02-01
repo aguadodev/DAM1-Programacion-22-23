@@ -24,7 +24,15 @@ public class Persona {
     public String toString() {
         return nombre;
     }
-    
+
+
+    @Override
+    public boolean equals(Object obj) {
+        Persona p = (Persona) obj;
+        
+        return p.nombre.equals(nombre);
+    }
+
     public String getNombre() {
         return nombre;
     }
