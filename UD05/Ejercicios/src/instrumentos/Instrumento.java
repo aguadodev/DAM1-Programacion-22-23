@@ -23,17 +23,14 @@ public abstract class Instrumento {
             add(NotaMusical.valueOf(str));
     }
 
+    
     @Override
+    /**
+     * Compara si dos instrumentos son del mismo tipo y tienen la misma melodia
+     */
     public boolean equals(Object obj) {
-        boolean iguales = false;
-        
         Instrumento instrumento = (Instrumento) obj;
-        
-        if (this.getClass() == obj.getClass())
-            if (Arrays.equals(melodia, instrumento.melodia))
-                iguales = true;
-
-        return iguales;                
+        return this.getClass().equals(obj.getClass()) && Arrays.equals(melodia, instrumento.melodia);                
     }
 
     

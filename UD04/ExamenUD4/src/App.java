@@ -1,208 +1,177 @@
+// Anxo Quintana Dopazo
+
 import java.util.Arrays;
+import java.util.Scanner;
 
-// DANIEL TOURIÑO PIÑEIRO
 public class App {
-    public static void main(String[] args) throws Exception {
-        String[] mapa = {
-            "  X       ",
-            " *        ",
-            "  *  *    ",
-            "          ",
-            " S        "
-        };
+    public static void main(String[] args) {
+        System.out.println("Escoge un progama.");
+        System.out.println("\n1 Rango");
+        System.out.println("2 Cambio de color");
+        System.out.println("3 Camino válido");
 
-        
-        System.out.println("CAMINO EENNNNO es: " + caminoValido(mapa, "EENNNNO"));
-        System.out.println("CAMINO ENENENENOOO es: " + caminoValido(mapa, "ENENENENOOO"));
-        System.out.println("CAMINO EEEEEEEENOOOOOONNEENOOO es: " + caminoValido(mapa, "EEEEEEEENOOOOOONNEENOOO"));       
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("\nElección: ");
+        int eleccion = sc.nextInt();
+
+        switch (eleccion) {
+            case 1:
+                rango(null);
+                break;
+            case 2:
+                cambiarColor(null, eleccion, eleccion);
+                break;
+            case 3:
+                caminoValido();
+                break;
+        }
     }
 
-    static int rango(int t[]) {
-        int diferencia = 0;
+    public static int rango(int t[]) {
+        System.out.println("\n=====");
+        System.out.println("RANGO");
+        System.out.println("=====\n");
 
-        if(t != null && t.length >= 2) {
-            int mayor = 0, menor = 0;
-            boolean inicializados = false;
-            
-            for (int e : t) {
-                if(!inicializados) {
-                    mayor = e;
-                    menor = e;
+        // Tamaño de array por teclado
+        Scanner sc = new Scanner(System.in);
 
-                    inicializados = true;
-                } else {
-                    if(e > mayor) mayor = e;
-                    if(e < menor) menor = e;
+        System.out.print("Ingrese el tamaño del array: ");
+        int tamanho = sc.nextInt();
+
+        int diferencia;
+
+        try {
+            t = new int[tamanho];
+
+            if (tamanho == 0 || tamanho < 2) {
+                diferencia = 0;
+
+                System.out.println("0");
+
+                return diferencia;
+            } else {
+                // Registro número más alto del array empezando desde el más bajo
+                int numeroMayor = 0;
+
+                // Registro número más bajo del array empezando desde el más alto
+                int numeroMenor = 10;
+
+                // Generación aleatoria valores del array del -10 al 10
+                for (int i = 0; i < t.length; i++) {
+                    t[i] = (int) (Math.random() * 20 - 10);
+
+                    if (t[i] > numeroMayor) {
+                        numeroMayor = t[i];
+                    }
+
+                    if (t[i] < numeroMenor) {
+                        numeroMenor = t[i];
+                    }
                 }
-            }
 
-            diferencia = mayor - menor;
+                // Imprimir array
+                System.out.println("\n" + Arrays.toString(t));
+
+                // Cálculo de la distancia entre el número mayor y menor
+                diferencia = numeroMayor - numeroMenor;
+
+                System.out.print("\nLa diferencia es " + diferencia);
+
+                return diferencia;
+            }
+        } catch (java.lang.NegativeArraySizeException exception) {
+            System.out.println("0");
+
+            diferencia = 0;
+
+            return diferencia;
         }
 
-        return diferencia;
     }
 
     static boolean cambiarColor(int[][] img, int colorViejo, int colorNuevo) {
-        boolean colorCambiado = false;
+        System.out.println("\n===============");
+        System.out.println("CAMBIO DE COLOR");
+        System.out.println("===============\n");
 
+        // Asociación de colores (estos, por ejemplo)
+        int rojo = 1;
+        int azul = 2;
+        int amarillo = 3;
+        int blanco = 4;
+        int negro = 5;
+
+        // Generar imagen
         for (int i = 0; i < img.length; i++) {
-            for (int j = 0; j < img[i].length; j++) {
-                if(img[i][j] == colorViejo) {
-                    img[i][j] = colorNuevo;
-                    colorCambiado = true;
-                }
+            for (int j = 0; j < img.length; j++) {
+                img[i][j] = (int) (Math.random() * 6 - 1);
             }
         }
 
-        return colorCambiado;
+        System.out.println("Su imagen:");
+        System.out.println(Arrays.toString(img));
+
+        // Cambios de colores
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("\nIngrese el color a cambiar: ");
+        colorViejo = sc.nextInt();
+
+        System.out.print("\nIngrese el color a sustituir: ");
+        colorNuevo = sc.nextInt();
+
+        boolean cambio;
+
+        // Comprobación del cambio
+        if (colorViejo == colorNuevo) {
+            cambio = false;
+
+            System.out.println(Arrays.toString(img));
+
+            return cambio;
+        } else {
+            cambio = true;
+
+            for (int i = 0; i < img.length; i++) {
+                for (int j = 0; j < img.length; j++) {
+                    if (img[i][j] == colorViejo) {
+                        colorViejo = colorNuevo;
+                    }
+                }
+            }
+        }
     }
 
-    static boolean caminoValido(String[] mapa, String camino) {
-        boolean caminoValido = false;
-        boolean minaEncontrada = false;
-        boolean fueraRango = false;
+    public static boolean caminoValido() {
+        System.out.println("\n==================");
+        System.out.println("JUEGO DE LABERINTO");
+        System.out.println("==================\n");
 
-        int[][] posicionPrincipal = new int[1][2];
-        int[][] posicionaFinalEsperada = new int[1][2];
+        // Mapa
+        String[] mapa = {
+                "  X       ",
+                " *        ",
+                "  *  *    ",
+                "          ",
+                " S        "
+        };
 
-        for (int i = 0; i < mapa.length; i++) {
-            for (int j = 0; j < mapa[i].length(); j++) {
-                if(mapa[i].charAt(j) == 'S') {
-                    posicionPrincipal[0][0] = i;
-                    posicionPrincipal[0][1] = j;                    
-                }
+        System.out.println(mapa);
 
-                if(mapa[i].charAt(j) == 'X') {
-                    posicionaFinalEsperada[0][0] = i;
-                    posicionaFinalEsperada[0][1] = j;
-                }
-            }
-        }
+        // N --> norte, S --> sur, O --> oeste, E --> este
+        System.out.println("\nN --> Norte");
+        System.out.println("S --> Sur");
+        System.out.println("O --> Oeste");
+        System.out.println("E --> Este");
 
-        for (int i = 0; i < camino.length(); i++) {
-            if(camino.charAt(i) == 'N') {
-                if((posicionPrincipal[0][0] - 1 >= mapa.length) || (posicionPrincipal[0][0] - 1) < 0) {
-                    fueraRango = true;
-                } else {
-                    if(mapa[posicionPrincipal[0][0] - 1].charAt(posicionPrincipal[0][1]) != '*'){
-                        mapa[posicionPrincipal[0][0]] = mapa[posicionPrincipal[0][0]].replaceAll("S", " ");
+        Scanner sc = new Scanner(System.in);
 
-                        String tempMap = "";
-                        for (int j = 0; j < mapa[posicionPrincipal[0][0] - 1].length(); j++) {
-                            if(j != posicionPrincipal[0][1]) {
-                                tempMap += mapa[posicionPrincipal[0][0] - 1].charAt(j);
-                            } else {
-                                tempMap += 'S';
-                            }
-                        }
+        System.out.print("\nIngrese el camino que va a tomar: ");
+        String camino = sc.nextLine().toUpperCase();
 
-                        mapa[posicionPrincipal[0][0] - 1] = tempMap;
-                        posicionPrincipal[0][0] = posicionPrincipal[0][0] - 1;
-                    } else {
-                        System.out.println("Has encontrado una mina");
-                        minaEncontrada = true;
-                        break;
-                    }
-                }
-            }
+        boolean validacion = true;
 
-            if(camino.charAt(i) == 'S') {
-                if((posicionPrincipal[0][0] + 1 >= mapa.length) || (posicionPrincipal[0][0] + 1) < 0) {
-                    fueraRango = true;
-                } else {
-                    if(mapa[posicionPrincipal[0][0] + 1].charAt(posicionPrincipal[0][1]) != '*'){
-                        mapa[posicionPrincipal[0][0]] = mapa[posicionPrincipal[0][0]].replaceAll("S", " ");
-    
-                        String tempMap = "";
-                        for (int j = 0; j < mapa[posicionPrincipal[0][0] + 1].length(); j++) {
-                            if(j != posicionPrincipal[0][1]) {
-                                tempMap += mapa[posicionPrincipal[0][0] + 1].charAt(j);
-                            } else {
-                                tempMap += 'S';
-                            }
-                        }
-    
-                        mapa[posicionPrincipal[0][0] + 1] = tempMap;
-                        posicionPrincipal[0][0] = posicionPrincipal[0][0] + 1;
-                    } else {
-                        System.out.println("Has encontrado una mina");
-                        minaEncontrada = true;
-                        break;
-                    }
-                }
-            }
-
-            if(camino.charAt(i) == 'E') {
-                if(posicionPrincipal[0][1] + 1 >= mapa[posicionPrincipal[0][0]].length()) {
-                    fueraRango = true;
-                } else {
-                    if(mapa[posicionPrincipal[0][0]].charAt(posicionPrincipal[0][1] + 1) != '*'){
-                        mapa[posicionPrincipal[0][0]] = mapa[posicionPrincipal[0][0]].replaceAll("S", " ");
-    
-                        String tempMap = "";
-                        for (int j = 0; j < mapa[posicionPrincipal[0][0]].length(); j++) {
-                            if(j != posicionPrincipal[0][1] + 1) {
-                                tempMap += mapa[posicionPrincipal[0][0]].charAt(j);
-                            } else {
-                                tempMap += 'S';
-                            }
-                        }
-    
-                        mapa[posicionPrincipal[0][0]] = tempMap;
-                        posicionPrincipal[0][1] = posicionPrincipal[0][1] + 1;
-                    } else {
-                        System.out.println("Has encontrado una mina");
-                        minaEncontrada = true;
-                        break;
-                    }
-                }
-            }
-
-            if(camino.charAt(i) == 'O') {
-                if(posicionPrincipal[0][1] - 1 < 0) {
-                    fueraRango = true;
-                } else {
-                    if(mapa[posicionPrincipal[0][0]].charAt(posicionPrincipal[0][1] - 1) != '*'){
-                        mapa[posicionPrincipal[0][0]] = mapa[posicionPrincipal[0][0]].replace("S", " ");
-    
-                        String tempMap = "";
-                        for (int j = 0; j < mapa[posicionPrincipal[0][0]].length(); j++) {
-                            if(j != posicionPrincipal[0][1] - 1) {
-                                tempMap += mapa[posicionPrincipal[0][0]].charAt(j);
-                            } else {
-                                tempMap += 'S';
-                            }
-                        }
-    
-                        mapa[posicionPrincipal[0][0]] = tempMap;
-                        posicionPrincipal[0][1] = posicionPrincipal[0][1] - 1;
-                    } else {
-                        System.out.println("Has encontrado una mina");
-                        minaEncontrada = true;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if(!minaEncontrada && !fueraRango) {
-            int[][] posicionFinalJugador = new int[1][2];
-
-            for (int i = 0; i < mapa.length; i++) {
-                for (int j = 0; j < mapa[i].length(); j++) {
-                    if(mapa[i].charAt(j) == 'S') {
-                        posicionFinalJugador[0][0] = i;
-                        posicionFinalJugador[0][1] = j;
-                        
-                        break;
-                    }
-                }
-            }
-
-            if((posicionFinalJugador[0][0] == posicionaFinalEsperada[0][0]) && (posicionFinalJugador[0][1] == posicionaFinalEsperada[0][1]))
-                caminoValido = true;
-        }
-
-        return caminoValido;
+        return validacion;
     }
 }
