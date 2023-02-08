@@ -1,11 +1,11 @@
 import java.time.LocalDateTime;
 
-public class App {
+public class App2 {
     public static void main(String[] args) {
         // Crea un coche indicando nombre, color, número de plazas y matrícula
-        Coche coche1 = new Coche("Seat Ibiza", "Negro", 5, "FDD1234");
+        Coche coche1 = new Coche("Seat Ibiza", "Negro", 5, "FDD1234", "DIESEL", "C");
         // Crea un conductor indicando el nombre y el coche que conduce
-        Conductor conductor1 = new Conductor("Uxía", coche1);
+        Conductor conductor1 = new Conductor("Uxía", "15/7/2017", coche1);
                 
         // Crea un viaje indicando el conductor, la fecha y hora de salida, 
         // los puntos de salida y llegada (indicando para cada uno un nombre descriptivo

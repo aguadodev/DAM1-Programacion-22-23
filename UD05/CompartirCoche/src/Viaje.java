@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 public class Viaje {
@@ -28,6 +29,38 @@ public class Viaje {
         }
         return anhadido;
     }
+
+    @Override
+    public String toString() {
+        String fechaFormateada = fechaHoraSalida.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        /*String fechaFormateada = fechaHoraSalida.getDayOfMonth() 
+        + "/" + fechaHoraSalida.getMonthValue()
+        + "/" + fechaHoraSalida.getYear()
+        + " " + fechaHoraSalida.getHour()
+        + ":" + fechaHoraSalida.getMinute();*/
+
+        String str = "\nViaje compartido:"
+             + "\n================="
+             + "\nFecha y hora: " + fechaFormateada 
+             + "\nLugar de salida: " + puntoSalida
+             + "\nLugar de llegada: " + puntoLlegada 
+             + "\nPlazas ofertadas: " + plazas 
+             + "\nConductor@: " + conductor 
+             + "\nCoche: " + conductor.coche 
+             + "\nPasajer@s: ";
+             
+        for(int i = 0; i < pasajeros.length; i++){
+            str += pasajeros[i];
+            if(i < pasajeros.length - 1)
+                str += ", ";
+            else 
+                str += ".";
+        }
+            
+
+        return str;
+    }
+    
     
     
 }

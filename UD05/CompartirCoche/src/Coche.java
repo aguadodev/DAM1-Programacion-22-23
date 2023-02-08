@@ -8,6 +8,11 @@ public class Coche {
         this.color = color;
         this.plazas = (byte)plazas;
         this.matricula = matricula;
+    }
+    @Override
+    public String toString() {
+        return marca + " " + color + ", " + plazas + " plazas, matrícula " + matricula;
     }    
 
+    
 }

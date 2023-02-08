@@ -104,9 +104,9 @@ public class ReadJsonFromUrl {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Introduce una URL: ");
+        /*System.out.println("Introduce una URL: ");
         urlConsola = sc.nextLine();
-        System.out.println(stream(new URL(urlConsola)));
+        System.out.println(stream(new URL(urlConsola)));*/
 
 
         double latitud_inicio = 42.428181;
