@@ -44,7 +44,7 @@ public class Viaje {
              + "\nFecha y hora: " + fechaFormateada 
              + "\nLugar de salida: " + puntoSalida
              + "\nLugar de llegada: " + puntoLlegada 
-             + "\nPlazas ofertadas: " + plazas 
+             + "\nPlazas libres: " + getPlazasLibres() + "/" + plazas 
              + "\nConductor@: " + conductor 
              + "\nCoche: " + conductor.coche 
              + "\nPasajer@s: ";
@@ -59,6 +59,14 @@ public class Viaje {
             
 
         return str;
+    }
+
+    private Byte getPlazasOcupadas() {
+        return (byte)pasajeros.length;
+    }
+    
+    private Byte getPlazasLibres() {
+        return (byte)(plazas - pasajeros.length);
     }
     
     
