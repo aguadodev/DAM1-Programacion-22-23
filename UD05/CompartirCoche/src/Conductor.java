@@ -12,7 +12,7 @@ public class Conductor extends Persona{
     public Conductor(String nombre, String fechaExpedicionPermiso, Coche coche) {
         super(nombre);
         if (fechaExpedicionPermiso != null) 
-            this.fechaExpedicionPermiso = LocalDate.parse(fechaExpedicionPermiso, DateTimeFormatter.ofPattern("dd/M/yyyy"));
+            this.fechaExpedicionPermiso = LocalDate.parse(fechaExpedicionPermiso, DateTimeFormatter.ofPattern("d/M/yyyy"));
         this.coche = coche;
     }
 
@@ -31,10 +31,10 @@ public class Conductor extends Persona{
             LocalDate hoy = LocalDate.now();
             int anhos = hoy.getYear() - fechaExpedicionPermiso.getYear();            
             // TODO Revisar meses y días también
-            /*if (fechaExpedicionPermiso.getMonthValue() > hoy.getMonthValue())
-
-            hoy = hoy.minusDays(fechaExpedicionPermiso.getDayOfMonth());
-            hoy = hoy.minusMonths(fechaExpedicionPermiso.getMonthValue());*/
+            if (fechaExpedicionPermiso.getMonthValue() > hoy.getMonthValue() ||
+               (fechaExpedicionPermiso.getMonthValue() == hoy.getMonthValue() && 
+               fechaExpedicionPermiso.getDayOfMonth() > hoy.getDayOfMonth()))
+                anhos--;        
             
             return (byte)anhos;
         }

@@ -48,14 +48,17 @@ public class Viaje {
              + "\nConductor@: " + conductor 
              + "\nCoche: " + conductor.coche 
              + "\nPasajer@s: ";
-             
-        for(int i = 0; i < pasajeros.length; i++){
-            str += pasajeros[i];
-            if(i < pasajeros.length - 1)
-                str += ", ";
-            else 
-                str += ".";
-        }
+        
+        if(getPlazasOcupadas() == 0)
+            str += "sin pasajeros.";
+        else 
+            for(int i = 0; i < pasajeros.length; i++){
+                str += pasajeros[i];
+                if(i < pasajeros.length - 1)
+                    str += ", ";
+                else 
+                    str += ".";
+            }
             
 
         return str;
