@@ -32,17 +32,35 @@ public class Personaje {
         this.puntosVida = puntosVida >= 1 ? puntosVida : 1;
     }
 
+    public Personaje(String nombre, String raza, int fuerza, int agilidad, int constitucion) {
+        this(nombre, raza, fuerza, agilidad, constitucion, 1, 0, constitucion + 50);
+    }
 
+    public Personaje(String nombre, String raza) {
+        this(nombre, raza, rnd1a100(), rnd1a100(), rnd1a100());
+    }
+    
+    static int rnd1a100(){
+        return (int)(Math.random()*100 + 1);
+    }
 
     public void mostrar(){
-
+        System.out.println("PERSONAJE: " + nombre);
+        System.out.println("Raza: " + raza);
+        System.out.println("Fuerza: " + fuerza);
+        System.out.println("Agilidad: " + agilidad);
+        System.out.println("Constitución: " + constitucion);
+        System.out.println("Nivel: " + nivel);
+        System.out.println("Experiencia: " + experiencia);
+        System.out.println("Puntos de Vida: " + puntosVida);
     }
 
-    public void subirNivel(){
-
+    @Override
+    public String toString() {
+        return nombre + " (" + puntosVida + "/" + (constitucion + 50) + ")";
     }
 
-    public void curar(){
+    
 
-    }
+
 }
