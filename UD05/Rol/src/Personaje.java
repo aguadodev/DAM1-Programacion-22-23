@@ -60,7 +60,75 @@ public class Personaje {
         return nombre + " (" + puntosVida + "/" + (constitucion + 50) + ")";
     }
 
-    
+    boolean sumarExperiencia(int puntos){
+        int nivelAnterior = experiencia / 1000;
 
+        experiencia += puntos;
+
+        int nivelActual = experiencia / 1000;
+
+        return nivelAnterior != nivelActual;
+    }
+
+    void subirNivel(){
+        nivel++;
+        fuerza = (int) Math.round(fuerza * 1.05);
+        agilidad = (int) Math.round(agilidad * 1.05);
+        constitucion = (int) Math.round(constitucion * 1.05);
+    }
+
+    void curar(){
+        if (puntosVida < constitucion + 50)
+            puntosVida = constitucion + 50;
+    }
+
+    boolean perderVida(int puntos){
+        boolean muerto = false;
+        puntosVida -= puntos;
+        if (puntosVida <= 0){
+            muerto = true;
+            puntosVida = 0;
+        }
+        return muerto;
+    }
+
+    boolean estaVivo(){
+        return puntosVida > 0;
+    }
+
+    int atacar(Personaje enemigo){
+        int ataque = fuerza + rnd1a100();
+        int defensa = enemigo.agilidad + rnd1a100();
+        int resultado = ataque - defensa;
+
+        if (resultado > enemigo.puntosVida){
+            resultado = enemigo.puntosVida;           
+        }            
+        else if (resultado < 0)
+            resultado = 0;
+
+        sumarExperiencia(resultado);    
+        enemigo.sumarExperiencia(resultado);
+        enemigo.perderVida(resultado);             
+
+        return resultado;
+    }
+
+    int atacar(Monstruo enemigo){
+        int ataque = fuerza + rnd1a100();
+        int defensa = enemigo.defensa + rnd1a100();
+        int resultado = ataque - defensa;
+
+        if (resultado > enemigo.puntosVida){
+            resultado = enemigo.puntosVida;           
+        }            
+        else if (resultado < 0)
+            resultado = 0;
+
+        sumarExperiencia(resultado);    
+        enemigo.perderVida(resultado);             
+
+        return resultado;
+    }    
 
 }

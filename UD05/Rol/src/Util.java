@@ -1,13 +1,20 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import com.google.gson.Gson;
+
 public class Util {
     /**
-     * Exporta el contenido de la agenda al fichero "agenda.json"
+     * Exporta el personaje p a un fichero "personaje.json"
      * @param t
      */
-    static public void exportarJson(Persona[] t){
-        final String filename = "agenda.json";
+    static public void exportarJson(Personaje p){
+        final String filename = "personaje.json";
         Gson gson = new Gson();
 
-        String json = gson.toJson(t);
+        String json = gson.toJson(p);
         writeStringToFile(json, filename);
         System.out.printf("Se ha generado el fichero %s con el siguiente contenido: %n %s %n", filename, json);
     }
@@ -16,15 +23,15 @@ public class Util {
      * Devuelve un array de Personas cargado desde "agenda.json" o null si hay problemas
      * @return
      */
-    static public Persona[] importarJson(){
-        final String filename = "agenda.json";
+    static public Personaje importarJson(){
+        final String filename = "personaje.json";
         Gson gson = new Gson();
-        Persona[] p;
+        Personaje p;
         
         String json = readFileToString(filename);
-        p = gson.fromJson(json, Persona[].class);
-        if (p == null)
-            p = new Persona[0];
+        p = gson.fromJson(json, Personaje.class);
+        /*if (p == null)
+            p = new Personaje();*/
 
         return p;
     }

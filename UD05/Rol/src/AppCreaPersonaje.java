@@ -2,7 +2,13 @@ import java.util.Scanner;
 
 public class AppCreaPersonaje {
     public static void main(String[] args) throws Exception {
-        System.out.println("JUEGO DE ROL: Creación de Personaje");    
+        System.out.println("JUEGO DE ROL: Creación de Personaje");
+
+        Personaje p = Util.importarJson();
+        if (p != null) {
+            System.out.println("Personaje cargado actualmente:");
+            p.mostrar();
+        }   
         
         Scanner sc = new Scanner(System.in);
 
@@ -31,6 +37,7 @@ public class AppCreaPersonaje {
                    // Mostrar el personaje
                    personaje.mostrar();
                    System.out.println(personaje);
+                   Util.exportarJson(personaje);
                    
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
