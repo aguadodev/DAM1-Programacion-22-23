@@ -1,5 +1,7 @@
 import java.time.LocalDateTime;
 
+import org.json.JSONObject;
+
 public class App {
     public static void main(String[] args) {
         // Crea un coche indicando nombre, color, número de plazas y matrícula
@@ -31,5 +33,8 @@ public class App {
         
         // Imprime por consola la información resumida del viaje
         System.out.println(viaje1);
+        /*System.out.println(Util.distanciaCoche(viaje1.puntoSalida.latitud,
+        viaje1.puntoSalida.longitud, viaje1.puntoLlegada.latitud,
+        viaje1.puntoLlegada.longitud));*/     
     }   
 }

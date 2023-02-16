@@ -2,7 +2,6 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "d:\\Oscar\\DAM1-Programacion-22-23\\Codigo variado\\Java\\JSON\\lib\\json-20131018.jar"
+        "lib/**/*.jar"
     ]
 }

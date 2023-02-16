@@ -6,38 +6,39 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-import com.google.gson.Gson;
+import org.json.JSONObject;
+import org.json.JSONArray;
+
+//import com.google.gson.Gson;
 
 public class Util {
     /**
      * Exporta el personaje p a un fichero "personaje.json"
      * @param t
      */
-    static public void exportarJson(Personaje p){
+   /* static public void exportarJson(Personaje p){
         final String filename = "personaje.json";
         Gson gson = new Gson();
 
         String json = gson.toJson(p);
         writeStringToFile(json, filename);
         System.out.printf("Se ha generado el fichero %s con el siguiente contenido: %n %s %n", filename, json);
-    }
+    }*/
 
     /**
      * Devuelve un array de Personas cargado desde "agenda.json" o null si hay problemas
      * @return
      */
-    static public Personaje importarJson(){
+    /*static public Personaje importarJson(){
         final String filename = "personaje.json";
         Gson gson = new Gson();
         Personaje p;
         
         String json = readFileToString(filename);
         p = gson.fromJson(json, Personaje.class);
-        /*if (p == null)
-            p = new Personaje();*/
 
         return p;
-    }
+    }*/
 
     /**
      * Crea un fichero de texto con el contenido de un String (fuente OpenAI)
@@ -109,4 +110,44 @@ public class Util {
             return "";
         }
     }    
+
+    public static String urlRutaCoche(double latitudInicio, double longitudInicio, double latitudFin, double longitudFin){
+        return "https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route="
+                + latitudInicio + "," + longitudInicio + ";"
+                + latitudFin + "," + longitudFin;
+    }
+    
+    
+    public static double distanciaCoche(double latitudInicio, double longitudInicio, double latitudFin, double longitudFin){
+        double distancia;
+        String tipoRuta = "driving";
+        String url = "https://router.project-osrm.org/route/v1/"+ tipoRuta + "/"
+                  + longitudInicio + "," + latitudInicio + ";"
+                  + longitudFin + "," + latitudFin + "?overview=false";
+        System.out.println("URL: " + url);
+        System.out.println(urlRutaCoche(latitudInicio, longitudInicio, latitudFin, longitudFin));
+        try {
+           String json = stream(new URL(url));
+           JSONObject objeto = new JSONObject(json);
+           JSONArray array = objeto.getJSONArray("routes");
+           objeto = array.getJSONObject(0);
+           distancia = objeto.getDouble("distance");
+           
+        } catch (Exception e){
+           distancia = -1;
+        }
+        return distancia;
+    }
+
+    public static String urlDireccionJson(String direccion){
+        return "https://nominatim.openstreetmap.org/search?q="
+                + direccion.replace(" ", "+")
+                + "&format=geojson";
+    }
+    
+    public static String urlDireccionOsm(String direccion){
+        return "https://nominatim.openstreetmap.org/search?q="
+                + direccion.replace(" ", "+");
+    }
+
 }
