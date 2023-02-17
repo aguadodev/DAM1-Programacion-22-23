@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Personaje {
     
     String nombre;
@@ -58,6 +60,16 @@ public class Personaje {
     @Override
     public String toString() {
         return nombre + " (" + puntosVida + "/" + (constitucion + 50) + ")";
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        Personaje otro = (Personaje)obj;
+        return nombre.equals(otro.nombre)
+            && raza.equals(otro.raza)
+            && fuerza == otro.fuerza
+            && agilidad == otro.agilidad
+            && constitucion == otro.constitucion;
     }
 
     boolean sumarExperiencia(int puntos){
@@ -130,5 +142,39 @@ public class Personaje {
 
         return resultado;
     }    
+
+    static Personaje[] sortPuntosVidaDesc(Personaje[] personajes){
+        Personaje[] A = Arrays.copyOf(personajes, personajes.length);
+
+        int i, j;
+        Personaje aux;
+        for (i = 0; i < A.length - 1; i++) {
+            for (j = 0; j < A.length - i - 1; j++) {                                                              
+                if (A[j + 1].puntosVida > A[j].puntosVida) {
+                    aux = A[j + 1];
+                    A[j + 1] = A[j];
+                    A[j] = aux;
+                }
+            }
+        }        
+        return A;
+    }
+
+    static Personaje[] sortPuntosVidaAsc(Personaje[] personajes){
+        Personaje[] A = Arrays.copyOf(personajes, personajes.length);
+
+        int i, j;
+        Personaje aux;
+        for (i = 0; i < A.length - 1; i++) {
+            for (j = 0; j < A.length - i - 1; j++) {                                                              
+                if (A[j + 1].puntosVida < A[j].puntosVida) {
+                    aux = A[j + 1];
+                    A[j + 1] = A[j];
+                    A[j] = aux;
+                }
+            }
+        }        
+        return A;
+    }
 
 }
