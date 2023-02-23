@@ -1,3 +1,4 @@
+package rol;
 import java.util.Scanner;
 
 public class AppCreaPersonaje {

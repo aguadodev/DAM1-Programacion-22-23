@@ -16,7 +16,7 @@ public class App1Inventario {
         arturo.addToInventario(new Item("Pan", 1, 1));
         arturo.addToInventario(new Item("Agua", 2, 1));
         arturo.addToInventario(new Item("Daga", 0.5, 200));
-        arturo.addToInventario(new Item("Antorcha", 0.5, 10));
+        arturo.addToInventario(new Item("Antorcha", 0.75, 10));
 
         arturo.mostrarInventario();
 

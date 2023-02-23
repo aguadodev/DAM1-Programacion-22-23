@@ -1,3 +1,4 @@
+package rol;
 public class Orco extends Monstruo {
 
     public Orco() {

@@ -1,3 +1,4 @@
+package rol;
 public class Troll extends Monstruo {
     public Troll() {
         ataque = rnd(60, 120);

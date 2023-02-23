@@ -1,13 +1,14 @@
+package rol;
 import java.util.Arrays;
 
 public class Personaje {
     
-    String nombre;
+    protected String nombre;
     enum Raza {HUMANO, ELFO, ENANO, HOBBIT, ORCO, TROLL}
     Raza raza;
     int fuerza;
     int agilidad;
-    int constitucion;
+    protected int constitucion;
     int nivel;
     int experiencia;
     int puntosVida;

@@ -1,3 +1,4 @@
+package rol;
 public abstract class Monstruo {
     String nombre;
     int ataque;

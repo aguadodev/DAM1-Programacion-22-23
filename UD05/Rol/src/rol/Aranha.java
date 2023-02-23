@@ -1,3 +1,4 @@
+package rol;
 public class Aranha extends Monstruo {
 
     public Aranha() {

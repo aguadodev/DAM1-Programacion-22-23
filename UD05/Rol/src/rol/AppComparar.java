@@ -1,5 +1,5 @@
+package rol;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class AppComparar {
     public static void main(String[] args) throws Exception {

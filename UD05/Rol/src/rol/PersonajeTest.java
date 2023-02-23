@@ -1,3 +1,4 @@
+package rol;
 import org.junit.Test;
 
 public class PersonajeTest {
