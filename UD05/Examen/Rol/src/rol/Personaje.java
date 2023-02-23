@@ -9,7 +9,7 @@ public class Personaje {
     Raza raza;
     int fuerza;
     int agilidad;
-    int constitucion;
+    protected int constitucion;
     int nivel;
     int experiencia;
     int puntosVida;

@@ -16,12 +16,13 @@ public class App1Inventario {
         arturo.addToInventario(new Item("Pan", 1, 1));
         arturo.addToInventario(new Item("Agua", 2, 1));
         arturo.addToInventario(new Item("Daga", 0.5, 200));
-        arturo.addToInventario(new Item("Antorcha", 0.5, 10));
+        arturo.addToInventario(new Item("Antorcha", 0.75, 10));
 
         arturo.mostrarInventario();
 
         System.out.println();
-        System.out.println("Peso total transportado: " + arturo.getPesoTotal() + " kilos");
+        System.out.println("Carga total transportada: " + arturo.getCargaActual() 
+        + "/" + arturo.getCargaMaxima() + " kilos");
         
     }
 }
