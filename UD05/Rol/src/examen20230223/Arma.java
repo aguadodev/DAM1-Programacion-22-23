@@ -12,7 +12,6 @@ public class Arma extends Item {
     }
 
 
-
     public Arma(String nombre, double peso, int precio, int ataque, boolean dosManos) {
         super(nombre, peso, precio);
         this.ataque = ataque;

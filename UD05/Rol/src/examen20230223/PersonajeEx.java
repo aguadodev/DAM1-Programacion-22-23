@@ -104,7 +104,6 @@ public class PersonajeEx extends Personaje {
                 itemManoIzq = armadura;
                 equipado = true;
             }
-
             break;
         }
         return equipado;
