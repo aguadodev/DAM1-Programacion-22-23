@@ -57,17 +57,33 @@ public class AppTest {
         
     @Test
     public void testCambiaVogais() {
+        String str = "Programar en Java";
+        String stro = "Prigrimir in Jivi";
+        char v = 'i';
+        assertEquals(stro, App.cambiaVogais(str, v));
+
+
+        str = "Programar en JAVA";
+        stro = "Prigrimir in JIVI";
+        v = 'i';
+        //assertEquals(stro, App.cambiaVogais(str, v));
+
+
+        str = "1230981239CDFRTGHYNMBVC";
+        stro = "1230981239CDFRTGHYNMBVC";
+        v = 'i';
+        assertEquals(stro, App.cambiaVogais(str, v));
+
+
+        str = "Programar en Java é complicado";
+        stro = "Prigrimir in Jivi í cimplicidi";
+        v = 'i';
+        assertEquals(stro, App.cambiaVogais(str, v));
+        
+
         String str1 = "Programar en Java mentres fas piragüismo é complicado";
         String stro1 = "Prigrimir in Jivi mintris fis pirigïismi í cimplicidi";
         char v1 = 'i';
-
-        assertEquals(stro1, App.cambiaVogais(str1, v1));
-
-        /*
-        String str2 = "Programar en Java mentres fas piragüismo é complicado";
-        String stro2 = "Prigrimir in Jivi mintris fis pirigïismi í cimplicidi";
-        char v2 = 'i';
-        */
 
         assertEquals(stro1, App.cambiaVogais(str1, v1));
 
