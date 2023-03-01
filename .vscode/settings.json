@@ -9,5 +9,13 @@
         "UD04/ExamenUD4REC/src",
         "UD04/Arrays/src",
         "Codigo variado/Java/ProbasLibres/src"
+    ],
+    "java.completion.filteredTypes": [
+        "com.sun.*",
+        "sun.*",
+        "jdk.*",
+        "org.graalvm.*",
+        "io.micrometer.shaded.*",
+        "java.awt.*"
     ]
 }
