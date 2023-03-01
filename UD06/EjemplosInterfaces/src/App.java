@@ -35,15 +35,18 @@ public class App {
         son = perro;
         son.voz();
     
-        Sonido son2 = new Sonido() {
+        // CLASES ANÓNIMAS
+        Sonido animalDesconocido = new Sonido() {
+
             @Override
             public void voz() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'voz'");
+                System.out.println("Jajejijojuuu");
             }
-            
-        }
-        
+
+        };
+
+        animalDesconocido.voz();
+        animalDesconocido.vozDurmiendo();
 
 
 
