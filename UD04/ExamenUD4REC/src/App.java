@@ -44,7 +44,12 @@ public class App {
         System.out.println(diagonalesIguales(t26));
 
         System.out.println("3. cambiaVogais");
+        String str1 = "Programar en Java mentres fas piragüismo é complicado";
+        String stro1 = "Prigrimir in Jivi mintris fis pirigïismi í cimplicidi";
+        char v1 = 'i';
 
+        System.out.println(str1);
+        System.out.println(cambiaVogais(str1, v1));
     }
 
     static int[] sumas(int t[]){
@@ -93,41 +98,114 @@ public class App {
         return diagonalesIguales;
     }
 
-    static String cambiaVogais(String str, char vogal){
-        String strRes = "";
-        //String vogais = "aeiouáéíóúü";
 
-        for(int i = 0; i < str.length(); i++){
-            if(esVocal(str.charAt(i))){
-                strRes += cambiaVogal(str.charAt(i), vogal);
-            } else {
-                strRes += str.charAt(i);
-            }
-        }
+    static String cambiaVogais(String frase, char vogal){
+        // Hace una copia de la frase de entrada
+        String str = frase;
 
-        return "Prigrimir in Jivi mintris fis pirigïismi í cimplicidi";
-    }
-
-    static boolean esVocal(char letra){
-        String vogais = "aeiouáéíóúü";
-        return vogais.indexOf(Character.toLowerCase(letra)) != -1;
-    }
-
-    static char cambiaVogal(char letra, char vogal){
-        char[][] cambios = {
-            {'a', 'e', 'i', 'o', 'u'},
-            {'á', 'é', 'í', 'ó', 'ú'},
-            {'ä', 'ë', 'ï', 'ö', 'ü'},
+        String[] conversion = {
+            "aeiou",
+            "áéíóú",
+            "äëïöü",
+            "AEIOU",
+            "ÁÉÍÓÚ",
+            "ÄËÏÖÜ"
         };
 
-        
-                        char res;
-            
+        // Obtiene la columna de la vocal de destino
+        int columnaDestino = conversion[0].indexOf(vogal);
 
-        if (Character.isUpperCase(letra))
-            return Character.toLowerCase(vogal);
-        else    
-            return Character.toUpperCase(vogal);
+        // Recorre todas las vocales de "conversion" y las reemplaza en la frase por  
+        // la vocal correspondiente de la columna de destino
+        for (int i = 0; i < conversion.length; i++){
+            for (int j = 0; j < conversion[i].length(); j++)
+                if (j != columnaDestino)
+                    str = str.replace(conversion[i].charAt(j), conversion[i].charAt(columnaDestino));
+        }
+
+        return str;
     }
 
+
+
+    // A continuación otra solución inicial menos optimizada y comprimida.
+    static String cambiaVogais1(String frase, char vogal){
+        String str = frase;
+
+        str = str.replace('a', vogal);
+        str = str.replace('e', vogal);
+        str = str.replace('i', vogal);
+        str = str.replace('o', vogal);
+        str = str.replace('u', vogal);
+        
+        char vogalMaiuscula = Character.toUpperCase(vogal);
+        str = str.replace('A', vogalMaiuscula);
+        str = str.replace('E', vogalMaiuscula);
+        str = str.replace('I', vogalMaiuscula);
+        str = str.replace('O', vogalMaiuscula);
+        str = str.replace('U', vogalMaiuscula);
+        
+        char vogalTilde = vogalTilde(vogal);
+        str = str.replace('á', vogalTilde);
+        str = str.replace('é', vogalTilde);
+        str = str.replace('í', vogalTilde);
+        str = str.replace('ó', vogalTilde);
+        str = str.replace('ú', vogalTilde);
+        
+        char vogalTildeMaiuscula = vogalTildeMaiuscula(vogal);
+        str = str.replace('Á', vogalTildeMaiuscula);
+        str = str.replace('É', vogalTildeMaiuscula);
+        str = str.replace('Í', vogalTildeMaiuscula);
+        str = str.replace('Ó', vogalTildeMaiuscula);
+        str = str.replace('Ú', vogalTildeMaiuscula);
+
+        char vogalDierese = vogalDierese(vogal);
+        str = str.replace('ü', vogalDierese);
+
+        char vogalDiereseMaiuscula = vogalDiereseMaiuscula(vogal);
+        str = str.replace('Ü', vogalDiereseMaiuscula);
+        
+        return str;
+    }
+
+    private static char vogalTilde(char vogal) {
+        String[] conversion = {
+            "aeiou",
+            "áéíóú"
+        };
+        
+        return conversion[1].charAt(conversion[0].indexOf(vogal));
+    }
+
+    private static char vogalTildeMaiuscula(char vogal) {
+        String[] conversion = {
+            "aeiou",
+            "ÁÉÍÓÚ"
+        };
+        
+        return conversion[1].charAt(conversion[0].indexOf(vogal));
+    }
+
+    private static char vogalDiereseMaiuscula(char vogal) {
+        String[] conversion = {
+            "aeiou",
+            "ÄËÏÖÜ"
+        };
+        
+        return conversion[1].charAt(conversion[0].indexOf(vogal));
+    }
+
+    private static char vogalDierese(char vogal) {
+        String[] conversion = {
+            "aeiou",
+            "äëïöü"
+        };
+        
+        return conversion[1].charAt(conversion[0].indexOf(vogal));
+    }
+
+
+
+
+    
 }
