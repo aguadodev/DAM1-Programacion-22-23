@@ -12,16 +12,38 @@ public class App {
 
         perro.voz();
         perro.vozDurmiendo();
+        perro.moverRabo();
         gato.voz();
         gato.vozDurmiendo();
+        gato.aranhar();
+
         leon.voz();
         leon.vozDurmiendo();
-        Sonido.bostezo();
-        
+        Sonido.bostezo();        
         
         System.out.println(Sonido.version);
         System.out.println(Perro.version);
 
+        System.out.println("Variables de tipo Interfaz");
+        Sonido son;
+        son = new Gato();
+
+        son.voz();
+
+        son = leon;
+        son.voz();
+        son = perro;
+        son.voz();
+    
+        Sonido son2 = new Sonido() {
+            @Override
+            public void voz() {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'voz'");
+            }
+            
+        }
+        
 
 
 

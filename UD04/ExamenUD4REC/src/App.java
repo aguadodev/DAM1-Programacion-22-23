@@ -92,7 +92,6 @@ public class App {
             }
             
             diagonalesIguales = sumaDP == sumaDS;
-
         }
 
         return diagonalesIguales;
