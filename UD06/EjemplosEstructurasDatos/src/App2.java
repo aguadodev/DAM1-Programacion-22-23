@@ -22,7 +22,14 @@ public class App2 {
                     elementos = Arrays.copyOfRange(elementos,1,elementos.length);
                 }
                 return e;
-            }            
+            }
+
+            @Override
+            public String toString() {
+                return elementos.length == 0? null : Arrays.toString(elementos);
+            }         
+            
+            
         };
 
 
@@ -34,17 +41,28 @@ public class App2 {
         numero = sc.nextInt();
 
         while (numero >= 0) {
-            cola.encolar(numero);
+            if (numero == 3)
+                cola.encolarMultiple(numero, 3);
+            else
+                cola.encolar(numero);
             System.out.println("Escribe otro número entero: ");
             numero = sc.nextInt();
         }
 
-        System.out.println("Scamos los elementos de la cola:");
+        System.out.println(cola);
+        System.out.println("Sacamos todos los elementos de la cola de una vez:");
+        Integer[] elementos = cola.desencolarTodos();
+        System.out.println(Arrays.toString(elementos));
+        System.out.println(cola);
+
+
+
+/*         System.out.println("Sacamos los elementos de la cola de uno en uno:");
         Integer e = cola.desencolar();
         while (e != null){
             System.out.println(e);
             e = cola.desencolar();
-        }        
+        }        */
         
     }
 }
