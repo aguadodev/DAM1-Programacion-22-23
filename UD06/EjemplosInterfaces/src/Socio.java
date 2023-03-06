@@ -1,8 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import javax.swing.text.DateFormatter;
-
 public class Socio implements Comparable{
     int id;
     String nombre;
