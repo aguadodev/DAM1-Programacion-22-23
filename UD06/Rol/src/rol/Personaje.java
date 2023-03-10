@@ -5,13 +5,13 @@ public class Personaje implements Comparable {
     
     protected String nombre;
     enum Raza {HUMANO, ELFO, ENANO, HOBBIT, ORCO, TROLL}
-    Raza raza;
-    int fuerza;
-    int agilidad;
+    protected Raza raza;
+    protected int fuerza;
+    public int agilidad;
     protected int constitucion;
-    int nivel;
-    int experiencia;
-    int puntosVida;
+    protected int nivel;
+    protected int experiencia;
+    protected int puntosVida;
 
 
     // Este constructor puede lanzar una excepción si los parámetros no són válidos
@@ -73,7 +73,7 @@ public class Personaje implements Comparable {
             && constitucion == otro.constitucion;
     }
 
-    boolean sumarExperiencia(int puntos){
+    public boolean sumarExperiencia(int puntos){
         int nivelAnterior = experiencia / 1000;
 
         experiencia += puntos;
@@ -83,19 +83,19 @@ public class Personaje implements Comparable {
         return nivelAnterior != nivelActual;
     }
 
-    void subirNivel(){
+    public void subirNivel(){
         nivel++;
         fuerza = (int) Math.round(fuerza * 1.05);
         agilidad = (int) Math.round(agilidad * 1.05);
         constitucion = (int) Math.round(constitucion * 1.05);
     }
 
-    void curar(){
+    public void curar(){
         if (puntosVida < constitucion + 50)
             puntosVida = constitucion + 50;
     }
 
-    boolean perderVida(int puntos){
+    public boolean perderVida(int puntos){
         boolean muerto = false;
         puntosVida -= puntos;
         if (puntosVida <= 0){
@@ -105,11 +105,11 @@ public class Personaje implements Comparable {
         return muerto;
     }
 
-    boolean estaVivo(){
+    public boolean estaVivo(){
         return puntosVida > 0;
     }
 
-    int atacar(Personaje enemigo){
+    public int atacar(Personaje enemigo){
         int ataque = fuerza + rnd1a100();
         int defensa = enemigo.agilidad + rnd1a100();
         int resultado = ataque - defensa;
@@ -127,7 +127,7 @@ public class Personaje implements Comparable {
         return resultado;
     }
 
-    int atacar(Monstruo enemigo){
+    public int atacar(Monstruo enemigo){
         int ataque = fuerza + rnd1a100();
         int defensa = enemigo.defensa + rnd1a100();
         int resultado = ataque - defensa;
@@ -144,7 +144,7 @@ public class Personaje implements Comparable {
         return resultado;
     }    
 
-    static Personaje[] sortPuntosVidaDesc(Personaje[] personajes){
+    public static Personaje[] sortPuntosVidaDesc(Personaje[] personajes){
         Personaje[] A = Arrays.copyOf(personajes, personajes.length);
 
         int i, j;
@@ -161,7 +161,7 @@ public class Personaje implements Comparable {
         return A;
     }
 
-    static Personaje[] sortPuntosVidaAsc(Personaje[] personajes){
+    public static Personaje[] sortPuntosVidaAsc(Personaje[] personajes){
         Personaje[] A = Arrays.copyOf(personajes, personajes.length);
 
         int i, j;
