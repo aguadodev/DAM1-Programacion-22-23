@@ -44,10 +44,14 @@ public class Contenedor<T> {
         return false;
     }
 
-    public static Integer[] add(Integer e, Integer[] t) {
-        Integer[] aux = Arrays.copyOf(t, t.length + 1);
-        aux[aux.length - 1] = e;
-        return aux;
+    public static <U> U[] concatenaTablas(U[] t1, U[] t2){
+        U[] t = Arrays.copyOf(t1, t1.length + t2.length);
+        for(int i = 0; i < t2.length; i++)
+            t[i + t1.length] = t2[i];
+
+        return t;
     }
-    
+
+
+
 }
