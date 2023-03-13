@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import examen20230223.PersonajeEx;
 
-public class PersonajeV2 extends PersonajeEx implements Comparable {
+public class PersonajeV2 extends PersonajeEx implements Comparable <PersonajeV2> {
 
     public PersonajeV2(String nombre, String raza) {
         super(nombre, raza);
@@ -19,8 +19,8 @@ public class PersonajeV2 extends PersonajeEx implements Comparable {
 
 
     @Override
-    public int compareTo(Object o) {
-        return ((PersonajeV2) o).agilidad - agilidad;
+    public int compareTo(PersonajeV2 o) {
+        return o.agilidad - agilidad;
     }
 
     @Override
@@ -31,11 +31,11 @@ public class PersonajeV2 extends PersonajeEx implements Comparable {
 
 
     public void atacarMasDebil(PersonajeV2[] grupo) {
-        Comparator compPuntosDeVida = new Comparator() {
+        Comparator compPuntosDeVida = new Comparator<PersonajeV2>() {
 
             @Override
-            public int compare(Object o1, Object o2) {
-                return ((PersonajeV2)o1).puntosVida - ((PersonajeV2)o2).puntosVida;
+            public int compare(PersonajeV2 o1, PersonajeV2 o2) {
+                return o1.puntosVida - o2.puntosVida;
             }
         };
 

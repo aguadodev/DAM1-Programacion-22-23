@@ -1,7 +1,7 @@
 package rol;
 import java.util.Arrays;
 
-public class Personaje implements Comparable {
+public class Personaje {
     
     protected String nombre;
     enum Raza {HUMANO, ELFO, ENANO, HOBBIT, ORCO, TROLL}
@@ -178,13 +178,13 @@ public class Personaje implements Comparable {
         return A;
     }
 
-    @Override
+    /*@Override
     public int compareTo(Object o) {
         int res = nombre.compareTo(((Personaje) o).nombre);
         if (res == 0)
             return puntosVida - ((Personaje) o).puntosVida;
         else
             return res;
-    }
+    }*/
 
 }

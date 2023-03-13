@@ -35,8 +35,6 @@ public class AppCombateGrupoOrdenado1 {
             System.out.println("El grupo 2 ha ganado el combate");
             System.out.println(Arrays.toString(grupo2));
         }
-
-
     }
 
     private static void mostrarGrupo(PersonajeV2[] grupo) {
@@ -55,11 +53,11 @@ public class AppCombateGrupoOrdenado1 {
         System.arraycopy(grupo2, 0, todos, grupo1.length, grupo2.length);
 
         // Ordenar por Agilidad descendente
-        Comparator compAgilidad = new Comparator(){
+        Comparator compAgilidad = new Comparator<PersonajeV2>(){
 
             @Override
-            public int compare(Object o1, Object o2) {
-                return ((PersonajeV2) o1).agilidad - ((PersonajeV2) o2).agilidad;
+            public int compare(PersonajeV2 o1, PersonajeV2 o2) {
+                return o1.agilidad - o2.agilidad;
             }            
         };
         Arrays.sort(todos, compAgilidad.reversed());

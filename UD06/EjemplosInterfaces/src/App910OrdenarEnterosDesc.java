@@ -14,14 +14,9 @@ public class App910OrdenarEnterosDesc {
         for (int i = 0; i < SIZE; i++)
             numeros[i] = (int) (Math.random() * 100);
 
-        Comparator ordenDesc  = new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                return (Integer)o2 - (Integer)o1;
-            }            
-        };
+        Comparator<Integer> compInt = Comparator.naturalOrder();
 
-        Arrays.sort(numeros, ordenDesc);
+        Arrays.sort(numeros, compInt.reversed());
 
         System.out.println(Arrays.toString(numeros));
 
