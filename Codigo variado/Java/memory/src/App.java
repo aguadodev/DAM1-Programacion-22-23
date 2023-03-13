@@ -103,9 +103,6 @@ public class App extends Application {
         @Override
         public void handle(MouseEvent arg0) {
             ImageView imgV = (ImageView) arg0.getSource();
-            int r = GridPane.getRowIndex(imgV);
-            int c = GridPane.getColumnIndex(imgV);
-
             Image img = imgV.getImage();
 
             // Si ha marcado la segunda casilla
@@ -123,38 +120,46 @@ public class App extends Application {
             }
 
             // Si destapa una nueva casilla
-            else if (img == imgReverso) {
-                // Destapa la casilla
-                imgV.setImage(imagenes[tableroOculto[r][c]]);
-                if (imageView1 == null)
-                    imageView1 = imgV;
-                else {
-                    if (imageView2 == null) {
-                        imageView2 = imgV;
-                        if (imageView2.getImage() == imageView1.getImage()) {
-                            // Pareja!!
-                            System.out.println("Pareja!!");
-                            r = GridPane.getRowIndex(imageView1);
-                            c = GridPane.getColumnIndex(imageView1);
-                            tableroJugador[r][c] = turnoJugador;
-                            r = GridPane.getRowIndex(imageView2);
-                            c = GridPane.getColumnIndex(imageView2);
-                            tableroJugador[r][c] = turnoJugador;
+            if (img == imgReverso) {
+                destapaCasilla(imgV);
 
-                        } else {
-                            // No pareja => Volver a tapar
-                            System.out.println("No pareja!!");
-                            // Se tapan al siguiente click
-
-                        }
-                    }
-                }
 
             }
             /*
              * else
              * imgV.setImage(imgReverso)
              */;
+        }
+
+        private void destapaCasilla(ImageView imgV) {
+            int r = GridPane.getRowIndex(imgV);
+            int c = GridPane.getColumnIndex(imgV);
+            
+            // Destapa la casilla
+            imgV.setImage(imagenes[tableroOculto[r][c]]);
+            if (imageView1 == null)
+                imageView1 = imgV;
+            else {
+                if (imageView2 == null) {
+                    imageView2 = imgV;
+                    if (imageView2.getImage() == imageView1.getImage()) {
+                        // Pareja!!
+                        System.out.println("Pareja!!");
+                        r = GridPane.getRowIndex(imageView1);
+                        c = GridPane.getColumnIndex(imageView1);
+                        tableroJugador[r][c] = turnoJugador;
+                        r = GridPane.getRowIndex(imageView2);
+                        c = GridPane.getColumnIndex(imageView2);
+                        tableroJugador[r][c] = turnoJugador;
+
+                    } else {
+                        // No pareja => Volver a tapar
+                        System.out.println("No pareja!!");
+                        // Se tapan al siguiente click
+
+                    }
+                }
+            }
         }
     };
 
