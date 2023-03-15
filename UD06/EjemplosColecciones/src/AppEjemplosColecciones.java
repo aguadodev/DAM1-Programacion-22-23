@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,14 +17,27 @@ public class AppEjemplosColecciones {
         Cliente cliente3 = new Cliente("113", "Lola", "12/07/2001");    
         Cliente cliente4 = new Cliente("114", "Pedro", "12/07/2001");    
         
-        
-        System.out.println("Size:" + coleccionClie.size() + " isEmpty: " + coleccionClie.isEmpty());
         coleccionClie.add(cliente);
         coleccionClie.add(cliente2);
         coleccionClie.add(cliente3);
+        coleccionClie.add(cliente4);
+
+        Cliente[] tCliente = coleccionClie.toArray(new Cliente[0]);
+        Comparator<Cliente> compClienteNombre = new Comparator<>() {
+            @Override
+            public int compare(Cliente o1, Cliente o2) {
+                return o1.nombre.compareTo(o2.nombre);
+            }
+            
+        };
+        Arrays.sort(tCliente, compClienteNombre);
+        //System.out.println(Arrays.toString(tCliente));
+
+        coleccionClie = Arrays.asList(tCliente);
+
+        System.out.println(coleccionClie);
 
 
-        
         /*
         // RECORRIDOS CON ITERADORES Y BUCLES FOR-EACH
         System.out.println("RECORREMOS UNA COLECCION CON UN BUCLE FOR-EACH");
