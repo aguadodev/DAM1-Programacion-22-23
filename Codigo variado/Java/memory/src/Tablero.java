@@ -2,7 +2,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class Tablero {
     public final int FILAS;

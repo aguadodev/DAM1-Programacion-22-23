@@ -9,7 +9,7 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "hellofx.Main",
-            "projectName": "Ejemplos JavaFX_fc0bd246",
+            //"projectName": "Ejemplos JavaFX_fc0bd246",
             "vmArgs": "--module-path D:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib --add-modules javafx.controls,javafx.fxml",
         }
     ]

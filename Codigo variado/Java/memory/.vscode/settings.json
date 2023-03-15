@@ -18,6 +18,14 @@
         "c:\\Users\\Óscar\\Documents\\0.PROFESOR\\PROGRAMACIÓN\\Recursos\\JavaFX SDK\\openjfx-17.0.6_wi7ndows-x64_bin-sdk\\javafx-sdk-17.0.6\\lib\\javafx.media.jar",
         "c:\\Users\\Óscar\\Documents\\0.PROFESOR\\PROGRAMACIÓN\\Recursos\\JavaFX SDK\\openjfx-17.0.6_wi7ndows-x64_bin-sdk\\javafx-sdk-17.0.6\\lib\\javafx.swing.jar",
         "c:\\Users\\Óscar\\Documents\\0.PROFESOR\\PROGRAMACIÓN\\Recursos\\JavaFX SDK\\openjfx-17.0.6_wi7ndows-x64_bin-sdk\\javafx-sdk-17.0.6\\lib\\javafx.web.jar",
-        "c:\\Users\\Óscar\\Documents\\0.PROFESOR\\PROGRAMACIÓN\\Recursos\\JavaFX SDK\\openjfx-17.0.6_wi7ndows-x64_bin-sdk\\javafx-sdk-17.0.6\\lib\\javafx-swt.jar"
+        "c:\\Users\\Óscar\\Documents\\0.PROFESOR\\PROGRAMACIÓN\\Recursos\\JavaFX SDK\\openjfx-17.0.6_wi7ndows-x64_bin-sdk\\javafx-sdk-17.0.6\\lib\\javafx-swt.jar",
+        "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.base.jar",
+        "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.controls.jar",
+        "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.fxml.jar",
+        "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.graphics.jar",
+        "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.media.jar",
+        "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.swing.jar",
+        "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.web.jar",
+        "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx-swt.jar"
     ]
 }
