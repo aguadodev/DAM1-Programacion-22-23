@@ -20,8 +20,7 @@ public class Cliente implements Comparable<Cliente>{
 
     @Override
     public boolean equals(Object obj) {
-        // TODO Auto-generated method stub
-        return super.equals(obj);
+        return dni.equals(((Cliente)obj).dni);
     }
 
     @Override
