@@ -21,6 +21,10 @@ public class AppEjemplosColecciones {
         coleccionClie.add(cliente2);
         coleccionClie.add(cliente3);
 
+
+        
+        /*
+        // RECORRIDOS CON ITERADORES Y BUCLES FOR-EACH
         System.out.println("RECORREMOS UNA COLECCION CON UN BUCLE FOR-EACH");
         for(Cliente c : coleccionClie){
             System.out.print(c);
@@ -33,10 +37,13 @@ public class AppEjemplosColecciones {
             it.remove();
         }
         System.out.println("Size:" + coleccionClie.size() + " isEmpty: " + coleccionClie.isEmpty());
+        */
 
 
 
-        /*
+
+
+        /* MÉTODOS BÁSICOS
         System.out.println("Colleción (toString): " + coleccionClie.toString());
         System.out.println("Size:" + coleccionClie.size() + " isEmpty: " + coleccionClie.isEmpty());
         System.out.println("Contains (cliente dni = 111): " + coleccionClie.contains(new Cliente("111")));
