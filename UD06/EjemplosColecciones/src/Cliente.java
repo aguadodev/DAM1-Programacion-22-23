@@ -19,7 +19,19 @@ public class Cliente implements Comparable<Cliente>{
     }
 
 
-    private int edad() {
+    public String getDni() {
+        return dni;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public int edad() {
         return (int) fechaNacimiento.until(LocalDate.now(), ChronoUnit.YEARS);
     }
 

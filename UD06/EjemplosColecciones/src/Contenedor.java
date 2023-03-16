@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Contenedor
@@ -52,6 +54,21 @@ public class Contenedor<T> {
         return t;
     }
 
+    static <E> Set<E> union(Set<E> conjunto1, Set<E> conjunto2){
+        Set<E> aux = new HashSet<E>(conjunto1);
+        aux.addAll(conjunto2);
+    
+        return aux;
+    }
+    
+    
+    static <E> Set<E> interseccion(Set<E> conjunto1, Set<E> conjunto2){
+        Set<E> aux = new HashSet<E>(conjunto1);
+    
+        aux.retainAll(conjunto2);
+        return aux;
+    } 
+    
 
 
 }
