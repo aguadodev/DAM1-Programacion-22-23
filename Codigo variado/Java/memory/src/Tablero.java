@@ -23,7 +23,7 @@ public class Tablero {
         imagenes[6] = new Image(new FileInputStream("img/7.jpeg"));
         imagenes[7] = new Image(new FileInputStream("img/0.jpeg"));
 
-        imgReverso = new Image(new FileInputStream("img/cochesReverso.jpeg"));       
+        imgReverso = new Image(new FileInputStream("img/cochesReverso.png"));       
         
         tableroOculto = new Image[FILAS][COLS];
         int indImg = 0;
