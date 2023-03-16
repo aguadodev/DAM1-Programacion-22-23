@@ -10,6 +10,14 @@
         "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.media.jar",
         "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.swing.jar",
         "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.web.jar",
-        "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx-swt.jar"
+        "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx-swt.jar",
+        "c:\\Java\\javafx-sdk-17.0.6\\lib\\javafx.base.jar",
+        "c:\\Java\\javafx-sdk-17.0.6\\lib\\javafx.controls.jar",
+        "c:\\Java\\javafx-sdk-17.0.6\\lib\\javafx.fxml.jar",
+        "c:\\Java\\javafx-sdk-17.0.6\\lib\\javafx.graphics.jar",
+        "c:\\Java\\javafx-sdk-17.0.6\\lib\\javafx.media.jar",
+        "c:\\Java\\javafx-sdk-17.0.6\\lib\\javafx.swing.jar",
+        "c:\\Java\\javafx-sdk-17.0.6\\lib\\javafx.web.jar",
+        "c:\\Java\\javafx-sdk-17.0.6\\lib\\javafx-swt.jar"
     ]
 }
