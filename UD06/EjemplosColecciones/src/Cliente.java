@@ -19,8 +19,8 @@ public class Cliente implements Comparable<Cliente>{
     }
     
     @Override
-    public int hashCode() {
-        return Object.hashCode(dni);
+    public int hashCode() {        
+        return dni == null? 0:dni.hashCode();
     }
 
     public String getDni() {
