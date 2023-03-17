@@ -17,7 +17,11 @@ public class Cliente implements Comparable<Cliente>{
     public Cliente(String dni) {
         this.dni = dni;
     }
-
+    
+    @Override
+    public int hashCode() {
+        return Object.hashCode(dni);
+    }
 
     public String getDni() {
         return dni;

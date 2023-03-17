@@ -32,7 +32,6 @@ public class Actividad1212 {
         return aux;
     }
     
-    
     static <E> Set<E> interseccion(Set<E> conjunto1, Set<E> conjunto2){
         Set<E> aux = new HashSet<E>(conjunto1);
     
