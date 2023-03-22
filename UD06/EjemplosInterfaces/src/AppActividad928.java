@@ -41,18 +41,30 @@ public class AppActividad928 {
                     jornadas[i].dni);
         }
 
+        // Utiliza un método genérico para mostrar la jornada con mayor cantidad de minutos trabajados
+        System.out.print("Jornada con mayor número de minutos trabajados: ");
+        System.out.println(maximo(jornadas, (j1, j2) -> (j1.minutosTrabajados().compareTo(j2.minutosTrabajados()))));
+
     }
+
+    private static <T> T maximo(T[] t, Comparator<T> comp) {
+        T max = t[0];
+
+        for(T e : t){
+            if (comp.compare(e, max) > 0)
+                max = e;
+        }
+        return max;
+    }
+
 
     private static Comparator<Jornada> generaComparatorFechaHoras() {
         Comparator<Jornada> cFecha, cHoraInicio, cHoraFin;
 
-        cFecha = new Comparator<>() {
-            @Override
-            public int compare(Jornada o1, Jornada o2) {
-                return o1.fecha.compareTo(o2.fecha);
-            }
-        };
+        // Comparator de Fechas generado con una expresión lambda
+        cFecha = (o1, o2) -> o1.fecha.compareTo(o2.fecha);
 
+        // Comparator de HoraInicio generado con una clase anónima
         cHoraInicio = new Comparator<>() {
             @Override
             public int compare(Jornada o1, Jornada o2) {
@@ -73,9 +85,7 @@ public class AppActividad928 {
     }
 
     private static Comparator<Jornada> generaComparatorFechaHoras2() {
-        Comparator<Jornada> compFechaHoras = new Comparator<>() {
-            @Override
-            public int compare(Jornada o1, Jornada o2) {
+        Comparator<Jornada> compFechaHoras = (o1, o2) -> {
                 int compFecha = o1.fecha.compareTo(o2.fecha);
 
                 if (compFecha != 0) {
@@ -87,8 +97,7 @@ public class AppActividad928 {
                     } else {
                         return o1.horaFin.compareTo(o2.horaFin);
                     }
-                }
-            }
+                }            
         };
 
         return compFechaHoras;

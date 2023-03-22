@@ -25,7 +25,7 @@ public class Jornada implements Comparable<Jornada>{
         return  compDni != 0 ? compDni : fecha.compareTo(o.fecha);        
     }
 
-    public int minutosTrabajados(){
+    public Integer minutosTrabajados(){
         //return (int) horaInicio.until(horaFin, ChronoUnit.MINUTES);
         //return (int) Duration.between(horaInicio, horaFin).toMinutes();
         return (horaFin.toSecondOfDay() - horaInicio.toSecondOfDay()) / 60;
