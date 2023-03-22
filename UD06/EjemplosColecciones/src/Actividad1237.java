@@ -86,7 +86,7 @@ class Jugador {
         System.out.println(plantilla);
     }
         
-    static void mostrar (Map<Integer, Jugador> plantilla, String posicion){
+    static void mostrar (Map<Integer, Jugador> plantilla, String posicion){        
         List<Jugador> jugadores = new ArrayList(plantilla.values());
         
         for(Jugador j: jugadores){
@@ -96,10 +96,15 @@ class Jugador {
     }
         
     static boolean editarJugador(Map<Integer, Jugador> plantilla, Integer dorsal, Jugador jugador){
-        if (plantilla.put(dorsal, jugador) == null) 
-            return false;
-        else
-            return true;
+        boolean editado = false;
+        if (plantilla.containsKey(dorsal)){
+            if(plantilla.get(dorsal).dni == jugador.dni){
+                plantilla.put(dorsal, jugador);
+                editado = true;
+            }
+        }
+
+        return editado;
     }
 }
 
