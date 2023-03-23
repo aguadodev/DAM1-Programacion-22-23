@@ -21,6 +21,8 @@ public class Actividad1237 {
         Jugador.altaJugador(dam1FC, 4, new Jugador("44444444A", "Adrián R.", "Defensa"));
         Jugador.altaJugador(dam1FC, 5, new Jugador("55555555A", "Diego", "Defensa"));
         Jugador.altaJugador(dam1FC, 12, new Jugador("22222222B", "Iago", "Portero"));
+        System.out.print("Intento de añadir un nuevo jugador en un dorsal ya ocupado. Muestra el jugador que tiene el dorsal actualmente:");
+        System.out.println(Jugador.altaJugador(dam1FC, 12, new Jugador("22222222B", "Manu", "Portero")));
     
         System.out.println("Plantilla Inicial");
         Jugador.mostrar(dam1FC);
@@ -74,8 +76,8 @@ class Jugador {
         return nombre;
     }
     
-    static void altaJugador(Map<Integer, Jugador> plantilla, Integer dorsal, Jugador jugador){
-        plantilla.putIfAbsent(dorsal, jugador);
+    static Jugador altaJugador(Map<Integer, Jugador> plantilla, Integer dorsal, Jugador jugador){
+        return plantilla.putIfAbsent(dorsal, jugador);
     }
     
     static Jugador eliminarJugador(Map<Integer, Jugador> plantilla, Integer dorsal){
