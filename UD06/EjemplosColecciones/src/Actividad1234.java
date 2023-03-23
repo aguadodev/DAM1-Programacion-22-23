@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +28,23 @@ public class Actividad1234 {
 
         System.out.println(regDiasTemp);
 
-        verTemperaturasDia(LocalDate.of(2023, 03, 23));
+        verTemperaturasDia(LocalDate.of(2023, 03, 22));
 
+    }
+
+    private static void verTemperaturasDia(LocalDate of) {
+        // Muestra los registros de temperaturas de un día
+        System.out.println("Registros de temperaturas del día: " + of);
+        List<Registro> registros = regDiasTemp.get(of);
+        int suma = 0;
+        for (Registro e : registros){
+            System.out.println(e.hora + " -> " + e.temperatura + " grados");
+            suma += e.temperatura;
+        }
+        System.out.println("\nEstadísticas del día:");
+        System.out.print("Temperatura máxima: " + Collections.max(registros));
+        System.out.print("Temperatura mínima: " + Collections.min(registros));
+        System.out.print("Temperatura promedio: " + suma / registros.size());
     }
 
 
