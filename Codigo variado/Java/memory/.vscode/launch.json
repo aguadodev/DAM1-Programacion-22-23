@@ -10,7 +10,7 @@
             "request": "launch",
             "mainClass": "App",
 //            "vmArgs": "--module-path D:\\Oscar\\Portables\\javafx-sdk-17.0.6/lib/ --add-modules javafx.controls,javafx.fxml",
-            "vmArgs": "--module-path /home/oscar/Documentos/PROFESOR/PROGRAMACION/Portable/javafx-sdk-17.0.6/lib/ --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path D:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\ --add-modules javafx.controls,javafx.fxml",
         }
     ]
 }

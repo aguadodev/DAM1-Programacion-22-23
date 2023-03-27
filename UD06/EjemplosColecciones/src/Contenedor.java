@@ -21,6 +21,7 @@ public class Contenedor<T> {
         return res;
     }
 
+
     static <U> int numeroDeNulos(U[] t){
         int cont = 0;
 
@@ -68,7 +69,4 @@ public class Contenedor<T> {
         aux.retainAll(conjunto2);
         return aux;
     } 
-    
-
-
 }
