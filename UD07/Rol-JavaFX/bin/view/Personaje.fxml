@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+
+<AnchorPane prefHeight="400" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PersonajeController">
+   <children>
+      <ComboBox fx:id="razaComboBox" layoutX="251.0" layoutY="98.0" prefHeight="31.0" prefWidth="187.0" />
+      <TextField fx:id="txtNombre" layoutX="251.0" layoutY="57.0" />
+      <Label layoutX="70.0" layoutY="57.0" prefHeight="31.0" prefWidth="167.0" text="Nombre:" />
+      <Label layoutX="70.0" layoutY="98.0" prefHeight="31.0" prefWidth="167.0" text="Raza" />
+      <Label fx:id="lblFuerza" layoutX="134.0" layoutY="192.0" text="Fuerza = ???">
+         <font>
+            <Font name="Courier New" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAgilidad" layoutX="134.0" layoutY="225.0" text="Agilidad = ???">
+         <font>
+            <Font name="Courier New" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblConstitucion" layoutX="134.0" layoutY="255.0" text="Constitución = ???">
+         <font>
+            <Font name="Courier New" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblPuntosVida" layoutX="69.0" layoutY="351.0" text="Puntos de Vida = 50 + Constitución " />
+      <Label layoutX="69.0" layoutY="321.0" text="Experiencia = 0" />
+      <Label layoutX="69.0" layoutY="288.0" text="Nivel = 1" />
+      <Label layoutX="70.0" layoutY="154.0" prefHeight="31.0" prefWidth="167.0" text="Caracteristicas Físicas">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnLanzarDados" defaultButton="true" layoutX="251.0" layoutY="154.0" mnemonicParsing="false" onAction="#generarValoresAleatorios" text="Lanzar dados (0/3 intentos)" />
+      <Button fx:id="btnCrearPersonaje" disable="true" layoutX="319.0" layoutY="346.0" mnemonicParsing="false" onAction="#crearPersonaje" prefHeight="31.0" prefWidth="136.0" text="Crear Personaje" />
+      <Label layoutX="73.0" layoutY="14.0" text="Creación de Personaje">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

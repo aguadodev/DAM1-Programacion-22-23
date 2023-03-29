@@ -1,10 +1,15 @@
 package model;
+
 import java.util.Arrays;
 
 public class Personaje {
-    
+
     protected String nombre;
-    public enum Raza {HUMANO, ELFO, ENANO, HOBBIT, ORCO, TROLL}
+
+    public enum Raza {
+        HUMANO, ELFO, ENANO, HOBBIT, ORCO, TROLL
+    }
+
     protected Raza raza;
     protected int fuerza;
     protected int agilidad;
@@ -13,21 +18,19 @@ public class Personaje {
     protected int experiencia;
     protected int puntosVida;
 
-
     // Este constructor puede lanzar una excepción si los parámetros no són válidos
-    
-    public Personaje(String nombre, String raza, int fuerza, int agilidad, int constitucion, int nivel,
-            int experiencia, int puntosVida) throws IllegalArgumentException {
+    public Personaje(String nombre, String raza, int fuerza, int agilidad, int constitucion, 
+                     int nivel, int experiencia, int puntosVida) throws IllegalArgumentException {
         this.nombre = nombre;
-        
-        try {            
+
+        try {
             // Capturo la posible excepción de valueOf si el valor de raza no es válido
             this.raza = Raza.valueOf(raza);
         } catch (IllegalArgumentException e) {
             // Personalizo y lanzo una excepción de tipo IllegalArgumentException
             throw new IllegalArgumentException("Personaje no válido");
         }
-        
+
         this.fuerza = fuerza >= 1 ? fuerza : 1;
         this.agilidad = agilidad >= 1 ? agilidad : 1;
         this.constitucion = constitucion >= 1 ? constitucion : 1;
@@ -46,12 +49,12 @@ public class Personaje {
     public Personaje(String nombre, String raza) {
         this(nombre, raza, rnd1a100(), rnd1a100(), rnd1a100());
     }
-    
-    static int rnd1a100(){
-        return (int)(Math.random()*100 + 1);
+
+    static int rnd1a100() {
+        return (int) (Math.random() * 100 + 1);
     }
 
-    public void mostrar(){
+    public void mostrar() {
         System.out.println("PERSONAJE: " + nombre);
         System.out.println("Raza: " + raza);
         System.out.println("Fuerza: " + fuerza);
@@ -62,22 +65,34 @@ public class Personaje {
         System.out.println("Puntos de Vida: " + puntosVida);
     }
 
+    public String infoMostrar() {
+        String str = "PERSONAJE: " + nombre + "\n";
+        str += "Raza: " + raza + "\n";
+        str += "Fuerza: " + fuerza + "\n";
+        str += "Agilidad: " + agilidad + "\n";
+        str += "Constitución: " + constitucion + "\n";
+        str += "Nivel: " + nivel + "\n";
+        str += "Experiencia: " + experiencia + "\n";
+        str += "Puntos de Vida: " + puntosVida + "\n";
+        return str;
+    }    
+
     @Override
     public String toString() {
         return nombre + " (" + puntosVida + "/" + (constitucion + 50) + ")";
     }
-    
+
     @Override
     public boolean equals(Object obj) {
-        Personaje otro = (Personaje)obj;
+        Personaje otro = (Personaje) obj;
         return nombre.equals(otro.nombre)
-            && raza.equals(otro.raza)
-            && fuerza == otro.fuerza
-            && agilidad == otro.agilidad
-            && constitucion == otro.constitucion;
+                && raza.equals(otro.raza)
+                && fuerza == otro.fuerza
+                && agilidad == otro.agilidad
+                && constitucion == otro.constitucion;
     }
 
-    public boolean sumarExperiencia(int puntos){
+    public boolean sumarExperiencia(int puntos) {
         int nivelAnterior = experiencia / 1000;
 
         experiencia += puntos;
@@ -87,98 +102,96 @@ public class Personaje {
         return nivelAnterior != nivelActual;
     }
 
-    public void subirNivel(){
+    public void subirNivel() {
         nivel++;
         fuerza = (int) Math.round(fuerza * 1.05);
         agilidad = (int) Math.round(agilidad * 1.05);
         constitucion = (int) Math.round(constitucion * 1.05);
     }
 
-    public void curar(){
+    public void curar() {
         if (puntosVida < constitucion + 50)
             puntosVida = constitucion + 50;
     }
 
-    public boolean perderVida(int puntos){
+    public boolean perderVida(int puntos) {
         boolean muerto = false;
         puntosVida -= puntos;
-        if (puntosVida <= 0){
+        if (puntosVida <= 0) {
             muerto = true;
             puntosVida = 0;
         }
         return muerto;
     }
 
-    public boolean estaVivo(){
+    public boolean estaVivo() {
         return puntosVida > 0;
     }
 
-    public int atacar(Personaje enemigo){
+    public int atacar(Personaje enemigo) {
         int ataque = fuerza + rnd1a100();
         int defensa = enemigo.agilidad + rnd1a100();
         int resultado = ataque - defensa;
 
-        if (resultado > enemigo.puntosVida){
-            resultado = enemigo.puntosVida;           
-        }            
-        else if (resultado < 0)
+        if (resultado > enemigo.puntosVida) {
+            resultado = enemigo.puntosVida;
+        } else if (resultado < 0)
             resultado = 0;
 
-        sumarExperiencia(resultado);    
+        sumarExperiencia(resultado);
         enemigo.sumarExperiencia(resultado);
-        enemigo.perderVida(resultado);             
+        enemigo.perderVida(resultado);
 
         return resultado;
     }
 
-    public int atacar(Monstruo enemigo){
+    public int atacar(Monstruo enemigo) {
         int ataque = fuerza + rnd1a100();
         int defensa = enemigo.defensa + rnd1a100();
         int resultado = ataque - defensa;
 
-        if (resultado > enemigo.puntosVida){
-            resultado = enemigo.puntosVida;           
-        }            
-        else if (resultado < 0)
+        if (resultado > enemigo.puntosVida) {
+            resultado = enemigo.puntosVida;
+        } else if (resultado < 0)
             resultado = 0;
 
-        sumarExperiencia(resultado);    
-        enemigo.perderVida(resultado);             
+        sumarExperiencia(resultado);
+        enemigo.perderVida(resultado);
 
         return resultado;
-    }    
+    }
 
-    public static Personaje[] sortPuntosVidaDesc(Personaje[] personajes){
+    public static Personaje[] sortPuntosVidaDesc(Personaje[] personajes) {
         Personaje[] A = Arrays.copyOf(personajes, personajes.length);
 
         int i, j;
         Personaje aux;
         for (i = 0; i < A.length - 1; i++) {
-            for (j = 0; j < A.length - i - 1; j++) {                                                              
+            for (j = 0; j < A.length - i - 1; j++) {
                 if (A[j + 1].puntosVida > A[j].puntosVida) {
                     aux = A[j + 1];
                     A[j + 1] = A[j];
                     A[j] = aux;
                 }
             }
-        }        
+        }
         return A;
     }
 
-    public static Personaje[] sortPuntosVidaAsc(Personaje[] personajes){
+    public static Personaje[] sortPuntosVidaAsc(Personaje[] personajes) {
         Personaje[] A = Arrays.copyOf(personajes, personajes.length);
 
         int i, j;
         Personaje aux;
         for (i = 0; i < A.length - 1; i++) {
-            for (j = 0; j < A.length - i - 1; j++) {                                                              
+            for (j = 0; j < A.length - i - 1; j++) {
                 if (A[j + 1].puntosVida < A[j].puntosVida) {
                     aux = A[j + 1];
                     A[j + 1] = A[j];
                     A[j] = aux;
                 }
             }
-        }        
+        }
         return A;
     }
 
@@ -246,13 +259,15 @@ public class Personaje {
         this.puntosVida = puntosVida;
     }
 
-    /*@Override
-    public int compareTo(Object o) {
-        int res = nombre.compareTo(((Personaje) o).nombre);
-        if (res == 0)
-            return puntosVida - ((Personaje) o).puntosVida;
-        else
-            return res;
-    }*/
+    /*
+     * @Override
+     * public int compareTo(Object o) {
+     * int res = nombre.compareTo(((Personaje) o).nombre);
+     * if (res == 0)
+     * return puntosVida - ((Personaje) o).puntosVida;
+     * else
+     * return res;
+     * }
+     */
 
 }

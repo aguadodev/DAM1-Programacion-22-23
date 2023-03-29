@@ -1,33 +1,12 @@
 /Probas
-Codigo variado/Java/BDs/bin/
-Codigo variado/Java/ProbasLibres/bin/
 
-/UD04/Arrays/bin
-/UD04/Agenda/bin
-/UD04/Cadenas/bin
 /UD04/ExamenUD4/src/Alumnado/
-/UD04/ExamenUD4/bin/
-UD04/ExamenUD4/bin/
 
-
-UD05/CompartirCoche/bin/
-UD05/Rol/bin/
-UD05/Examen/Rol/bin/
 UD05/Examen/Rol/src/examen20230223/App3Tienda.java
 UD05/Examen/Rol/src/examen20230223/Arma.java
 UD05/Examen/Rol/src/examen20230223/Armadura.java
 UD05/Examen/Rol/src/examen20230223/Item.java
 UD05/Examen/Rol/src/examen20230223/PersonajeEx.java
 
-UD05/ExamenUD5REC/bin/
-UD05/ExamenUD5/Rol/bin/
-
-UD06/Rol/bin
-UD06/EjemplosColecciones/bin/
-UD06/EjemplosEstructurasDatos/bin/
-UD06/EjemplosInterfaces/bin/
-UD06/EjemplosEstructurasDatos/bin/
-
-UD07/Ejemplos AWT/bin/
 Codigo variado/Java/memory/.vscode/launch.json
-Codigo variado/Java/memory/bin/
+*.class

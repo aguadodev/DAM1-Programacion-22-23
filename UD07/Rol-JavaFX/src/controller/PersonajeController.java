@@ -1,12 +1,12 @@
 package controller;
 
-// Importar las librerías necesarias
+import java.io.IOException;
+
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.Personaje;
-import model.Util;
-import model.Personaje.Raza;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -20,7 +20,6 @@ public class PersonajeController {
 
     @FXML
     private Label lblFuerza, lblAgilidad, lblConstitucion, lblPuntosVida;
-
     
     @FXML
     private Button btnLanzarDados, btnCrearPersonaje;
@@ -54,17 +53,19 @@ public class PersonajeController {
             intentos++;         
             btnLanzarDados.setText("Lanzar dados (" + intentos + "/" + MAX_INTENTOS + " intentos)");
         }
-
     }
 
     @FXML
-    private void crearPersonaje() {
+    private void crearPersonaje(Event e) throws IOException {
         // Implementar la creación del objeto Personaje y guardarlo en formato JSON en un archivo
         p.setNombre(txtNombre.getText());
         p.setRaza(razaComboBox.getValue());
         p.setNivel(1);
         p.setExperiencia(0);
-        Util.exportarJson(p);
+        //Util.exportarJson(p);
+        App.p = p; 
+        
+        App.mostrarMapa();
     }
 }
 
