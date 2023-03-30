@@ -92,6 +92,7 @@ public class GestorInmueblesTest2 {
         inmueblesOrdenados.add(casa2);
         inmueblesOrdenados.add(casa1);
         inmueblesOrdenados.add(piso2);
+        inmueblesOrdenados.add(piso3);        
         inmueblesOrdenados.add(piso1);
 
         assertEquals(inmueblesOrdenados, gestor.getListaInmuebles());
