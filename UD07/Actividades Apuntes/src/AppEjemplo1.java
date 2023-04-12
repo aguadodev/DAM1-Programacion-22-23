@@ -16,7 +16,7 @@ public class AppEjemplo1 extends Application {
         primaryStage.setTitle("Hola Mundo!!!");
         Button boton = new Button("Púlsame");
         boton.setOnAction(e -> botonPulsado());
-        Scene scene = new Scene(boton,600, 400, Color.BLACK);
+        Scene scene = new Scene(boton,600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

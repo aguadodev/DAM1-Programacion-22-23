@@ -28,7 +28,7 @@ public class AppEjemplo2 extends Application {
         vbox.getChildren().add(boton);
         vbox.getChildren().add(label);
 
-        Scene scene = new Scene(vbox,600, 400, Color.BLACK);
+        Scene scene = new Scene(vbox,600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
