@@ -55,8 +55,6 @@ public class App extends Application {
             }
         }
 
-        //FlowPane pane = new FlowPane();
-
         // Crea y configura la escena y muestra el escenario.
         scene = new Scene(gridPane, t.COLS * ANCHO_CASILLA, t.FILAS * ALTO_CASILLA);
         scene.setFill(Color.ROSYBROWN);

@@ -140,8 +140,6 @@ public class PersonajeEx extends Personaje {
             System.out.println("- " + (itemManoIzq != null ? itemManoIzq:"Mano izquierda vacía"));
         }
         System.out.println();
-
-
     }
 
 

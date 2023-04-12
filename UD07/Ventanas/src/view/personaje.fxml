@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="358.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PersonajeController">
+   <children>
+      <Label text="App - Crear Personaje">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label text="Generación aleatoria o por algún sistema." />
+      <Button fx:id="btnCrear" mnemonicParsing="false" onAction="#crear" text="Crear" />
+      <Button fx:id="btnSaltar" mnemonicParsing="false" onAction="#saltar" text="Saltar" />
+   </children>
+</VBox>

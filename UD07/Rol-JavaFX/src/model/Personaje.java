@@ -18,9 +18,20 @@ public class Personaje {
     protected int experiencia;
     protected int puntosVida;
 
+    // Atributos Inventario
+    protected int monedas;
+    protected Item[] inventario = new Item[0];
+
+    protected Item itemManoIzq;
+    protected Item itemManoDch;
+    protected Armadura armaduraCabeza;
+    protected Armadura armaduraCuerpo;
+
+
+
     // Este constructor puede lanzar una excepción si los parámetros no són válidos
-    public Personaje(String nombre, String raza, int fuerza, int agilidad, int constitucion, 
-                     int nivel, int experiencia, int puntosVida) throws IllegalArgumentException {
+    public Personaje(String nombre, String raza, int fuerza, int agilidad, int constitucion,
+            int nivel, int experiencia, int puntosVida) throws IllegalArgumentException {
         this.nombre = nombre;
 
         try {
@@ -75,7 +86,7 @@ public class Personaje {
         str += "Experiencia: " + experiencia + "\n";
         str += "Puntos de Vida: " + puntosVida + "\n";
         return str;
-    }    
+    }
 
     @Override
     public String toString() {
@@ -195,6 +206,114 @@ public class Personaje {
         return A;
     }
 
+
+
+    /* INVENTARIO */
+    public double getCargaActual() {
+        double peso = 0;
+        for (Item i: inventario)
+            peso += i.peso;
+        return peso;
+    }
+
+    public int getCargaMaxima() {
+        return 50 + constitucion * 2;
+    }
+
+    public boolean addToInventario(Item item) {
+        boolean anhadido = false;
+        if (getCargaActual() + item.peso <= getCargaMaxima()){
+            inventario = Arrays.copyOf(inventario,inventario.length + 1);
+            inventario[inventario.length - 1] = item;
+            anhadido = true;
+        }            
+        return anhadido;
+    }
+
+    public void mostrarInventario() {
+        System.out.println("Inventario de " + nombre + ":");
+        for(int i = 1; i <= inventario.length; i++)
+            System.out.print(i + ". " + inventario[i - 1]);
+    }
+
+    public void deleteFromInventario(Item item) {
+        this.inventario = inventario;
+    }    
+
+    public boolean equipar(Armadura armadura) {
+        boolean equipado = false;
+        switch (armadura.tipo){
+            case YELMO: if (armaduraCabeza == null) {
+                            armaduraCabeza = armadura;
+                            equipado = true;
+                        }
+                        break;
+            case ARMADURA: if (armaduraCuerpo == null) {
+                armaduraCuerpo = armadura;
+                equipado = true;
+            }
+            break;
+            case ESCUDO: 
+            if (itemManoDch == null) {
+                itemManoDch = armadura;
+                equipado = true;
+            } else if (itemManoIzq == null) {
+                itemManoIzq = armadura;
+                equipado = true;
+            }
+            break;
+        }
+        return equipado;
+    }
+
+    public boolean equipar(Arma arma) {
+        boolean equipado = false;
+        if (arma.dosManos) {
+            if (itemManoDch == null && itemManoIzq == null){
+                itemManoDch = arma;
+                itemManoIzq = arma;
+                equipado = true;
+            }
+        } else {
+            if (itemManoDch == null) {
+                itemManoDch = arma;
+                equipado = true;
+            } else if (itemManoIzq == null) {
+                itemManoIzq = arma;
+                equipado = true;
+            }
+        }
+        return equipado;                
+    }
+    
+    
+    public void mostrarEquipo() {
+        System.out.println("Equipo de combate de " + nombre + ":");
+        System.out.println("- " + (armaduraCabeza != null ? armaduraCabeza:"Yelmo no equipado"));
+        System.out.println("- " + (armaduraCuerpo != null ? armaduraCuerpo:"Sin armadura"));
+        if (itemManoDch == itemManoIzq)
+            System.out.println("- " + (itemManoDch != null ? itemManoDch:"Manos vacías"));
+        else {
+            System.out.println("- " + (itemManoDch != null ? itemManoDch:"Mano derecha vacía"));
+            System.out.println("- " + (itemManoIzq != null ? itemManoIzq:"Mano izquierda vacía"));
+        }
+        System.out.println();
+    }    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* GETTERS & SETTERS */
+
     public String getNombre() {
         return nombre;
     }
@@ -259,15 +378,54 @@ public class Personaje {
         this.puntosVida = puntosVida;
     }
 
-    /*
-     * @Override
-     * public int compareTo(Object o) {
-     * int res = nombre.compareTo(((Personaje) o).nombre);
-     * if (res == 0)
-     * return puntosVida - ((Personaje) o).puntosVida;
-     * else
-     * return res;
-     * }
-     */
+    public int getMonedas() {
+        return monedas;
+    }
+
+    public void setMonedas(int monedas) {
+        this.monedas = monedas;
+    }
+
+    public Item[] getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(Item[] inventario) {
+        this.inventario = inventario;
+    }
+
+    public Item getItemManoIzq() {
+        return itemManoIzq;
+    }
+
+    public void setItemManoIzq(Item itemManoIzq) {
+        this.itemManoIzq = itemManoIzq;
+    }
+
+    public Item getItemManoDch() {
+        return itemManoDch;
+    }
+
+    public void setItemManoDch(Item itemManoDch) {
+        this.itemManoDch = itemManoDch;
+    }
+
+    public Armadura getArmaduraCabeza() {
+        return armaduraCabeza;
+    }
+
+    public void setArmaduraCabeza(Armadura armaduraCabeza) {
+        this.armaduraCabeza = armaduraCabeza;
+    }
+
+    public Armadura getArmaduraCuerpo() {
+        return armaduraCuerpo;
+    }
+
+    public void setArmaduraCuerpo(Armadura armaduraCuerpo) {
+        this.armaduraCuerpo = armaduraCuerpo;
+    }
+
+
 
 }
