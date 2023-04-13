@@ -3,7 +3,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Actividad08 extends Application{
@@ -14,14 +16,21 @@ public class Actividad08 extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Tablero");
+        GridPane grid = new GridPane();
 
+        for (int i = 0; i < FILAS; i++)
+            for (int j = 0; j < COLUMNAS; j++) {
+                Button btn = new Button();
+                btn.setPrefHeight(50);
+                btn.setPrefWidth(50);
+                if ((i+j) % 2 == 0)
+                    btn.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
+                else
+                    btn.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+                grid.add(btn, j, i);
+            }
 
-        Button btn = new Button("X");
-        btn.setPrefHeight(200);
-        btn.setPrefWidth(200);
-        btn.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-
-        Scene scene = new Scene(btn);
+        Scene scene = new Scene(grid);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
