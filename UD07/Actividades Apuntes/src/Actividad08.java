@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
@@ -13,18 +14,21 @@ public class Actividad08 extends Application {
     final int FILAS = 8;
     final int COLUMNAS = 8;
 
+    GridPane gridBtn;
+    GridPane gridRect;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Tablero");
 
-        GridPane gridBtn = new GridPane();
+        gridBtn = new GridPane();
 
         for (int i = 0; i < FILAS; i++)
             for (int j = 0; j < COLUMNAS; j++) {
                 Button btn = new Button();
                 btn.setPrefSize(50, 50);
-                btn.setOnMouseClicked(e -> btn.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null))));
-                
+                btn.setOnMouseClicked(e -> colorearCasilla(btn));
+
                 if ((i + j) % 2 != 0)
                     btn.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
                 else
@@ -32,11 +36,11 @@ public class Actividad08 extends Application {
                 gridBtn.add(btn, j, i);
             }
 
-        GridPane gridRect = new GridPane();
+        gridRect = new GridPane();
         for (int i = 0; i < FILAS; i++)
             for (int j = 0; j < COLUMNAS; j++) {
                 Rectangle rect = new Rectangle(50, 50, (i + j) % 2 != 0 ? Color.BLACK : Color.WHITE);
-                rect.setOnMouseClicked(e -> rect.setFill(Color.RED));
+                rect.setOnMouseClicked(e -> colorearCasilla(rect));
                 gridRect.add(rect, j, i);
             }
 
@@ -44,6 +48,31 @@ public class Actividad08 extends Application {
         Scene scene = new Scene(hBox);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void colorearCasilla(Button btn) {
+        // Colorea el botón pulsado
+        btn.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
+
+        // Busca y colorea el rectángulo equivalente en el otro grid
+        int c = GridPane.getColumnIndex(btn);
+        int f = GridPane.getRowIndex(btn);
+
+        Rectangle r = (Rectangle) (gridRect.getChildren().get(f * COLUMNAS + c));
+        r.setFill(Color.RED);
+    }
+
+    private void colorearCasilla(Rectangle rect) {
+        // Colorea el rectángulo pulsado
+        rect.setFill(Color.RED);
+
+        // Busca y colorea el botón equivalente en el otro grid
+        int c = GridPane.getColumnIndex(rect);
+        int f = GridPane.getRowIndex(rect);
+
+        Button b = (Button) (gridBtn.getChildren().get(f * COLUMNAS + c));
+        b.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
+
     }
 
     public static void main(String[] args) {
