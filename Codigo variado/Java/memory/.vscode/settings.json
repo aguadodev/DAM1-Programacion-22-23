@@ -27,5 +27,7 @@
         "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.swing.jar",
         "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx.web.jar",
         "d:\\Oscar\\Portables\\javafx-sdk-17.0.6\\lib\\javafx-swt.jar"
-    ]
+    ],
+    "aws.codeWhisperer.shareCodeWhispererContentWithAWS": false,
+    "aws.telemetry": false
 }
