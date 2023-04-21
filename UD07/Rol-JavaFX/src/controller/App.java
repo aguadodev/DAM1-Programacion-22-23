@@ -49,7 +49,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Inicia la aplicación y el escenario con la Creación del Personaje
-        Parent rootCreaPersonaje = FXMLLoader.load(getClass().getResource("../view/Personaje.fxml"));
+        Parent rootCreaPersonaje = FXMLLoader.load(getClass().getResource("/view/Personaje.fxml"));
         primaryStage.setTitle("Creación del Personaje");
         primaryStage.setScene(new Scene(rootCreaPersonaje));
         primaryStage.show();
