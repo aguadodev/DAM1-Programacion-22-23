@@ -1,17 +1,18 @@
-package app;
-
+package app2;
 import java.io.IOException;
-import java.net.MalformedURLException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Personaje;
 
 public class App extends Application{
 
-    static Scene scene;
+    public static Personaje p;
+
+
+    public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -21,6 +22,7 @@ public class App extends Application{
 
         scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

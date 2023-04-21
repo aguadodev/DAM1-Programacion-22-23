@@ -3,6 +3,7 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import app2.App;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -20,13 +21,16 @@ public class CrearPersonajeController implements Initializable{
 
     @FXML
     TextField txtNombre;
-    
+
     Personaje p;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Crea un personaje
         p = new Personaje("Sin nombre", "HUMANO");
+        App.p = p; // Copia la referencia del personaje en la variable estática de la App
 
+        // Muestra en la vista los datos del personaje creado
         lblAtributos.setText("Atributos Físicos del Personaje: \n" + 
         "Fuerza: " + p.getFuerza() + "\n" +
         "Agilidad: " + p.getAgilidad() + "\n" +
@@ -37,12 +41,14 @@ public class CrearPersonajeController implements Initializable{
         );        
 
         cmbRaza.getItems().addAll(Personaje.Raza.values());
+        cmbRaza.setValue(Personaje.Raza.HUMANO);
     }
 
     public void crearPersonaje() {
         p.setNombre(txtNombre.getText());
         p.setRaza(cmbRaza.getValue());
         p.mostrar();
+        App.cargarEscena("Mapa");
 
      }
     

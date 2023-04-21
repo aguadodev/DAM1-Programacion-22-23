@@ -2,10 +2,14 @@ package model;
 
 import java.util.Arrays;
 
-public class Personaje implements Comparable {
-    
+public class Personaje {
+
     protected String nombre;
-    public enum Raza {HUMANO, ELFO, ENANO, HOBBIT, ORCO, TROLL}
+
+    public enum Raza {
+        HUMANO, ELFO, ENANO, HOBBIT, ORCO, TROLL
+    }
+
     protected Raza raza;
     protected int fuerza;
     protected int agilidad;
@@ -14,26 +18,39 @@ public class Personaje implements Comparable {
     protected int experiencia;
     protected int puntosVida;
 
+    // Atributos Inventario
+    protected int monedas;
+    protected Item[] inventario = new Item[0];
+
+    protected Item itemManoIzq;
+    protected Item itemManoDch;
+    protected Armadura armaduraCabeza;
+    protected Armadura armaduraCuerpo;
+
+
 
     // Este constructor puede lanzar una excepción si los parámetros no són válidos
-    public Personaje(String nombre, String raza, int fuerza, int agilidad, int constitucion, int nivel,
-            int experiencia, int puntosVida) throws IllegalArgumentException {
+    public Personaje(String nombre, String raza, int fuerza, int agilidad, int constitucion,
+            int nivel, int experiencia, int puntosVida) throws IllegalArgumentException {
         this.nombre = nombre;
-        
-        try {            
+
+        try {
             // Capturo la posible excepción de valueOf si el valor de raza no es válido
             this.raza = Raza.valueOf(raza);
         } catch (IllegalArgumentException e) {
             // Personalizo y lanzo una excepción de tipo IllegalArgumentException
             throw new IllegalArgumentException("Personaje no válido");
         }
-        
+
         this.fuerza = fuerza >= 1 ? fuerza : 1;
         this.agilidad = agilidad >= 1 ? agilidad : 1;
         this.constitucion = constitucion >= 1 ? constitucion : 1;
         this.nivel = nivel >= 1 ? nivel : 1;
         this.experiencia = experiencia >= 0 ? experiencia : 0;
         this.puntosVida = puntosVida >= 1 ? puntosVida : 1;
+    }
+
+    public Personaje() {
     }
 
     public Personaje(String nombre, String raza, int fuerza, int agilidad, int constitucion) {
@@ -43,12 +60,12 @@ public class Personaje implements Comparable {
     public Personaje(String nombre, String raza) {
         this(nombre, raza, rnd1a100(), rnd1a100(), rnd1a100());
     }
-    
-    static int rnd1a100(){
-        return (int)(Math.random()*100 + 1);
+
+    static int rnd1a100() {
+        return (int) (Math.random() * 100 + 1);
     }
 
-    public void mostrar(){
+    public void mostrar() {
         System.out.println("PERSONAJE: " + nombre);
         System.out.println("Raza: " + raza);
         System.out.println("Fuerza: " + fuerza);
@@ -59,22 +76,34 @@ public class Personaje implements Comparable {
         System.out.println("Puntos de Vida: " + puntosVida);
     }
 
+    public String infoMostrar() {
+        String str = "PERSONAJE: " + nombre + "\n";
+        str += "Raza: " + raza + "\n";
+        str += "Fuerza: " + fuerza + "\n";
+        str += "Agilidad: " + agilidad + "\n";
+        str += "Constitución: " + constitucion + "\n";
+        str += "Nivel: " + nivel + "\n";
+        str += "Experiencia: " + experiencia + "\n";
+        str += "Puntos de Vida: " + puntosVida + "\n";
+        return str;
+    }
+
     @Override
     public String toString() {
         return nombre + " (" + puntosVida + "/" + (constitucion + 50) + ")";
     }
-    
+
     @Override
     public boolean equals(Object obj) {
-        Personaje otro = (Personaje)obj;
+        Personaje otro = (Personaje) obj;
         return nombre.equals(otro.nombre)
-            && raza.equals(otro.raza)
-            && fuerza == otro.fuerza
-            && agilidad == otro.agilidad
-            && constitucion == otro.constitucion;
+                && raza.equals(otro.raza)
+                && fuerza == otro.fuerza
+                && agilidad == otro.agilidad
+                && constitucion == otro.constitucion;
     }
 
-    boolean sumarExperiencia(int puntos){
+    public boolean sumarExperiencia(int puntos) {
         int nivelAnterior = experiencia / 1000;
 
         experiencia += puntos;
@@ -84,109 +113,206 @@ public class Personaje implements Comparable {
         return nivelAnterior != nivelActual;
     }
 
-    void subirNivel(){
+    public void subirNivel() {
         nivel++;
         fuerza = (int) Math.round(fuerza * 1.05);
         agilidad = (int) Math.round(agilidad * 1.05);
         constitucion = (int) Math.round(constitucion * 1.05);
     }
 
-    void curar(){
+    public void curar() {
         if (puntosVida < constitucion + 50)
             puntosVida = constitucion + 50;
     }
 
-    boolean perderVida(int puntos){
+    public boolean perderVida(int puntos) {
         boolean muerto = false;
         puntosVida -= puntos;
-        if (puntosVida <= 0){
+        if (puntosVida <= 0) {
             muerto = true;
             puntosVida = 0;
         }
         return muerto;
     }
 
-    boolean estaVivo(){
+    public boolean estaVivo() {
         return puntosVida > 0;
     }
 
-    int atacar(Personaje enemigo){
+    public int atacar(Personaje enemigo) {
         int ataque = fuerza + rnd1a100();
         int defensa = enemigo.agilidad + rnd1a100();
         int resultado = ataque - defensa;
 
-        if (resultado > enemigo.puntosVida){
-            resultado = enemigo.puntosVida;           
-        }            
-        else if (resultado < 0)
+        if (resultado > enemigo.puntosVida) {
+            resultado = enemigo.puntosVida;
+        } else if (resultado < 0)
             resultado = 0;
 
-        sumarExperiencia(resultado);    
+        sumarExperiencia(resultado);
         enemigo.sumarExperiencia(resultado);
-        enemigo.perderVida(resultado);             
+        enemigo.perderVida(resultado);
 
         return resultado;
     }
 
-    /*int atacar(Monstruo enemigo){
+    public int atacar(Monstruo enemigo) {
         int ataque = fuerza + rnd1a100();
         int defensa = enemigo.defensa + rnd1a100();
         int resultado = ataque - defensa;
 
-        if (resultado > enemigo.puntosVida){
-            resultado = enemigo.puntosVida;           
-        }            
-        else if (resultado < 0)
+        if (resultado > enemigo.puntosVida) {
+            resultado = enemigo.puntosVida;
+        } else if (resultado < 0)
             resultado = 0;
 
-        sumarExperiencia(resultado);    
-        enemigo.perderVida(resultado);             
+        sumarExperiencia(resultado);
+        enemigo.perderVida(resultado);
 
         return resultado;
-    } */   
+    }
 
-    static Personaje[] sortPuntosVidaDesc(Personaje[] personajes){
+    public static Personaje[] sortPuntosVidaDesc(Personaje[] personajes) {
         Personaje[] A = Arrays.copyOf(personajes, personajes.length);
 
         int i, j;
         Personaje aux;
         for (i = 0; i < A.length - 1; i++) {
-            for (j = 0; j < A.length - i - 1; j++) {                                                              
+            for (j = 0; j < A.length - i - 1; j++) {
                 if (A[j + 1].puntosVida > A[j].puntosVida) {
                     aux = A[j + 1];
                     A[j + 1] = A[j];
                     A[j] = aux;
                 }
             }
-        }        
+        }
         return A;
     }
 
-    static Personaje[] sortPuntosVidaAsc(Personaje[] personajes){
+    public static Personaje[] sortPuntosVidaAsc(Personaje[] personajes) {
         Personaje[] A = Arrays.copyOf(personajes, personajes.length);
 
         int i, j;
         Personaje aux;
         for (i = 0; i < A.length - 1; i++) {
-            for (j = 0; j < A.length - i - 1; j++) {                                                              
+            for (j = 0; j < A.length - i - 1; j++) {
                 if (A[j + 1].puntosVida < A[j].puntosVida) {
                     aux = A[j + 1];
                     A[j + 1] = A[j];
                     A[j] = aux;
                 }
             }
-        }        
+        }
         return A;
     }
 
-    @Override
-    public int compareTo(Object o) {
-        int res = nombre.compareTo(((Personaje) o).nombre);
-        if (res == 0)
-            return puntosVida - ((Personaje) o).puntosVida;
-        else
-            return res;
+
+
+    /* INVENTARIO */
+    public double getCargaActual() {
+        double peso = 0;
+        for (Item i: inventario)
+            peso += i.peso;
+        return peso;
     }
+
+    public int getCargaMaxima() {
+        return 50 + constitucion * 2;
+    }
+
+    public boolean addToInventario(Item item) {
+        boolean anhadido = false;
+        if (getCargaActual() + item.peso <= getCargaMaxima()){
+            inventario = Arrays.copyOf(inventario,inventario.length + 1);
+            inventario[inventario.length - 1] = item;
+            anhadido = true;
+        }            
+        return anhadido;
+    }
+
+    public void mostrarInventario() {
+        System.out.println("Inventario de " + nombre + ":");
+        for(int i = 1; i <= inventario.length; i++)
+            System.out.print(i + ". " + inventario[i - 1]);
+    }
+
+    public void deleteFromInventario(Item item) {
+        this.inventario = inventario;
+    }    
+
+    public boolean equipar(Armadura armadura) {
+        boolean equipado = false;
+        switch (armadura.tipo){
+            case YELMO: if (armaduraCabeza == null) {
+                            armaduraCabeza = armadura;
+                            equipado = true;
+                        }
+                        break;
+            case ARMADURA: if (armaduraCuerpo == null) {
+                armaduraCuerpo = armadura;
+                equipado = true;
+            }
+            break;
+            case ESCUDO: 
+            if (itemManoDch == null) {
+                itemManoDch = armadura;
+                equipado = true;
+            } else if (itemManoIzq == null) {
+                itemManoIzq = armadura;
+                equipado = true;
+            }
+            break;
+        }
+        return equipado;
+    }
+
+    public boolean equipar(Arma arma) {
+        boolean equipado = false;
+        if (arma.dosManos) {
+            if (itemManoDch == null && itemManoIzq == null){
+                itemManoDch = arma;
+                itemManoIzq = arma;
+                equipado = true;
+            }
+        } else {
+            if (itemManoDch == null) {
+                itemManoDch = arma;
+                equipado = true;
+            } else if (itemManoIzq == null) {
+                itemManoIzq = arma;
+                equipado = true;
+            }
+        }
+        return equipado;                
+    }
+    
+    
+    public void mostrarEquipo() {
+        System.out.println("Equipo de combate de " + nombre + ":");
+        System.out.println("- " + (armaduraCabeza != null ? armaduraCabeza:"Yelmo no equipado"));
+        System.out.println("- " + (armaduraCuerpo != null ? armaduraCuerpo:"Sin armadura"));
+        if (itemManoDch == itemManoIzq)
+            System.out.println("- " + (itemManoDch != null ? itemManoDch:"Manos vacías"));
+        else {
+            System.out.println("- " + (itemManoDch != null ? itemManoDch:"Mano derecha vacía"));
+            System.out.println("- " + (itemManoIzq != null ? itemManoIzq:"Mano izquierda vacía"));
+        }
+        System.out.println();
+    }    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* GETTERS & SETTERS */
 
     public String getNombre() {
         return nombre;
@@ -252,17 +378,54 @@ public class Personaje implements Comparable {
         this.puntosVida = puntosVida;
     }
 
+    public int getMonedas() {
+        return monedas;
+    }
 
+    public void setMonedas(int monedas) {
+        this.monedas = monedas;
+    }
 
+    public Item[] getInventario() {
+        return inventario;
+    }
 
+    public void setInventario(Item[] inventario) {
+        this.inventario = inventario;
+    }
 
+    public Item getItemManoIzq() {
+        return itemManoIzq;
+    }
 
+    public void setItemManoIzq(Item itemManoIzq) {
+        this.itemManoIzq = itemManoIzq;
+    }
 
+    public Item getItemManoDch() {
+        return itemManoDch;
+    }
 
+    public void setItemManoDch(Item itemManoDch) {
+        this.itemManoDch = itemManoDch;
+    }
 
+    public Armadura getArmaduraCabeza() {
+        return armaduraCabeza;
+    }
 
-    
-    /***** GETTERS Y SETTERS */
+    public void setArmaduraCabeza(Armadura armaduraCabeza) {
+        this.armaduraCabeza = armaduraCabeza;
+    }
+
+    public Armadura getArmaduraCuerpo() {
+        return armaduraCuerpo;
+    }
+
+    public void setArmaduraCuerpo(Armadura armaduraCuerpo) {
+        this.armaduraCuerpo = armaduraCuerpo;
+    }
+
 
 
 }

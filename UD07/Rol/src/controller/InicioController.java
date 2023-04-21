@@ -1,6 +1,6 @@
 package controller;
 
-import app.App;
+import app2.App;
 
 public class InicioController {
     public void comenzar() {
