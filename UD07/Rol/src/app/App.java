@@ -2,7 +2,6 @@ package app;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,10 +16,8 @@ public class App extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Juego de Rol");
-
-        //Parent root = FXMLLoader.load(getClass().getResource("../view/CrearPersonaje.fxml"));
-        
-        Parent root = FXMLLoader.load(getClass().getResource("../view/Inicio.fxml"));
+                
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Inicio.fxml"));
 
         scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -31,11 +28,16 @@ public class App extends Application{
         launch();
     }
 
-    public static void cargarEscena(String fxml) throws MalformedURLException, IOException {
+    public static void cargarEscena(String fxml) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(App.class.getResource("/view/" + fxml + ".fxml"));
+            scene.setRoot(root);
+            scene.getWindow().sizeToScene();            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        Parent root = FXMLLoader.load(App.getResource("../view/" + fxml));
-        //Parent root = FXMLLoader.load(new URL("../view/" + fxml));
-        scene.setRoot(root);
         
     }    
 }

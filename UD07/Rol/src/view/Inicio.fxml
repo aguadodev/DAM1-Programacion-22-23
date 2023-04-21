@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="176.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InicioController">
    <children>
       <Label layoutX="38.0" layoutY="29.0" prefHeight="27.0" prefWidth="440.0" text="Juego de Rol - Escapa del Laberinto">
@@ -15,6 +14,6 @@
       </Label>
       <Label layoutX="38.0" layoutY="56.0" prefHeight="71.0" prefWidth="421.0" text="Juego de Rol creado en clase de Programación del ciclo DAM en el IES Chan do Monte. Un personaje deberá escapar de un laberinto lleno de monstruos etc." wrapText="true" />
       <Label layoutX="200.0" layoutY="140.0" text="Curso 2022-23" />
-      <Button fx:id="btnComenzar" layoutX="354.0" layoutY="136.0" mnemonicParsing="false" onAction="#comenzar" text="Comenzar Juego" />
+      <Button layoutX="354.0" layoutY="136.0" mnemonicParsing="false" onAction="#comenzar" text="Comenzar Juego" />
    </children>
 </AnchorPane>
