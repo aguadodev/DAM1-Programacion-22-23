@@ -4,69 +4,83 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
     Tablero t;
-    boolean esperarClick = false;
-    
-    int turnoJugador = 1;           // Almacena el número del primer (y por ahora único) jugador
-    static int[][] tableroJugador; // Marca las casillas emparejadas con el número del jugador
 
-    private static Scene scene;     // Escena que contendrá la rejilla
+    //private static Scene scene;     // Escena que contendrá la rejilla
     GridPane gridPane;              // Rejilla para visualizar el tablero de imágenes
+    Label lblAyuda;    
     static ImageView[][] tablero;   // Matriz de "vistas" de imágenes que se mostrarán al jugador
     
     final int ALTO_CASILLA = 200;   // Dimensiones de alto y ancho en píxeles de las casillas
     final int ANCHO_CASILLA = 200;  
 
     static ImageView imageView1, imageView2; // "Vistas" e imágenes para recordar la pareja descubierta
+    boolean esperarClick = false;
     
+    int turnoJugador = 1;           // Almacena el número del primer (y por ahora único) jugador
+    static int[][] tableroJugador; // Marca las casillas emparejadas con el número del jugador    
 
     @Override
     public void start(Stage stage) throws IOException {
-        // Crea e inicializa el tablero.
+        // Crea e inicializa el tablero de imágenes ocultas.
         t = new Tablero();
+
+        // Crea e inicializa las "vistas" de imágenes
+        gridPane = new GridPane();
+        for (int i = 0; i < t.FILAS; i++) {
+            for (int j = 0; j < t.COLS; j++) {
+                // Crea la  "vista" de cada casilla y la inicializa a la imagen de reverso
+                ImageView imageView = new ImageView(t.getImgReverso());
+                imageView.setFitHeight(ALTO_CASILLA);
+                imageView.setFitWidth(ANCHO_CASILLA);
+
+                imageView.setOnMouseClicked(eventHandler);
+//                imageView.setOnMouseClicked(e -> imgPulsada(imageView));
+
+                gridPane.add(imageView, i, j);
+            }
+        }
 
         // Crea e inicia el tablero de casillas conseguidas por cada jugador
         tableroJugador = new int[t.FILAS][t.COLS]; 
 
-        tablero = new ImageView[t.FILAS][t.COLS];
-
-        gridPane = new GridPane();
-
-        for (int i = 0; i < t.FILAS; i++) {
-            for (int j = 0; j < t.COLS; j++) {
-                tablero[i][j] = new ImageView(t.getImgReverso());
-                // setting the fit height and width of the image view
-                tablero[i][j].setFitHeight(ALTO_CASILLA);
-                tablero[i][j].setFitWidth(ANCHO_CASILLA);
-                // Setting the preserve ratio of the image view
-                tablero[i][j].setPreserveRatio(true);
-
-                tablero[i][j].addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
-
-                gridPane.add(tablero[i][j], i, j, 1, 1);
-            }
-        }
-
         // Crea y configura la escena y muestra el escenario.
-        scene = new Scene(gridPane, t.COLS * ANCHO_CASILLA, t.FILAS * ALTO_CASILLA);
-        scene.setFill(Color.ROSYBROWN);
+        lblAyuda = new Label("Haz click en una casilla para comenzar a Jugar");
+        VBox vBox = new VBox(gridPane, lblAyuda);
+        Scene scene = new Scene(vBox);
+
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.setTitle("Memory");
         stage.show();
     }
 
 
+    private void imgPulsada(ImageView imageView) {
+        Image img = imageView.getImage();
+
+        // Es la primera imagen de la pareja?
+
+        // 1. Pulsa en una imagen tapada => La destapa y la muestra
+
+        // 2. Pulsa en una imagen destapada => La descarta
+
+        // 
+    }
+
+
     EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
         @Override
-        public void handle(MouseEvent arg0) {
+        public void handle(MouseEvent event) {
 
             if (esperarClick) {
                 esperarClick = false;
@@ -76,7 +90,7 @@ public class App extends Application {
             }
 
             // Obtiene la ImageView del evento, y sus coordenadas
-            ImageView imgV = (ImageView) arg0.getSource();
+            ImageView imgV = (ImageView) event.getSource();
             Image img = imgV.getImage();
             if (img == t.getImgReverso()) {
                 destapaCasilla(imgV);
@@ -86,12 +100,15 @@ public class App extends Application {
                 if (imageView1 == null) {
                     // Si está destapando la primera casilla del turno la guarda
                     imageView1 = imgV;
+                    lblAyuda.setText("Busca la pareja haciendo click en otra casilla");
                 } else {
-                    // Si está destapando la segundo compara con la primera
+                    // Si está destapando la segunda compara con la primera
                     if (imgV.getImage() == imageView1.getImage()) {
                         // Pareja!!
                         //AnotarPareja();
                         System.out.println("Pareja!!");
+                        lblAyuda.setText("Pareja encontrada!! Enhorabuena!!");
+
                         tableroJugador[f][c] = turnoJugador;
                         f = GridPane.getRowIndex(imageView1);
                         c = GridPane.getColumnIndex(imageView1);
@@ -115,6 +132,7 @@ public class App extends Application {
                         // esperar click y volver a tapar
                         imageView2 = imgV;
                         esperarClick = true;
+                        lblAyuda.setText("No son pareja!! Haz click para destapar una nueva casilla.");
                     }
                 }
 

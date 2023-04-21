@@ -6,34 +6,39 @@ import javafx.scene.image.Image;
 public class Tablero {
     public final int FILAS;
     public final int COLS;
-    Image[] imagenes;
-    Image imgReverso;
+
+    Image[] imagenes = {
+        new Image("img/tren_verde.png"),
+        new Image("img/tren_de_vapor.png"),
+        new Image("img/excavadora.png"),
+        new Image("img/1.jpeg"),
+        new Image("img/coche_azul.png"),
+        new Image("img/6.jpeg"),
+        new Image("img/7.jpeg"),
+        new Image("img/0.jpeg") 
+    };
+    Image imgReverso = new Image("img/cochesReverso.png");
+
     Image[][] tableroOculto;
 
     public Tablero() throws FileNotFoundException {
-        imagenes = new Image[8];
+
+        // Crea una matriz de imágenes que representa las casillas ocultas
         FILAS = 4; COLS = 4;
-
-        imagenes[0] = new Image(new FileInputStream("img/tren_verde.png"));
-        imagenes[1] = new Image(new FileInputStream("img/tren_de_vapor.png"));
-        imagenes[2] = new Image(new FileInputStream("img/excavadora.png"));
-        imagenes[3] = new Image(new FileInputStream("img/1.jpeg"));
-        imagenes[4] = new Image(new FileInputStream("img/2.jpeg"));
-        imagenes[5] = new Image(new FileInputStream("img/6.jpeg"));
-        imagenes[6] = new Image(new FileInputStream("img/7.jpeg"));
-        imagenes[7] = new Image(new FileInputStream("img/0.jpeg"));
-
-        imgReverso = new Image(new FileInputStream("img/cochesReverso.png"));       
-        
         tableroOculto = new Image[FILAS][COLS];
-        int indImg = 0;
+        
+        // Recorre las casillas ocultas colocando las imágenes duplicadas y consecutivas
+        int k = 0; // índice de la imagen a colocar
         for (int i = 0; i < tableroOculto.length; i++)
             for (int j = 0; j < tableroOculto[0].length; j++) {
-                tableroOculto[i][j] = imagenes[indImg % imagenes.length];
-                indImg++;
+                tableroOculto[i][j] = imagenes[k];
+                // Incrementa el índice de la imagen a colocar
+                // y al llegar a la última empieza una nueva ronda.
+                k = (k + 1) % imagenes.length;
             }
             
-        // barajar tablero
+        // Barajar tablero
+        // Recorre todas las casillas intercambiando cada una por otra elegida al azar
         for (int i = 0; i < tableroOculto.length; i++)
             for (int j = 0; j < tableroOculto[0].length; j++) {
                 int f = (int) (Math.random() * tableroOculto.length);
@@ -56,13 +61,19 @@ public class Tablero {
         return tableroOculto;
     }
 
-
-    public void cargarImagenes(String[] ficherosImagenes) throws FileNotFoundException {
-        imagenes = new Image[ficherosImagenes.length];
+    /**
+     * Devuelve un array de imágenes a partir de un array de String con sus URLs
+     * @param ficherosImagenes
+     * @return
+     * @throws FileNotFoundException
+     */
+    public Image[] cargarImagenes(String[] ficherosImagenes) throws FileNotFoundException {
+        Image[] imagenes = new Image[ficherosImagenes.length];
 
         for (int i = 0; i < ficherosImagenes.length; i++) {
             imagenes[i] = new Image(new FileInputStream(ficherosImagenes[i]));
-        };   
+        };
+        return imagenes;
     }
 
 
