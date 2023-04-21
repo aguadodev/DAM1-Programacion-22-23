@@ -41,22 +41,10 @@ public class App extends Application{
         primaryStage.show();
     }
 
-<<<<<<< HEAD
-=======
-    public static void cargarFXML(String fxml) throws IOException {
-        // Instanciando un objeto FXMLLoader
-        //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("../view/" + fxml + ".fxml"));
-
-        // Usando el método estático load() de FXMLLoader
-        scene.setRoot(FXMLLoader.load(App.class.getResource("/view/" + fxml + ".fxml")));
-        scene.getWindow().sizeToScene();
-    }   
->>>>>>> 1facfbc70ec1511d3f4e97a0300976f91dfbd04c
     public static void main(String[] args) {
         launch();
     }
 
-<<<<<<< HEAD
     public static void cargarEscena(String fxml) {
         Parent root;
         try {
@@ -69,7 +57,4 @@ public class App extends Application{
 
         
     }    
-=======
- 
->>>>>>> 1facfbc70ec1511d3f4e97a0300976f91dfbd04c
 }
