@@ -5,11 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Monstruo;
 import model.Personaje;
 
 public class App extends Application{
 
     public static Personaje p;
+
+    // Mapa de monstruos: Cada casilla contendrá un monstruo
+    public static Monstruo[][] mapaMonstruos;    
 
 
     public static Scene scene;

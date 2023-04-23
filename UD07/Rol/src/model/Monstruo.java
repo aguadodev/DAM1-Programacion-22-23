@@ -23,7 +23,7 @@ public abstract class Monstruo {
         this.puntosVida = puntosVida;
     }
 
-    static Monstruo generaMonstruoAleatorio(){
+    public static Monstruo generaMonstruoAleatorio(){
         int rnd = rnd1a100();
         Monstruo m;
 
@@ -54,7 +54,7 @@ public abstract class Monstruo {
         return muerto;
     }
 
-    boolean estaVivo(){
+    public boolean estaVivo(){
         return puntosVida > 0;
     }
     
@@ -68,7 +68,7 @@ public abstract class Monstruo {
     }    
 
 
-    int atacar(Personaje2 enemigo){
+    public int atacar(Personaje enemigo){
         int ataque = this.ataque + rnd1a100();
         int defensa = enemigo.agilidad + rnd1a100();
         int resultado = ataque - defensa;
@@ -98,6 +98,21 @@ public abstract class Monstruo {
         System.out.println("Puntos de Vida: " + puntosVida);
     }
 
+    public String fichaMonstruo(){
+        String str = "FICHA DE MONSTRUO:\n\n";
+        if (nombre == null)
+            str += getClass().getSimpleName() + "\n";
+        else
+            str += nombre + "(" + getClass().getSimpleName() + ")\n";
+        str += "Ataque: " + ataque + "\n";
+        str += "Defensa: " + defensa + "\n";
+        str += "Velocidad: " + velocidad + "\n";
+        str += "Puntos de Vida: " + puntosVida + "\n";
+        System.out.println(str);
+        return str;
+    }
+
+
     @Override
     public String toString() {
         String str = "";
@@ -110,4 +125,50 @@ public abstract class Monstruo {
     }
 
 
+
+
+    /* GETTERS & SETTERS */
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getAtaque() {
+        return ataque;
+    }
+
+    public void setAtaque(int ataque) {
+        this.ataque = ataque;
+    }
+
+    public int getDefensa() {
+        return defensa;
+    }
+
+    public void setDefensa(int defensa) {
+        this.defensa = defensa;
+    }
+
+    public int getVelocidad() {
+        return velocidad;
+    }
+
+    public void setVelocidad(int velocidad) {
+        this.velocidad = velocidad;
+    }
+
+    public int getPuntosVida() {
+        return puntosVida;
+    }
+
+    public void setPuntosVida(int puntosVida) {
+        this.puntosVida = puntosVida;
+    }
+
+    
 }

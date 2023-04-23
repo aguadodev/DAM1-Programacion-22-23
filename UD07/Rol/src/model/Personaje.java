@@ -76,15 +76,16 @@ public class Personaje {
         System.out.println("Puntos de Vida: " + puntosVida);
     }
 
-    public String infoMostrar() {
-        String str = "PERSONAJE: " + nombre + "\n";
+    public String fichaPersonaje() {
+        String str = "FICHA DE PERSONAJE: \n\n";
+        str += "Nombre: " + nombre + "\n";
         str += "Raza: " + raza + "\n";
         str += "Fuerza: " + fuerza + "\n";
         str += "Agilidad: " + agilidad + "\n";
         str += "Constitución: " + constitucion + "\n";
         str += "Nivel: " + nivel + "\n";
         str += "Experiencia: " + experiencia + "\n";
-        str += "Puntos de Vida: " + puntosVida + "\n";
+        str += "Puntos de Vida: " + puntosVida + " / " + (constitucion + 50) + "\n";
         return str;
     }
 
