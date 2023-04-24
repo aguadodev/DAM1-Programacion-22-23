@@ -260,6 +260,10 @@ public class MapaController implements Initializable {
         // Si el personaje huye simplemente no pasa nada...
     }
 
+
+
+
+    
     /**
      * Pinta al personaje en la nueva casilla. Pinta la casilla vieja de blanco
      * 
