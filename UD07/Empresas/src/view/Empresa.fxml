@@ -27,6 +27,6 @@
       <Button fx:id="agregarButton" layoutX="86.0" layoutY="154.0" mnemonicParsing="false" onAction="#agregar" text="Agregar" />
       <Button fx:id="actualizarButton" layoutX="86.0" layoutY="188.0" mnemonicParsing="false" onAction="#actualizar" text="Actualizar" />
       <Button fx:id="borrarButton" layoutX="86.0" layoutY="222.0" mnemonicParsing="false" onAction="#borrar" text="Borrar" />
-      <ListView fx:id="empresasListView" layoutX="277.0" layoutY="54.0" onMouseClicked="#empresasMouseClicked" prefHeight="208.0" prefWidth="201.0" />
+      <ListView fx:id="empresasListView" layoutX="277.0" layoutY="54.0" prefHeight="208.0" prefWidth="201.0" />
    </children>
 </AnchorPane>
