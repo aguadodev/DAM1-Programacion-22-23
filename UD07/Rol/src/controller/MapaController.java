@@ -1,14 +1,12 @@
 package controller;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import app2.App;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -58,8 +56,6 @@ public class MapaController implements Initializable {
 
         // Carga el mapa
         cargarMapa();
-        // Genera y distribuye los monstruos en el mapa
-        generarMonstruos();
 
         // Captura la pulsación de teclas en la escena
         App.scene.setOnKeyPressed(e -> manejarTeclaPulsada(e));
@@ -90,6 +86,9 @@ public class MapaController implements Initializable {
         mapa = Mapa.mapas[numMapa];
         FILAS = mapa.length;
         COLUMNAS = mapa[0].length;
+
+        // Genera y distribuye los monstruos en el mapa
+        generarMonstruos();
 
         // Carga el mapa en un GridPane de rectángulos a partir de los datos de mapa
         for (int row = 0; row < FILAS; row++) {
@@ -139,17 +138,31 @@ public class MapaController implements Initializable {
         }
     }
 
+
+
     private void manejarTeclaPulsada(KeyEvent event) {
         System.out.println(event.getCode());
 
         // Si son AWSD...
         mover(event.getCode().toString());
 
+        // Si se ha movido a una fuente
+        if (mapa[f][c] == 8) {
+            App.p.curar();  // El personaje recupera los puntos de vida
+            lblPersonaje.setText(App.p.fichaPersonaje()); // Actualiza la información
+            mapa[f][c] = 0; // La fuente desaparece
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Fuente de la Vida!!!!");
+            alert.setContentText(
+                    "Bebes de la fuente y recuperas todos los puntos de vida. Al terminar la fuente desaparece...");
+            alert.showAndWait();
+        }
+
+
         // Si se ha movido a la casilla de salida del mapa
         if (mapa[f][c] == 9) {
             numMapa++;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
             alert.setTitle("Enhorabuena!!!!");
             if (numMapa == Mapa.mapas.length) {
                 // Si no hay más mapas => Termina el programa
@@ -208,67 +221,13 @@ public class MapaController implements Initializable {
         }
     }
 
-    private void combate(int fNueva, int cNueva) {
-        Monstruo monstruo = App.mapaMonstruos[fNueva][cNueva];
-
-        // Pinta el monstruo en el mapa - TODO: Rediseñar usando polimorfismo
-        switch (monstruo.getClass().getSimpleName()) {
-            case "Orco":
-                PintarCasilla(cNueva, fNueva, new ImagePattern(imgOrco));
-                break;
-            case "Dragon":
-                PintarCasilla(cNueva, fNueva, new ImagePattern(imgDragon));
-                break;
-            case "Troll":
-                PintarCasilla(cNueva, fNueva, new ImagePattern(imgTroll));
-                break;
-            case "Aranha":
-                PintarCasilla(cNueva, fNueva, new ImagePattern(imgAranha));
-                break;
-        }
-
-        // COMIENZA EL COMBATE
-        boolean combateActivo = true;
-        // Si el monstruo es más rápido ataca primero
-        if (monstruo.getVelocidad() > App.p.getAgilidad()) {
-            if (ataqueMonstruo(monstruo) != "Atacar") // Si el personaje muere o huye
-                combateActivo = false;
-
-        } else {
-            if (previoAtaqueInicial(monstruo) != "Atacar") // Si el personaje es más rápido y no ataca
-                combateActivo = false;
-        }
-
-        // Mientras el personaje siga atacando...
-        while (combateActivo) {
-            ataquePersonaje(monstruo);
-            if (!monstruo.estaVivo()) {
-                // El monstruo muere
-                combateActivo = false; // Termina el combate
-                App.mapaMonstruos[fNueva][cNueva] = null; // El monstruo desaparece del mapa
-                moverPersonaje(cNueva, fNueva); // El personaje se mueve a la casilla del monstruo
-            } else if (ataqueMonstruo(monstruo) != "Atacar") // Si el personaje muere o huye
-                combateActivo = false;
-        }
-
-        if (!App.p.estaVivo()) {
-            // El personaje muere => Terminar Juego
-            Stage stage = (Stage) gridPane.getScene().getWindow();
-            stage.close();
-        }
-
-        // Si el personaje huye simplemente no pasa nada...
-    }
 
 
 
 
-    
+
     /**
      * Pinta al personaje en la nueva casilla. Pinta la casilla vieja de blanco
-     * 
-     * @param cNueva
-     * @param fNueva
      */
     private void moverPersonaje(int cNueva, int fNueva) {
         PintarCasilla(c, f, Color.WHITE);
@@ -280,40 +239,88 @@ public class MapaController implements Initializable {
     /**
      * Pinta la casilla en la columna y la fila indicadas con el relleno (Color,
      * Patrón de imagen, etc)
-     * 
-     * @param c
-     * @param f
-     * @param relleno
      */
     private void PintarCasilla(int c, int f, Paint relleno) {
         Rectangle r = (Rectangle) (gridPane.getChildren().get(f * COLUMNAS + c));
         r.setFill(relleno);
     }
 
+
+
+
+
+/**  COMBATE  ***************************************************************************** */
+
+
+private void combate(int fNueva, int cNueva) {
+    Monstruo monstruo = App.mapaMonstruos[fNueva][cNueva];
+
+    // Pinta el monstruo en el mapa - TODO: Rediseñar usando polimorfismo
+    switch (monstruo.getClass().getSimpleName()) {
+        case "Orco":
+            PintarCasilla(cNueva, fNueva, new ImagePattern(imgOrco));
+            break;
+        case "Dragon":
+            PintarCasilla(cNueva, fNueva, new ImagePattern(imgDragon));
+            break;
+        case "Troll":
+            PintarCasilla(cNueva, fNueva, new ImagePattern(imgTroll));
+            break;
+        case "Aranha":
+            PintarCasilla(cNueva, fNueva, new ImagePattern(imgAranha));
+            break;
+    }
+
+    // COMIENZA EL COMBATE
+    boolean combateActivo = true;
+    // Si el monstruo es más rápido ataca primero
+    if (monstruo.getVelocidad() > App.p.getAgilidad()) {
+        if (ataqueMonstruo(monstruo) != "Atacar") // Si el personaje muere o huye
+            combateActivo = false;
+
+    } else {
+        if (previoAtaqueInicial(monstruo) != "Atacar") // Si el personaje es más rápido y no ataca
+            combateActivo = false;
+    }
+
+    // Mientras el personaje siga atacando...
+    while (combateActivo) {
+        ataquePersonaje(monstruo);
+        if (!monstruo.estaVivo()) {
+            // El monstruo muere
+            combateActivo = false; // Termina el combate
+            App.mapaMonstruos[fNueva][cNueva] = null; // El monstruo desaparece del mapa
+            moverPersonaje(cNueva, fNueva); // El personaje se mueve a la casilla del monstruo
+        } else if (ataqueMonstruo(monstruo) != "Atacar") // Si el personaje muere o huye
+            combateActivo = false;
+    }
+
+    if (!App.p.estaVivo()) {
+        // El personaje muere => Terminar Juego
+        Stage stage = (Stage) gridPane.getScene().getWindow();
+        stage.close();
+    }
+
+    // Si el personaje huye simplemente no pasa nada...
+}
+
+
+
+
     String previoAtaqueInicial(Monstruo m) {
-        // Crea una ventana emergente con la información del monstruo
-        Dialog ventana = new Dialog();
-        ventana.setTitle("Monstruo!!!!");
-        String txt = m.fichaMonstruo();
+        Dialog ventana = getDialogInicialCombate(m);
 
-        ButtonType atacarButtonType = new ButtonType("Atacar");
-        ButtonType huirButtonType = new ButtonType("Huir");
-        ventana.getDialogPane().getButtonTypes().addAll(atacarButtonType, huirButtonType);
-
-        ventana.setContentText(txt);
+        getDialogHuirAtacar(ventana);
 
         ventana.showAndWait();
-
         ButtonType result = (ButtonType) ventana.getResult();
 
         return result.getText();
     }
 
     String ataqueMonstruo(Monstruo m) {
-        // Crea una ventana emergente con la información del monstruo
-        Dialog ventana = new Dialog();
-        ventana.setTitle("Monstruo!!!!");
-        String txt = m.fichaMonstruo();
+        Dialog ventana = getDialogInicialCombate(m);
+        String txt = ventana.getContentText();
 
         int puntos = m.atacar(App.p);
         if (puntos > 0) {
@@ -325,9 +332,7 @@ public class MapaController implements Initializable {
 
         if (App.p.estaVivo()) {
             // Si el presonaje sigue vivo
-            ButtonType atacarButtonType = new ButtonType("Atacar");
-            ButtonType huirButtonType = new ButtonType("Huir");
-            ventana.getDialogPane().getButtonTypes().addAll(atacarButtonType, huirButtonType);
+            getDialogHuirAtacar(ventana);
         } else {
             txt += "\n\nTu personaje ha muerto";
             ButtonType aceptarButtonType = new ButtonType("Aceptar");
@@ -337,21 +342,18 @@ public class MapaController implements Initializable {
         ventana.setContentText(txt);
 
         ventana.showAndWait();
-
         ButtonType result = (ButtonType) ventana.getResult();
 
         return result.getText();
     }
 
     String ataquePersonaje(Monstruo m) {
-        // Crea una ventana emergente con la información del monstruo
-        Dialog ventana = new Dialog();
-        ventana = new Dialog();
-        ventana.setTitle("Monstruo!!!!");
-
+        // Primero ataca el personaja
         int puntos = App.p.atacar(m);
 
-        String txt = m.fichaMonstruo();
+        // Después creamos la ventana con la info del monstruo ya actualizada
+        Dialog ventana = getDialogInicialCombate(m);
+        String txt = ventana.getContentText();
 
         if (puntos > 0) {
             txt += "\n\nAtacas al monstruo y le quitas " + puntos + " de vida";
@@ -372,97 +374,28 @@ public class MapaController implements Initializable {
         ventana.setContentText(txt);
 
         ventana.showAndWait();
-
         ButtonType result = (ButtonType) ventana.getResult();
 
         return result.getText();
     }
 
-    /**
-     * Gestiona el combate con cuadros de diálogo. Devuelve:
-     * -1 si el personaje muere
-     * 1 si muere el monstruo
-     * 0 si ambos continúan vivos
-     * 
-     * @param m
-     * @return
-     */
-    int mostrarCombateDialog(Monstruo m) {
+    /* Crea el Dialog básico con la info del monstruo */
+    Dialog getDialogInicialCombate(Monstruo m) {
         // Crea una ventana emergente con la información del monstruo
-        Dialog ventana = new Dialog();
-        ventana.setTitle("Monstruo!!!!");
+        Dialog dialog = new Dialog();
+        dialog.setTitle("Monstruo!!!!");
         String txt = m.fichaMonstruo();
 
-        // Si el monstruo es más rápido ataca primero
-        if (m.getVelocidad() > App.p.getAgilidad()) {
-            int puntos = m.atacar(App.p);
-            if (puntos > 0) {
-                txt += "\n\nEl monstruo ha atacado y te ha quitado " + puntos + " de vida";
-                lblPersonaje.setText(App.p.fichaPersonaje());
-            } else {
-                txt += "\n\nEl monstruo ha atacado pero consigues esquivar o parar el ataque";
-            }
-        }
-
-        if (!App.p.estaVivo()) {
-            txt += "\n\nTu personaje ha muerto";
-            ButtonType aceptarButtonType = new ButtonType("Aceptar");
-            ventana.getDialogPane().getButtonTypes().add(aceptarButtonType);
-            return -1;
-        } else {
-            ButtonType atacarButtonType = new ButtonType("Atacar");
-            ButtonType huirButtonType = new ButtonType("Huir");
-            ventana.getDialogPane().getButtonTypes().addAll(atacarButtonType, huirButtonType);
-        }
-
-        ventana.setContentText(txt);
-
-        ventana.showAndWait();
-
-        ButtonType result = (ButtonType) ventana.getResult();
-
-        if (result.getText().equals("Aceptar")) {
-            // Se presionó el botón "Aceptar"
-        } else if (result.getText().equals("Huir")) {
-            // Se presionó el botón "Cancelar"
-        } else if (result.getText().equals("Atacar")) {
-            // Se presionó el botón "Atacar"
-            ventana.close(); // Cierra la ventana anterior
-            // Crea una nueva ventana emergente con la información del mosntruo
-            ventana = new Dialog();
-            ventana.setTitle("Monstruo!!!!");
-            txt = m.fichaMonstruo();
-
-            int puntos = App.p.atacar(m);
-
-            txt = m.fichaMonstruo();
-
-            if (puntos > 0) {
-
-                txt += "\n\nAtacas al monstruo y le quitas " + puntos + " de vida";
-                lblPersonaje.setText(App.p.fichaPersonaje());
-            } else {
-                txt += "\n\nEl monstruo consigue esquivar o parar el ataque";
-            }
-            if (!m.estaVivo()) {
-                txt += "\n\nEl monstruo ha muerto";
-                ButtonType aceptarButtonType = new ButtonType("Aceptar");
-                ventana.getDialogPane().getButtonTypes().add(aceptarButtonType);
-                return 1;
-            } else {
-                ButtonType atacarButtonType = new ButtonType("Atacar");
-                ButtonType huirButtonType = new ButtonType("Huir");
-                ventana.getDialogPane().getButtonTypes().addAll(atacarButtonType, huirButtonType);
-            }
-
-            ventana.setContentText(txt);
-
-            ventana.showAndWait();
-
-        } else {
-            // El resultado es otro valor que no se reconoce
-        }
-        return 0;
+        dialog.setContentText(txt);
+        return dialog;
     }
 
+    /* Añade al diálogo los botones Huir y Atacar */
+    private void getDialogHuirAtacar(Dialog ventana) {
+        ButtonType atacarButtonType = new ButtonType("Atacar");
+        ButtonType huirButtonType = new ButtonType("Huir");
+        ventana.getDialogPane().getButtonTypes().addAll(atacarButtonType, huirButtonType);
+    }
+
+    
 }

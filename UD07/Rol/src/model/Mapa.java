@@ -95,12 +95,12 @@ public class Mapa {
 
         // Array de mapas del juego
         public static int[][][] mapas = {
-                      /*  MAPA_10x10,
+                        MAPA_10x10,
                         MAPA_12x12,
                         MAPA_15x10,
                         MAPA_8x8,
 
-                        MAPA_13x14,*/
+                        MAPA_13x14,
                         MAPA_10x20,
                         MAPA_10x12
         };
