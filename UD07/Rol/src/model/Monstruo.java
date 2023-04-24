@@ -73,6 +73,7 @@ public abstract class Monstruo {
         int defensa = enemigo.agilidad + rnd1a100();
         int resultado = ataque - defensa;
 
+        // Limita el resultado a un valor entre 0 y los puntos de vida del enemigo
         if (resultado > enemigo.puntosVida){
             resultado = enemigo.puntosVida;           
         }            
