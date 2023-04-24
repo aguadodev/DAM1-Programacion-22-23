@@ -14,7 +14,7 @@ public class Util {
      * Exporta el personaje p a un fichero "personaje.json"
      * @param t
      */
-    static public void exportarJson(Personaje2 p){
+    static public void exportarJson(Personaje p){
 //        final String filename = "personaje.json";
         final String filename = p.nombre + "-N" + p.nivel + ".json";
         Gson gson = new Gson();
@@ -28,13 +28,13 @@ public class Util {
      * Devuelve un array de Personas cargado desde "agenda.json" o null si hay problemas
      * @return
      */
-    static public Personaje2 importarJson(){
+    static public Personaje importarJson(){
         final String filename = "personaje.json";
         Gson gson = new Gson();
-        Personaje2 p;
+        Personaje p;
         
         String json = readFileToString(filename);
-        p = gson.fromJson(json, Personaje2.class);
+        p = gson.fromJson(json, Personaje.class);
         /*if (p == null)
             p = new Personaje();*/
 

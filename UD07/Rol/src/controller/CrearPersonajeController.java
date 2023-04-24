@@ -3,7 +3,7 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import app2.App;
+import app.App;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;

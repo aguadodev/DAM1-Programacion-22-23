@@ -1,37 +1,49 @@
 package app;
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.Node;
+import model.Monstruo;
+import model.Personaje;
 
 public class App extends Application{
 
-    private static Scene scene;
+    public static Personaje p;
+
+    // Mapa de monstruos: Cada casilla contendrá un monstruo
+    public static Monstruo[][] mapaMonstruos;    
+
+
+    public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Juego de Rol");
+                
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Inicio.fxml"));
 
-        scene = new Scene(new FXMLLoader(App.class.getResource("../view/Inicio.fxml")).load());
+        scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
-    public static void cargarFXML(String fxml) throws IOException {
-        // Método 1: Instanciando un objeto FXMLLoader
-        //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("../view/" + fxml + ".fxml"));
-
-        // Método 2: Usando el método estático load() de FXMLLoader
-        scene.setRoot(FXMLLoader.load(App.class.getResource("/view/" + fxml + ".fxml")));
-        scene.getWindow().sizeToScene();
-    }   
     public static void main(String[] args) {
         launch();
     }
 
- 
+    public static void cargarEscena(String fxml) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(App.class.getResource("/view/" + fxml + ".fxml"));
+            scene.setRoot(root);
+            scene.getWindow().sizeToScene();            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        
+    }    
 }
