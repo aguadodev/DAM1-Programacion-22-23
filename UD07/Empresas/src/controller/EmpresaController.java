@@ -24,21 +24,20 @@ public class EmpresaController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO Cargar empresas iniciales
-        Empresa empresa = new Empresa(1, "Coremain", "https://www.coremain.com/");
+        Empresa empresa1 = new Empresa(1, "Coremain", "https://www.coremain.com/");
         Empresa empresa2 = new Empresa(2, "Dinahosting", "https://www.dinahosting.com/");
-        App.empresas.add(empresa);
-        App.empresas.add(empresa2);
         
-        empresasListView.getItems().addAll(App.empresas);
+        empresasListView.getItems().add(empresa1);
+        empresasListView.getItems().add(empresa2);
     }
 
     @FXML
     void empresasMouseClicked(){
-        int i = empresasListView.getSelectionModel().getSelectedIndex();
+        Empresa empresa = empresasListView.getSelectionModel().getSelectedItem();
 
-        idTextField.setText(String.valueOf(App.empresas.get(i).getId()));
-        nombreTextField.setText(App.empresas.get(i).getNombre());
-        webTextField.setText(App.empresas.get(i).getWeb());
+        idTextField.setText(String.valueOf(empresa.getId()));
+        nombreTextField.setText(empresa.getNombre());
+        webTextField.setText(empresa.getWeb());
 
     }
 
@@ -47,7 +46,6 @@ public class EmpresaController implements Initializable{
         Empresa empresa = new Empresa(Integer.parseInt(idTextField.getText()),
                                     nombreTextField.getText(),
                                     webTextField.getText());
-        App.empresas.add(empresa);
         empresasListView.getItems().add(empresa);
     }
 
@@ -56,12 +54,6 @@ public class EmpresaController implements Initializable{
         Empresa empresa = new Empresa(Integer.parseInt(idTextField.getText()),
         nombreTextField.getText(),
         webTextField.getText());
-
-        if (App.empresas.contains(empresa)){
-
-        } else {
-
-        }
 
     }
 
