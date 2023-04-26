@@ -12,7 +12,7 @@ import java.util.Map;
 public class ViajesCompartidosTest {
 
     private ViajesCompartidos viajesCompartidos;
-    Viaje viaje1, viaje2, viaje3, viaje4, viaje5, viaje6;
+    Viaje viaje1, viaje2, viaje3, viaje4, viaje5, viaje6, viaje7;
     Conductor conductor1, conductor2, conductor3, conductor4;
 
     PuntoEncuentro puntoSalida1, puntoSalida2, puntoSalida3, puntoSalida4, puntoLlegada1, puntoLlegada2, puntoLlegada3,
@@ -54,6 +54,8 @@ public class ViajesCompartidosTest {
         viaje4 = new Viaje(conductor4, LocalDateTime.of(2022, 5, 4, 13, 0), puntoSalida4, puntoLlegada4, 1);
         viaje5 = new Viaje(conductor1, LocalDateTime.of(2023, 4, 26, 14, 0), puntoSalida3, puntoLlegada2, 3);
         viaje6 = new Viaje(conductor1, LocalDateTime.of(2023, 5, 26, 14, 0), puntoSalida3, puntoLlegada4, 3);
+        viaje7 = new Viaje(conductor3, LocalDateTime.of(2023, 4, 26, 9, 0), puntoSalida1, puntoLlegada3, 4);
+
     }
 
     @Test
@@ -77,22 +79,27 @@ public class ViajesCompartidosTest {
         assertTrue(viajesCompartidos.eliminarViaje(viaje1));
     }
 
-  /*  @Test
+    @Test
     public void testObtenerPasajeros() {
+        // Fabriccio -
         viajesCompartidos.agregarViaje(viaje1);
+        viaje1.addPasajero(pasajero1);
+        viaje1.addPasajero(pasajero2);
+        viaje1.addPasajero(pasajero3);
         viajesCompartidos.agregarViaje(viaje2);
-        List<Pasajero> pasajeros1 = new ArrayList<>();
-        pasajeros1.add(pasajero1);
-        pasajeros1.add(pasajero2);
-        pasajeros1.add(pasajero3);
-        List<Pasajero> pasajeros2 = new ArrayList<>();
-        pasajeros2.add(pasajero5);
-        pasajeros2.add(pasajero6);
-        pasajeros2.add(pasajero7);
-        pasajeros2.add(pasajero20);
-        assertEquals(pasajeros1,viajesCompartidos.obtenerPasajeros(viaje1));
-        assertEquals(pasajeros2,viajesCompartidos.obtenerPasajeros(viaje2));
-    }*/
+
+        viaje2.addPasajero(pasajero4);
+        viaje2.addPasajero(pasajero5); // En este viaje solo caben 2 pasajeros
+        viaje2.addPasajero(pasajero6);
+        viaje2.addPasajero(pasajero7);
+        viaje2.addPasajero(pasajero20);
+
+        assertEquals(3, viajesCompartidos.obtenerPasajeros(viaje1).size());
+        assertEquals(2, viajesCompartidos.obtenerPasajeros(viaje2).size());
+        assertTrue(viajesCompartidos.obtenerPasajeros(viaje1).contains(pasajero1));
+        assertTrue(viajesCompartidos.obtenerPasajeros(viaje2).contains(pasajero4));
+
+    }
 
     @Test
     public void testCalcularAsientosDisponibles() {
@@ -189,6 +196,19 @@ public class ViajesCompartidosTest {
 
     @Test
     public void testCapacidadDisponible() {
+        viajesCompartidos.agregarViaje(viaje1);
+        viajesCompartidos.agregarViaje(viaje2);
+        viajesCompartidos.agregarViaje(viaje3);
+        viajesCompartidos.agregarViaje(viaje4);
+        viajesCompartidos.agregarViaje(viaje5);        
+        viajesCompartidos.agregarViaje(viaje6);
+        viajesCompartidos.agregarViaje(viaje7); 
+
+        assertEquals(3, viajesCompartidos.capacidadDisponible(puntoLlegada1, LocalDate.of(2022, 5, 1)));
+        assertEquals(2, viajesCompartidos.capacidadDisponible(puntoLlegada2, LocalDate.of(2022, 5, 2)));
+
+        assertEquals(8, viajesCompartidos.capacidadDisponible(puntoLlegada3, LocalDate.of(2023, 4, 26)));
+        assertEquals(8, viajesCompartidos.capacidadDisponible(puntoLlegada3, LocalDate.of(2023, 4, 26)));
 
     }
 }

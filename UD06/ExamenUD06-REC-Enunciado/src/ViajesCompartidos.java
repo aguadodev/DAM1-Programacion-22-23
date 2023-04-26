@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -45,7 +46,7 @@ public class ViajesCompartidos {
 
     // 3. obtener la lista de todos los pasajeros que van en un determinado viaje.
     public List<Pasajero> obtenerPasajeros(Viaje viaje) {
-        return List.of(viaje.getPasajeros());
+        return Arrays.asList(viaje.getPasajeros());
     }
 
     // 4. calcular la cantidad total de asientos disponibles en todos los viajes de
