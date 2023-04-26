@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,6 +21,8 @@ public class ViajesCompartidos {
     public List<Viaje> getViajes() {
         return viajes;
     }
+
+
 
 
     public void setViajes(List<Viaje> viajes) {
