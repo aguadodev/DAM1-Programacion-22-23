@@ -1,7 +1,5 @@
 import java.time.LocalDateTime;
 
-import org.json.JSONObject;
-
 public class App {
     public static void main(String[] args) {
         // Crea un coche indicando nombre, color, número de plazas y matrícula
