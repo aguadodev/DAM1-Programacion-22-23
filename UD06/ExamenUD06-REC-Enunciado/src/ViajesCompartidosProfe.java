@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ViajesCompartidos {
+public class ViajesCompartidosProfe {
     private List<Viaje> viajes;
 
     public ViajesCompartidos() {

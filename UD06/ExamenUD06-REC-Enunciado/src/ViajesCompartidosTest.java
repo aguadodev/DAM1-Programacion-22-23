@@ -50,7 +50,7 @@ public class ViajesCompartidosTest {
 
         viaje1 = new Viaje(conductor1, LocalDateTime.of(2022, 5, 1, 10, 0), puntoSalida1, puntoLlegada1, 3);
         viaje2 = new Viaje(conductor2, LocalDateTime.of(2022, 5, 2, 11, 30), puntoSalida2, puntoLlegada2, 2);
-        viaje3 = new Viaje(conductor3, LocalDateTime.of(2023, 4, 26, 9, 0), puntoSalida3, puntoLlegada3, 4);
+        viaje3 = new Viaje(conductor3, LocalDateTime.of(2023, 4, 26, 19, 0), puntoSalida3, puntoLlegada3, 4);
         viaje4 = new Viaje(conductor4, LocalDateTime.of(2022, 5, 4, 13, 0), puntoSalida4, puntoLlegada4, 1);
         viaje5 = new Viaje(conductor1, LocalDateTime.of(2023, 4, 26, 14, 0), puntoSalida3, puntoLlegada2, 3);
         viaje6 = new Viaje(conductor1, LocalDateTime.of(2023, 5, 26, 14, 0), puntoSalida3, puntoLlegada4, 3);
@@ -130,11 +130,18 @@ public class ViajesCompartidosTest {
         viajesCompartidos.agregarViaje(viaje3);
         viajesCompartidos.agregarViaje(viaje4);
         viajesCompartidos.agregarViaje(viaje5);
+
+        // Filtra viajes que salen de punto de salida 3 el 26/4/2023
         List<Viaje> viajesFiltrados = viajesCompartidos.getViajesPorOrigenYFecha(puntoSalida3,
                 LocalDate.of(2023, 4, 26));
+
+        // Son dos viajes
         assertEquals(2, viajesFiltrados.size());
-        assertTrue(viajesCompartidos.getViajes().contains(viaje3));
-        assertTrue(viajesCompartidos.getViajes().contains(viaje5));
+
+        // Ordenados ascendentemente por fecha (hora) son el viaje5 y el viaje3
+        assertEquals(viaje5, viajesFiltrados.get(0));
+        assertEquals(viaje3, viajesFiltrados.get(1));
+
     }
 
     @Test
