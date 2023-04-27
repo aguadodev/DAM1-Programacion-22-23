@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -92,6 +94,25 @@ public class EmpresaController implements Initializable {
         } else {
             empresasListView.getItems().remove(i);
         }
+    }
+
+    @FXML
+    void cerrar(){
+        System.exit(0); // Cerrar la aplicación
+    }
+
+    @FXML
+    void acercaDe(){
+        /** CUADRO DE DIÁLOGO CON Alert */
+        /*Alert alert = new Alert(AlertType.INFORMATION, "Gestor de empresas desarrollado en clase de Programación de DAM1. Curso 2022-23");
+        alert.showAndWait();*/
+
+        Dialog dialog = new Dialog();
+        dialog.setTitle("Acerca de...");
+        dialog.setContentText("Gestor de empresas desarrollado en clase de Programación de DAM1. Curso 2022-23");
+        dialog.getDialogPane().getButtonTypes().add(new ButtonType("OK"));
+        dialog.showAndWait();
+
     }
 
 }
