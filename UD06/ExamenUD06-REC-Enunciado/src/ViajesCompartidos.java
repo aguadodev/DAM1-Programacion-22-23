@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,7 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ViajesCompartidosProfe {
+// POSIBLE SOLUCIÓN AL EXAMEN
+public class ViajesCompartidos {
     private List<Viaje> viajes;
 
     public ViajesCompartidos() {
