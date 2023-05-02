@@ -138,8 +138,6 @@ public class MapaController implements Initializable {
         }
     }
 
-
-
     private void manejarTeclaPulsada(KeyEvent event) {
         System.out.println(event.getCode());
 
@@ -148,7 +146,7 @@ public class MapaController implements Initializable {
 
         // Si se ha movido a una fuente
         if (mapa[f][c] == 8) {
-            App.p.curar();  // El personaje recupera los puntos de vida
+            App.p.curar(); // El personaje recupera los puntos de vida
             lblPersonaje.setText(App.p.fichaPersonaje()); // Actualiza la información
             mapa[f][c] = 0; // La fuente desaparece
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -158,20 +156,19 @@ public class MapaController implements Initializable {
             alert.showAndWait();
         }
 
-
         // Si se ha movido a la casilla de salida del mapa
         if (mapa[f][c] == 9) {
             numMapa++;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Enhorabuena!!!!");
             if (numMapa == Mapa.mapas.length) {
-                // Si no hay más mapas => Termina el programa
+                // Si no hay más mapas => Termina el juego con éxito!
                 alert.setContentText(
                         "Enhorabuena has escapado del laberinto!! El juego ha terminado, pulsa el botón para cerrar.");
                 alert.showAndWait();
-                // Terminar Juego
-                Stage stage = (Stage) gridPane.getScene().getWindow();
-                stage.close();
+                // Guarda la puntuación y muestra los récords
+                App.cargarEscena("Records");
+
             } else {
                 // Si hay más mapas => Carga el siguiente Mapa
                 alert.setContentText(
@@ -221,11 +218,6 @@ public class MapaController implements Initializable {
         }
     }
 
-
-
-
-
-
     /**
      * Pinta al personaje en la nueva casilla. Pinta la casilla vieja de blanco
      */
@@ -245,66 +237,81 @@ public class MapaController implements Initializable {
         r.setFill(relleno);
     }
 
+    /**
+     * COMBATE
+     * *****************************************************************************
+     */
 
+    private void combate(int fNueva, int cNueva) {
+        Monstruo monstruo = App.mapaMonstruos[fNueva][cNueva];
 
+        // Pinta el monstruo en el mapa - TODO: Rediseñar usando polimorfismo
+        switch (monstruo.getClass().getSimpleName()) {
+            case "Orco":
+                PintarCasilla(cNueva, fNueva, new ImagePattern(imgOrco));
+                break;
+            case "Dragon":
+                PintarCasilla(cNueva, fNueva, new ImagePattern(imgDragon));
+                break;
+            case "Troll":
+                PintarCasilla(cNueva, fNueva, new ImagePattern(imgTroll));
+                break;
+            case "Aranha":
+                PintarCasilla(cNueva, fNueva, new ImagePattern(imgAranha));
+                break;
+        }
 
+        // COMIENZA EL COMBATE
+        boolean combateActivo = true;
+        // Si el monstruo es más rápido ataca primero
+        if (monstruo.getVelocidad() > App.p.getAgilidad()) {
+            if (ataqueMonstruo(monstruo) != "Atacar") // Si el personaje muere o huye
+                combateActivo = false;
 
-/**  COMBATE  ***************************************************************************** */
+        } else {
+            if (previoAtaqueInicial(monstruo) != "Atacar") // Si el personaje es más rápido y no ataca
+                combateActivo = false;
+        }
 
+        // Mientras el personaje siga atacando...
+        while (combateActivo) {
+            ataquePersonaje(monstruo);
+            if (!monstruo.estaVivo()) {
+                // El monstruo muere
+                combateActivo = false; // Termina el combate
+                App.mapaMonstruos[fNueva][cNueva] = null; // El monstruo desaparece del mapa
+                moverPersonaje(cNueva, fNueva); // El personaje se mueve a la casilla del monstruo
+            } else if (ataqueMonstruo(monstruo) != "Atacar") // Si el personaje muere o huye
+                combateActivo = false;
+        }
 
-private void combate(int fNueva, int cNueva) {
-    Monstruo monstruo = App.mapaMonstruos[fNueva][cNueva];
+        if (!App.p.estaVivo()) {
+            // El personaje muere => Terminar Juego
+            Stage stage = (Stage) gridPane.getScene().getWindow();
+            stage.close();
+        }
 
-    // Pinta el monstruo en el mapa - TODO: Rediseñar usando polimorfismo
-    switch (monstruo.getClass().getSimpleName()) {
-        case "Orco":
-            PintarCasilla(cNueva, fNueva, new ImagePattern(imgOrco));
-            break;
-        case "Dragon":
-            PintarCasilla(cNueva, fNueva, new ImagePattern(imgDragon));
-            break;
-        case "Troll":
-            PintarCasilla(cNueva, fNueva, new ImagePattern(imgTroll));
-            break;
-        case "Aranha":
-            PintarCasilla(cNueva, fNueva, new ImagePattern(imgAranha));
-            break;
+        // Si el personaje huye simplemente no pasa nada...
+        // Al terminar el combate se comprueba si el personaje subió de nivel
+        comprobarNivel();
     }
 
-    // COMIENZA EL COMBATE
-    boolean combateActivo = true;
-    // Si el monstruo es más rápido ataca primero
-    if (monstruo.getVelocidad() > App.p.getAgilidad()) {
-        if (ataqueMonstruo(monstruo) != "Atacar") // Si el personaje muere o huye
-            combateActivo = false;
 
-    } else {
-        if (previoAtaqueInicial(monstruo) != "Atacar") // Si el personaje es más rápido y no ataca
-            combateActivo = false;
+    private void comprobarNivel() {
+        int nivelAnterior = App.p.getNivel();
+        int nuevoNivel = App.p.getNivelSegunPX();
+        if (nuevoNivel > nivelAnterior) {
+            System.out.println("El personaje sube a nivel " + nuevoNivel);
+            for (int i = 0; i < nuevoNivel - nivelAnterior; i++)
+                App.p.subirNivel();
+            lblPersonaje.setText(App.p.fichaPersonaje());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("El personaje sube de nivel!!!!!");
+            alert.setContentText(App.p.getNombre() + " alcanza los " + App.p.getExperiencia()
+                    + " puntos de experiencia y sube a nivel " + nuevoNivel);
+            alert.showAndWait();
+        }
     }
-
-    // Mientras el personaje siga atacando...
-    while (combateActivo) {
-        ataquePersonaje(monstruo);
-        if (!monstruo.estaVivo()) {
-            // El monstruo muere
-            combateActivo = false; // Termina el combate
-            App.mapaMonstruos[fNueva][cNueva] = null; // El monstruo desaparece del mapa
-            moverPersonaje(cNueva, fNueva); // El personaje se mueve a la casilla del monstruo
-        } else if (ataqueMonstruo(monstruo) != "Atacar") // Si el personaje muere o huye
-            combateActivo = false;
-    }
-
-    if (!App.p.estaVivo()) {
-        // El personaje muere => Terminar Juego
-        Stage stage = (Stage) gridPane.getScene().getWindow();
-        stage.close();
-    }
-
-    // Si el personaje huye simplemente no pasa nada...
-}
-
-
 
 
     String previoAtaqueInicial(Monstruo m) {
@@ -397,5 +404,4 @@ private void combate(int fNueva, int cNueva) {
         ventana.getDialogPane().getButtonTypes().addAll(atacarButtonType, huirButtonType);
     }
 
-    
 }

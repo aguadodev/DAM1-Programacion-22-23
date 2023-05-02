@@ -3,9 +3,12 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.w3c.dom.css.CSSMediaRule;
+
 import app.App;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -49,7 +52,6 @@ public class CrearPersonajeController implements Initializable{
         p.setRaza(cmbRaza.getValue());
         p.mostrar();
         App.cargarEscena("Mapa");
-
      }
     
 

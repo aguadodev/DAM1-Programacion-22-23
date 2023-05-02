@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\Óscar\Documents\0.PROFESOR\PROGRAMACIÓN\DAM1-Programacion-22-23\UD07\Empresas\Empresas.jar</jar>
-  <outfile>C:\Users\Óscar\Documents\0.PROFESOR\PROGRAMACIÓN\DAM1-Programacion-22-23\UD07\Empresas\Empresas.exe</outfile>
+  <jar>C:\Users\Óscar\Documents\0.PROFESOR\PROGRAMACIÓN\DAM1-Programacion-22-23\UD07\Pruebas Compilar JavaFX\Pruebas Compilar JavaFX.jar</jar>
+  <outfile>C:\Users\Óscar\Documents\0.PROFESOR\PROGRAMACIÓN\DAM1-Programacion-22-23\UD07\Pruebas Compilar JavaFX\Pruebas Compilar JavaFX.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>

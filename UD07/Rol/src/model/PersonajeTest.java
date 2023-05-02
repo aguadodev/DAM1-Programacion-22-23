@@ -1,3 +1,33 @@
+package model;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
+import org.junit.Test;
+
+public class PersonajeTest {
+
+    Personaje p;
+
+    @Before
+    public void setUp() {
+        p = new Personaje(null, "HUMANO");
+    }
+
+    @Test
+    public void testGetNivelSegunPX() {
+        p.setExperiencia(0);
+        assertEquals(1, p.getNivelSegunPX());
+        p.setExperiencia(101);
+        assertEquals(2, p.getNivelSegunPX());
+        p.setExperiencia(251);
+        assertEquals(3, p.getNivelSegunPX());
+        p.setExperiencia(451);
+        assertEquals(4, p.getNivelSegunPX());
+        p.setExperiencia(701);
+        assertEquals(5, p.getNivelSegunPX());
+    }
+}
 /*package model;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;

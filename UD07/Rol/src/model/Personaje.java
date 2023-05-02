@@ -4,6 +4,9 @@ import java.util.Arrays;
 
 public class Personaje {
 
+    // Puntos de experiencia necesarios para subia nivel 2, 3, 4, 5, 6, ...
+    public int[] PX_NIVEL = {100, 250, 450, 700, 1000, 1400, 1900, 2500};
+
     protected String nombre;
 
     public enum Raza {
@@ -61,9 +64,13 @@ public class Personaje {
         this(nombre, raza, rnd1a100(), rnd1a100(), rnd1a100());
     }
 
+
+
     static int rnd1a100() {
         return (int) (Math.random() * 100 + 1);
     }
+
+
 
     public void mostrar() {
         System.out.println("PERSONAJE: " + nombre);
@@ -104,6 +111,9 @@ public class Personaje {
                 && constitucion == otro.constitucion;
     }
 
+
+
+
     public boolean sumarExperiencia(int puntos) {
         int nivelAnterior = experiencia / 1000;
 
@@ -119,7 +129,21 @@ public class Personaje {
         fuerza = (int) Math.round(fuerza * 1.05);
         agilidad = (int) Math.round(agilidad * 1.05);
         constitucion = (int) Math.round(constitucion * 1.05);
+        puntosVida += (int) Math.round(constitucion * .05);
     }
+
+
+    public int getNivelSegunPX(){
+        // Recorre la tabla de puntos de experiencia por nivel para obtener el nivel
+        // que corresponde al personaje según los puntos actuales.
+        int i = 0;
+        while (i < PX_NIVEL.length && experiencia > PX_NIVEL[i]){
+            i++;
+        }
+        i++;
+        return i;
+    }
+
 
     public void curar() {
         if (puntosVida < constitucion + 50)
