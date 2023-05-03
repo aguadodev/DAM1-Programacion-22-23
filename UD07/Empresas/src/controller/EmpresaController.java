@@ -109,7 +109,7 @@ public class EmpresaController implements Initializable {
     }
 
     @FXML
-    void guardar(Event e) {
+    void guardar() {
         if (ficheroActual != null){
             /*Ya estoy trabajando con un fichero*/
             /* Guardo la lista en el fichero */
@@ -117,12 +117,12 @@ public class EmpresaController implements Initializable {
             guardarFichero(ficheroActual);
           
         } else {
-            guardarComo(e);
+            guardarComo();
         }
     }
 
     @FXML
-    void guardarComo(Event e) {
+    void guardarComo() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("."));
         // fileChooser.setSelectedExtensionFilter());
@@ -146,7 +146,7 @@ public class EmpresaController implements Initializable {
     }
 
     @FXML
-    void abrir(Event e) {
+    void abrir() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("."));
         // fileChooser.setSelectedExtensionFilter());
