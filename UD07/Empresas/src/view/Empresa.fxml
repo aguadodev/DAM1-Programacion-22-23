@@ -21,6 +21,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="Fichero">
             <items>
+                  <MenuItem mnemonicParsing="false" onAction="#abrir" text="Abrir..." />
+                  <MenuItem mnemonicParsing="false" onAction="#guardar" text="Guardar" />
               <MenuItem mnemonicParsing="false" onAction="#guardarComo" text="Guardar como..." />
                   <MenuItem mnemonicParsing="false" onAction="#cerrar" text="Cerrar" />
             </items>

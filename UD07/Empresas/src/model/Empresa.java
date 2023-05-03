@@ -34,6 +34,10 @@ public class Empresa {
         this.web = web;
     }
 
+    public String toCsv(){
+        return id + "," + nombre + "," + web;
+    }
+
     @Override
     public String toString() {
         return id + " - " + nombre;

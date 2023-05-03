@@ -1,6 +1,9 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -31,17 +34,19 @@ public class EmpresaController implements Initializable {
     @FXML
     TextField idTextField, nombreTextField, webTextField;
 
+    File ficheroActual;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO Cargar empresas iniciales en el ListView
-        Empresa empresa1 = new Empresa(1, "Coremain", "https://www.coremain.com/");
+        /*Empresa empresa1 = new Empresa(1, "Coremain", "https://www.coremain.com/");
         Empresa empresa2 = new Empresa(2, "Dinahosting", "https://www.dinahosting.com/");
 
         empresasListView.getItems().add(empresa1);
-        empresasListView.getItems().add(empresa2);
+        empresasListView.getItems().add(empresa2);*/
 
         empresasListView.getSelectionModel().selectedItemProperty().addListener(
-            (obs, oldSelection, newSelection) -> empresaSeleccionada(newSelection));
+                (obs, oldSelection, newSelection) -> empresaSeleccionada(newSelection));
 
     }
 
@@ -64,7 +69,7 @@ public class EmpresaController implements Initializable {
         if (empresasListView.getItems().contains(empresa)) {
             // La empresa ya existe
             Alert alert = new Alert(AlertType.ERROR, "Ya existe una emprea con ese ID");
-            alert.showAndWait();            
+            alert.showAndWait();
         } else {
             empresasListView.getItems().add(empresa);
         }
@@ -81,7 +86,7 @@ public class EmpresaController implements Initializable {
         if (i == -1) {
             // La empresa no existe
             Alert alert = new Alert(AlertType.ERROR, "No existe una emprea con ese ID");
-            alert.showAndWait();            
+            alert.showAndWait();
         } else {
             empresasListView.getItems().set(i, empresa);
         }
@@ -104,33 +109,80 @@ public class EmpresaController implements Initializable {
     }
 
     @FXML
-    void guardarComo(Event e){
-        FileChooser fileChooser = new FileChooser();
-        //fileChooser.setSelectedExtensionFilter());
-        //Node n = (Node)e.getSource();
-        // n.getScene().getWindow()
-        
-        File fichero = fileChooser.showSaveDialog(null);
-
-        // Guardar en este fichero la lista de empresas en formato CSV
-        System.out.println(fichero);
-        try (FileWriter file = new FileWriter(fichero)) {
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+    void guardar(Event e) {
+        if (ficheroActual != null){
+            /*Ya estoy trabajando con un fichero*/
+            /* Guardo la lista en el fichero */
+            System.out.println("Guardar fichero");
+            guardarFichero(ficheroActual);
+          
+        } else {
+            guardarComo(e);
         }
     }
 
     @FXML
-    void cerrar(){
+    void guardarComo(Event e) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("."));
+        // fileChooser.setSelectedExtensionFilter());
+
+        File fichero = fileChooser.showSaveDialog(null);
+        // Guardar en este fichero la lista de empresas en formato CSV
+        System.out.println(fichero);
+        guardarFichero(fichero);
+    }
+
+    private void guardarFichero(File fichero) {
+        try (BufferedWriter ficheroSalida = new BufferedWriter(new FileWriter(fichero))) {
+            ficheroActual = fichero; // Actualiza la referencia al fichero de trabajo actual
+            for (Empresa empresa : empresasListView.getItems()) {
+                ficheroSalida.write(empresa.toCsv());
+                ficheroSalida.newLine();
+            }
+        } catch (IOException e1) {
+            e1.getMessage();
+        }          
+    }
+
+    @FXML
+    void abrir(Event e) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("."));
+        // fileChooser.setSelectedExtensionFilter());
+
+        File fichero = fileChooser.showOpenDialog(null);
+
+        try (BufferedReader ficheroEntrada = new BufferedReader(new FileReader(fichero))) {
+            ficheroActual = fichero;  // Actualiza la referencia al fichero de trabajo actual
+            empresasListView.getItems().clear();
+            String linea = ficheroEntrada.readLine();
+            while (linea != null){
+                String[] campos = linea.split(",");
+                Empresa empresa = new Empresa(Integer.parseInt(campos[0]), campos[1], campos[2]);
+                empresasListView.getItems().add(empresa);
+                linea = ficheroEntrada.readLine();
+            }
+        } catch (IOException e1) {
+            e1.getMessage();
+        }        
+        
+    }
+
+    @FXML
+    void cerrar() {
         System.exit(0); // Cerrar la aplicación
     }
 
     @FXML
-    void acercaDe(){
+    void acercaDe() {
         /** CUADRO DE DIÁLOGO CON Alert */
-        /*Alert alert = new Alert(AlertType.INFORMATION, "Gestor de empresas desarrollado en clase de Programación de DAM1. Curso 2022-23");
-        alert.showAndWait();*/
+        /*
+         * Alert alert = new Alert(AlertType.INFORMATION,
+         * "Gestor de empresas desarrollado en clase de Programación de DAM1. Curso 2022-23"
+         * );
+         * alert.showAndWait();
+         */
 
         Dialog dialog = new Dialog();
         dialog.setTitle("Acerca de...");
