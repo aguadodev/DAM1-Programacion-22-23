@@ -2,6 +2,13 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/**/*.jar",
+        "lib\\mysql-connector-java-8.0.30.jar",
+        "lib\\eclipselink\\jlib\\jpa\\jakarta.annotation-api.jar",
+        "lib\\eclipselink\\jlib\\jpa\\jakarta.persistence-api.jar",
+        "lib\\eclipselink\\jlib\\jpa\\org.eclipse.persistence.jpa.modelgen.processor.jar",
+        "lib\\eclipselink\\jlib\\jpa\\org.eclipse.persistence.jpars.jar",
+        "lib\\eclipselink\\jlib\\eclipselink.jar",
+        "lib\\eclipselink\\jlib\\eclipselink-sources.jar"
     ]
 }
