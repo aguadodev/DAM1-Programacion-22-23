@@ -5,7 +5,6 @@ public class Jugador implements Serializable {
     String nombre;
     int edad;
     double estatura;
-
     
     public Jugador() {
     }
