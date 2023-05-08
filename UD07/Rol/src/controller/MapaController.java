@@ -1,5 +1,9 @@
 package controller;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -175,10 +179,34 @@ public class MapaController implements Initializable {
                         "Enhorabuena has escapado del laberinto!! Continúa en el siguiente mapa...");
                 alert.showAndWait();
 
+                // Guardar Partida
+                try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("save.dat"))) {
+                    out.writeObject(App.p);
+                    out.writeInt(numMapa);                    
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+
+                // Cargar nuevo Mapa
                 cargarMapa();
             }
         }
     }
+
+    @FXML
+    public void cargarPartida(){
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("save.dat"))) {
+            App.p = (Personaje) (in.readObject());
+            lblPersonaje.setText(App.p.fichaPersonaje());
+            numMapa = in.readInt();   
+            cargarMapa(); // Cargar nuevo Mapa                  
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e);
+        }
+        
+    }
+
 
     /**
      * 

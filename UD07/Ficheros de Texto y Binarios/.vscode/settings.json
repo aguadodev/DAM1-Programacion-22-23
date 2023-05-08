@@ -3,6 +3,6 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "d:\\Oscar\\jaxb-ri-2.3.1\\jaxb-ri\\mod\\*.jar"
+        "D:\\Oscar\\Portables\\jaxb-ri-2.3.1\\jaxb-ri\\mod\\*.jar"
     ]
 }

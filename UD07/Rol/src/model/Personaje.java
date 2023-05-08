@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Personaje {
+public class Personaje implements Serializable{
 
     // Puntos de experiencia necesarios para subia nivel 2, 3, 4, 5, 6, ...
     public int[] PX_NIVEL = {100, 250, 450, 700, 1000, 1400, 1900, 2500};
