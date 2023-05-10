@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InicioController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Fichero">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Abrir..." />
+                  <MenuItem mnemonicParsing="false" text="Guardar" />
+              <MenuItem mnemonicParsing="false" text="Guardar como..." />
+                  <MenuItem mnemonicParsing="false" text="Exportar CSV..." />
+                  <MenuItem mnemonicParsing="false" onAction="#cerrar" text="Cerrar" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Editar">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Agregar" />
+                  <MenuItem mnemonicParsing="false" text="Actualizar" />
+                  <MenuItem mnemonicParsing="false" text="Borrar" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Ayuda">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#acercaDe" text="Acerca de..." />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="557.0">
+         <children>
+            <AnchorPane layoutX="293.0" layoutY="14.0" prefHeight="161.0" prefWidth="250.0">
+               <children>
+                  <Label layoutX="9.0" layoutY="54.0" text="Username" />
+                  <Label layoutX="8.0" layoutY="85.0" text="Password" />
+                  <TextField fx:id="userRegistroTextField" layoutX="81.0" layoutY="50.0" />
+                  <TextField fx:id="passRegistroTextField" layoutX="81.0" layoutY="81.0" />
+                  <Button fx:id="registrarseButton" layoutX="156.0" layoutY="122.0" mnemonicParsing="false" onAction="#registrarse" text="Registrarse" />
+                  <Label layoutX="5.0" text="Registrarse">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="161.0" prefWidth="250.0">
+               <children>
+                  <Label layoutX="9.0" layoutY="54.0" text="Username" />
+                  <Label layoutX="8.0" layoutY="85.0" text="Password" />
+                  <TextField fx:id="userLoginTextField" layoutX="81.0" layoutY="50.0" />
+                  <TextField fx:id="passLoginTextField" layoutX="81.0" layoutY="81.0" />
+                  <Button fx:id="loginButton" layoutX="144.0" layoutY="122.0" mnemonicParsing="false" onAction="#iniciarSesion" text="Iniciar Sesión" />
+                  <Label layoutX="8.0" text="Iniciar Sesión">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0">
+         <children>
+            <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="11.0" fx:id="x3" />
+               </font>
+               <textFill>
+                  <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
+               </textFill>
+            </Label>
+            <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+            <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+         </children>
+         <padding>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>
