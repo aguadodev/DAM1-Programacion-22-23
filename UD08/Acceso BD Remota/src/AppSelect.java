@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
-public class App {
+public class AppSelect {
     public static void main(String[] args) throws Exception {
         System.out.println("Accediendo a BD MySQL");
 
