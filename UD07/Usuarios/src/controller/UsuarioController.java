@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -53,12 +55,27 @@ public class UsuarioController implements Initializable {
 
     }
 
+public static String hash(String input) {
+    try {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] digest = md.digest(input.getBytes());
+        StringBuffer sb = new StringBuffer();
+        for (byte b : digest) {
+            sb.append(String.format("%02x", b & 0xff));
+        }
+        return sb.toString();
+    } catch (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+        return null;
+    }
+}
     @FXML
     void agregar() {
         // Crea una usuario con los datos de los campos de texto
+        String hashPassword = hash(passwordTextField.getText());
         Usuario usuario = new Usuario(
                 usernameTextField.getText(),
-                passwordTextField.getText());
+                hashPassword);
 
         if (usuariosListView.getItems().contains(usuario)) {
             // La usuario ya existe

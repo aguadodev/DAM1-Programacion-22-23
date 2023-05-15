@@ -30,8 +30,6 @@ public class Usuario implements Serializable{
         this.password = password;
     }
 
-
-
     
     public String toCsv(){
         return username + "," + password;
