@@ -2,8 +2,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
-public class Actividad141 {
+public class Actividad143 {
     public static void main(String[] args) {
 
         String url = "jdbc:mysql://" + Conexion.HOST + "/" + Conexion.DATABASE;
@@ -13,16 +14,18 @@ public class Actividad141 {
 
             Statement sentencia = con.createStatement();
 
-            String curso = "15";
 
-            String sql = "UPDATE Alumnos SET media = media + 1 WHERE curso = " + curso;
+            System.out.print("Introduce el curso de alumnos que se borrarán: ");
+            String curso = new Scanner(System.in).nextLine();
 
+            String sql = "DELETE FROM Alumnos WHERE curso = " + curso;
+            System.out.println(sql);
             int n = sentencia.executeUpdate(sql);
             System.out.println(n);
 
             con.close();
 
-            System.out.println("Se ha modificado la nota media.");
+            System.out.println("Se han eliminado datos.");
 
         } catch (SQLException ex) {
             System.out.println("Ha ocurrido algún error.");
