@@ -8,8 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application{
-    static EntityManagerFactory emf;
-    static EntityManager em;
+    public static EntityManagerFactory emf;
+    public static EntityManager em;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -22,8 +22,8 @@ public class App extends Application{
         // Este código cargará la unidad de persistencia, conectará con la base de datos remota y
         // creará, si no existe, el esquema definido por las clases persistentes, es decir,
         // Creará la tabla Persona mapeada con la clase Persona.
-        /*emf = Persistence.createEntityManagerFactory("miUnidadDePersistencia");
-        em = emf.createEntityManager();    */     
+        emf = Persistence.createEntityManagerFactory("miUnidadDePersistencia");
+        em = emf.createEntityManager();        
         launch();
     }
 

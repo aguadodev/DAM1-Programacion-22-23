@@ -22,6 +22,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Persona;
+import app.App;
+import jakarta.persistence.EntityTransaction;
 
 /**
  * PersonaController
@@ -61,6 +63,11 @@ public class PersonaController implements Initializable {
                 nombreTextField.getText(),
                 telefonoTextField.getText(), 
                 emailTextField.getText());
+
+        EntityTransaction tx = App.em.getTransaction();
+        tx.begin();
+        App.em.persist(persona);
+        tx.commit();
 
         if (personasListView.getItems().contains(persona)) {
             // La persona ya existe
