@@ -127,8 +127,6 @@ public class PersonaController implements Initializable {
             em.remove(p);
             tx.commit();
         }
-
-        em.
 /*
         int i = personasListView.getItems().indexOf(persona);
         if (i == -1) {
