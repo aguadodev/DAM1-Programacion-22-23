@@ -9,21 +9,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.event.Event;
+import app.App;
+import static app.App.em;
+import jakarta.persistence.EntityTransaction;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.Alert.AlertType;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import model.Persona;
-import app.App;
-import jakarta.persistence.EntityTransaction;
 
 /**
  * PersonaController
@@ -57,6 +55,18 @@ public class PersonaController implements Initializable {
     }
 
     @FXML
+    void buscar() {
+        Persona p = App.em.find(Persona.class, dniTextField.getText());
+        if (p == null){
+            System.out.println("No se encuentra el DNI");
+        } else {
+            nombreTextField.setText(p.getNombre());
+            telefonoTextField.setText(p.getTelefono());
+            emailTextField.setText(p.getEmail());    
+        }
+    }
+
+    @FXML
     void agregar() {
         // Crea una persona con los datos de los campos de texto
         Persona persona = new Persona(dniTextField.getText(),
@@ -81,11 +91,20 @@ public class PersonaController implements Initializable {
 
     @FXML
     void actualizar() {
-        Persona persona = new Persona(dniTextField.getText(),
-                nombreTextField.getText(),
-                telefonoTextField.getText(), 
-                emailTextField.getText());
+        Persona p = App.em.find(Persona.class, dniTextField.getText());
+        if (p == null){
+            System.out.println("No se encuentra el DNI");
+        } else {
+            EntityTransaction tx = App.em.getTransaction();
+            tx.begin();
+            p.setNombre(nombreTextField.getText());
+            p.setTelefono(telefonoTextField.getText());
+            p.setEmail(emailTextField.getText());            
+            tx.commit();
+        }
 
+
+        /*
         int i = personasListView.getItems().indexOf(persona);
         if (i == -1) {
             // La persona no existe
@@ -94,15 +113,23 @@ public class PersonaController implements Initializable {
         } else {
             personasListView.getItems().set(i, persona);
         }
+        */
     }
 
     @FXML
     void borrar() {
-        Persona persona = new Persona(dniTextField.getText(),
-                nombreTextField.getText(),
-                telefonoTextField.getText(), 
-                emailTextField.getText());
+        Persona p = App.em.find(Persona.class, dniTextField.getText());
+        if (p == null){
+            System.out.println("No se encuentra el DNI");
+        } else {
+            EntityTransaction tx = App.em.getTransaction();
+            tx.begin();
+            em.remove(p);
+            tx.commit();
+        }
 
+        em.
+/*
         int i = personasListView.getItems().indexOf(persona);
         if (i == -1) {
             // La persona no existe
@@ -111,6 +138,7 @@ public class PersonaController implements Initializable {
         } else {
             personasListView.getItems().remove(i);
         }
+        */
     }
 
     @FXML
