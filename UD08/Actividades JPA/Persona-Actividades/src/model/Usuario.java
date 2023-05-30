@@ -1,20 +1,26 @@
 package model;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Usuario {
+public class Usuario implements Serializable{
     @Id
     String username;
-    String password;   
-
+    String password;
+    LocalDateTime createdAt;
+    LocalDateTime lastLogin;
+    
     public Usuario() {
     }
 
     public Usuario(String username, String password) {
         this.username = username;
         this.password = password;
+        this.createdAt = LocalDateTime.now();
     }
 
     public String getUsername() {
@@ -33,13 +39,14 @@ public class Usuario {
         this.password = password;
     }
 
+    
     public String toCsv(){
         return username + "," + password;
     }
 
     @Override
     public String toString() {
-        return username + " - " + password;
+        return username;
     }
 
 
@@ -66,6 +73,14 @@ public class Usuario {
         } else if (!username.equals(other.username))
             return false;
         return true;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
     
 }

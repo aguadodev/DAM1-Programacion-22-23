@@ -9,9 +9,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import app.App;
-import static app.App.em;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -22,6 +24,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import model.Persona;
+import java.util.List;
 
 /**
  * PersonaController
@@ -39,6 +42,15 @@ public class PersonaController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO Cargar personas iniciales en el ListView
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUnidadDePersistencia");
+        EntityManager em = emf.createEntityManager();          
+        String jpql = "SELECT p FROM Persona p";
+        Query query = em.createQuery(jpql);
+        List<Persona> personas = query.getResultList();
+
+        for (Persona p : personas) {
+            personasListView.getItems().add(p);
+        }
 
         personasListView.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldSelection, newSelection) -> personaSeleccionada(newSelection));
@@ -56,7 +68,9 @@ public class PersonaController implements Initializable {
 
     @FXML
     void buscar() {
-        Persona p = App.em.find(Persona.class, dniTextField.getText());
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUnidadDePersistencia");
+        EntityManager em = emf.createEntityManager();          
+        Persona p = em.find(Persona.class, dniTextField.getText());
         if (p == null){
             System.out.println("No se encuentra el DNI");
         } else {
@@ -74,9 +88,11 @@ public class PersonaController implements Initializable {
                 telefonoTextField.getText(), 
                 emailTextField.getText());
 
-        EntityTransaction tx = App.em.getTransaction();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUnidadDePersistencia");
+        EntityManager em = emf.createEntityManager();  
+        EntityTransaction tx = em.getTransaction();
         tx.begin();
-        App.em.persist(persona);
+        em.persist(persona);
         tx.commit();
 
         if (personasListView.getItems().contains(persona)) {
@@ -91,11 +107,13 @@ public class PersonaController implements Initializable {
 
     @FXML
     void actualizar() {
-        Persona p = App.em.find(Persona.class, dniTextField.getText());
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUnidadDePersistencia");
+        EntityManager em = emf.createEntityManager();  
+        Persona p = em.find(Persona.class, dniTextField.getText());
         if (p == null){
             System.out.println("No se encuentra el DNI");
         } else {
-            EntityTransaction tx = App.em.getTransaction();
+            EntityTransaction tx = em.getTransaction();
             tx.begin();
             p.setNombre(nombreTextField.getText());
             p.setTelefono(telefonoTextField.getText());
@@ -118,11 +136,14 @@ public class PersonaController implements Initializable {
 
     @FXML
     void borrar() {
-        Persona p = App.em.find(Persona.class, dniTextField.getText());
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUnidadDePersistencia");
+        EntityManager em = emf.createEntityManager();  
+
+        Persona p = em.find(Persona.class, dniTextField.getText());
         if (p == null){
             System.out.println("No se encuentra el DNI");
         } else {
-            EntityTransaction tx = App.em.getTransaction();
+            EntityTransaction tx = em.getTransaction();
             tx.begin();
             em.remove(p);
             tx.commit();
