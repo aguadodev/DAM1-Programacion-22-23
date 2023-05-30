@@ -57,12 +57,16 @@ public class InicioController implements Initializable {
             if (usuario.getPassword().equals(passLoginTextField.getText())) {
                     System.out.println("Login OK!!");
                     // TODO Actualizar lastLogin
-                    // TODO Log
+                    // TODO Log de accesos OK
                     App.usuario = usuario;
+                    // TODO Cambiar vista
                 } else {
                     System.out.println("ERROR DE PASSWORD");
+                    // TODO Log de accesos OK
+                    // TODO Mostrar mensaje de error
                 }
             } 
+            // TODO Acceso "admin"??
             /*else if ("admin".equals(userLoginTextField.getText()) && "abc123.,".equals(passLoginTextField.getText())){
                 // Inicio sesión con ADMIN por defecto
                 System.out.println("Inicio sesión con ADMIN por defecto");
@@ -89,7 +93,7 @@ public class InicioController implements Initializable {
 
         Dialog dialog = new Dialog();
         dialog.setTitle("Acerca de...");
-        dialog.setContentText("Gestor de usuarios desarrollado en clase de Programación de DAM1. Curso 2022-23");
+        dialog.setContentText("Aplicación desarrollada en clase de Programación de DAM1. Curso 2022-23");
         dialog.getDialogPane().getButtonTypes().add(new ButtonType("OK"));
         dialog.showAndWait();
 

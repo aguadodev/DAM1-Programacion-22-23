@@ -14,7 +14,7 @@ public class UsuarioDAO {
         private EntityManager em;
     
         public UsuarioDAO() {
-            emf = Persistence.createEntityManagerFactory("miUnidadDePersistencia"); // Reemplaza "nombreUnidadPersistencia" con el nombre de tu unidad de persistencia en persistence.xml
+            emf = Persistence.createEntityManagerFactory("miUnidadDePersistencia"); 
             em = emf.createEntityManager();
         }
     
