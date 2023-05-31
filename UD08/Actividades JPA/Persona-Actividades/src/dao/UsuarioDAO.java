@@ -18,10 +18,17 @@ public class UsuarioDAO {
             em = emf.createEntityManager();
         }
     
-        public void crearUsuario(Usuario usuario) {
-            em.getTransaction().begin();
-            em.persist(usuario);
-            em.getTransaction().commit();
+        public boolean crearUsuario(Usuario usuario) {
+            boolean res = false;
+            try {
+                em.getTransaction().begin();
+                em.persist(usuario);
+                em.getTransaction().commit();
+                res = true;
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+            return res;
         }
     
         public void actualizarUsuario(Usuario usuario) {

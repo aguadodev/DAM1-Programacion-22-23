@@ -3,8 +3,10 @@ package model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Actividad {
@@ -15,13 +17,36 @@ public class Actividad {
     LocalDateTime fechaHoraInicio;
     LocalDateTime fechaHoraFin;
     String lugar; // TODO: cambiar a coordenadas GMaps?
+//    @ManyToOne (cascade = {CascadeType.REMOVE}) // Así, al borrar la actividad, borraría el organizador
     Usuario organizador;
     int plazas;
+    @ManyToMany (cascade = {CascadeType.REMOVE}) // Al borrar la actividad, 
+    // borraría todos los participantes también de la tabla Usuario??
     List<Usuario> participantes;
 
 
     
     public Actividad() {
+    }
+
+
+
+    public Actividad(String titulo, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin,
+            String lugar, int plazas, String descripcion, Usuario organizador) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.fechaHoraInicio = fechaHoraInicio;
+        this.fechaHoraFin = fechaHoraFin;
+        this.lugar = lugar;
+        this.organizador = organizador;
+        this.plazas = plazas;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return titulo + " (" + fechaHoraInicio + "). Plazas: " + plazas + "]";
     }
 
 

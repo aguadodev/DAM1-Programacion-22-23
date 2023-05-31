@@ -1,16 +1,21 @@
 package controller;
 
-import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import app.App;
 import dao.UsuarioDAO;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.Usuario;
 
@@ -18,14 +23,11 @@ import model.Usuario;
  * usuarioController
  */
 public class InicioController implements Initializable {
+    @FXML
+    private TextField userTextField;
 
     @FXML
-    ListView<Usuario> usuariosListView;
-
-    @FXML
-    TextField userLoginTextField, passLoginTextField, userRegistroTextField, passRegistroTextField;
-
-    File ficheroActual;
+    private PasswordField passPasswordField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,36 +36,43 @@ public class InicioController implements Initializable {
 
     @FXML
     void registrarse() {
-        if ("".equals(userRegistroTextField.getText()) ||
-                "".equals(passRegistroTextField.getText())) {
-            System.out.println("Los campos de registro no pueden estar vacíos");
+        if ("".equals(userTextField.getText()) ||
+                "".equals(passPasswordField.getText())) {
+                    alert(AlertType.ERROR,"Los campos de login no pueden estar vacíos");
         } else {
             UsuarioDAO uDAO = new UsuarioDAO();
-            uDAO.crearUsuario(new Usuario(userRegistroTextField.getText(), passRegistroTextField.getText()));
-
+            if (uDAO.crearUsuario(new Usuario(userTextField.getText(), passPasswordField.getText()))){
+                alert(AlertType.CONFIRMATION,"El usuario se ha creado correctamente");
+            } else {
+                alert(AlertType.ERROR,"Error al crear el usaurio"); // El usuario ya existe
+            }
         }
     }
 
 
-
     @FXML
-    void iniciarSesion() {
-        if ("".equals(userLoginTextField.getText()) ||
-                "".equals(passLoginTextField.getText())) {
-            System.out.println("Los campos de login no pueden estar vacíos");
+    void iniciarSesion() throws IOException {
+        if ("".equals(userTextField.getText()) ||
+                "".equals(passPasswordField.getText())) {
+                    alert(AlertType.ERROR,"Los campos de login no pueden estar vacíos");
         } else {
             UsuarioDAO uDAO = new UsuarioDAO();
-            Usuario usuario = uDAO.obtenerUsuario(userLoginTextField.getText());
-            if (usuario.getPassword().equals(passLoginTextField.getText())) {
+            Usuario usuario = uDAO.obtenerUsuario(userTextField.getText());
+            if (usuario != null && usuario.getPassword().equals(passPasswordField.getText())) {
                     System.out.println("Login OK!!");
-                    // TODO Actualizar lastLogin
+                    // Actualizar lastLogin
+                    usuario.setLastLogin(LocalDateTime.now());
+                    uDAO.actualizarUsuario(usuario);
                     // TODO Log de accesos OK
                     App.usuario = usuario;
-                    // TODO Cambiar vista
+                    // Cambiar vista
+                    App.stage.setTitle("App - Actividades");
+                    App.stage.setScene(new Scene(FXMLLoader.load(App.class.getResource("/view/Actividades.fxml"))));
                 } else {
-                    System.out.println("ERROR DE PASSWORD");
+                    System.out.println("ERROR DE ACCESO");
                     // TODO Log de accesos OK
-                    // TODO Mostrar mensaje de error
+                    // Mostrar mensaje de error
+                    alert(AlertType.ERROR,"ERROR DE ACCESO");
                 }
             } 
             // TODO Acceso "admin"??
@@ -99,4 +108,8 @@ public class InicioController implements Initializable {
 
     }
 
+    private void alert(AlertType alertType, String str) {
+    Alert alert = new Alert(alertType, str);
+    alert.showAndWait();
+}
 }

@@ -6,12 +6,10 @@ import java.util.ResourceBundle;
 import app.App;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.Usuario;
 
@@ -20,25 +18,25 @@ import model.Usuario;
  */
 public class PerfilUsuarioController implements Initializable {
 
-    @FXML
-    ListView<Usuario> usuariosListView;
 
     @FXML
-    TextField usernameTextField, passwordTextField;
-
+    private TextField usernameTextField;
     @FXML
-    Label fechaHoraAltaLabel;
+    private PasswordField passPasswordField;
+    @FXML
+    private Label createdAtLabel;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         usernameTextField.setText(App.usuario.getUsername());
-        fechaHoraAltaLabel.setText(App.usuario.getCreatedAt().toString());
+        createdAtLabel.setText(App.usuario.getCreatedAt().toString());
     }
 
     @FXML
     void actualizar() {
         if ("".equals(usernameTextField.getText()) ||
-                "".equals(passwordTextField.getText())) {
+                "".equals(passPasswordField.getText())) {
             System.out.println("Los campos de registro no pueden estar vacíos");
         } else {
             //App.cargarUsuarios();
@@ -53,16 +51,7 @@ public class PerfilUsuarioController implements Initializable {
     void borrar() {
         Usuario usuario = new Usuario(
                 usernameTextField.getText(),
-                passwordTextField.getText());
-
-        int i = usuariosListView.getItems().indexOf(usuario);
-        if (i == -1) {
-            // La usuario no existe
-            Alert alert = new Alert(AlertType.ERROR, "No existe una usuario con ese username");
-            alert.showAndWait();
-        } else {
-            usuariosListView.getItems().remove(i);
-        }
+                passPasswordField.getText());
     }
 
 
