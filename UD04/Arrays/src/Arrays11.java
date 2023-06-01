@@ -1,5 +1,9 @@
 import java.util.Scanner;
-
+/*
+ * Escribe un programa en Java que implemente un juego de tres en raya. 
+ * El programa debe permitir a dos jugadores jugar al juego turnándose para colocar fichas en un tablero de 3x3. 
+ * El juego termina cuando un jugador consigue tres fichas en raya (horizontal, vertical o diagonal)
+ */
 public class Arrays11 {
     final static int TAM = 3; // Tamaño de Tablero
     static char[][] tablero = new char[TAM][TAM];
