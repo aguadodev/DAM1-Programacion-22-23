@@ -80,7 +80,7 @@ public class ActividadesController implements Initializable{
 
     @FXML
     void cerrar(ActionEvent event) {
-
+        System.exit(0); // Cerrar la aplicación
     }
 
     @FXML
