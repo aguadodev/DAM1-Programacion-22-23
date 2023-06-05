@@ -8,9 +8,9 @@ import org.junit.Test;
 public class CifradoCesar {
 
     public static void main(String[] args) {
-        String str = "Óscar Núñez Aguado";
-        String strCifrado = encriptarCesar(str, 1);
-        String strDescifrado = desencriptarCesar(strCifrado, 1);
+        String str = "Óscar Núñez Aguado y la cigüeña";
+        String strCifrado = encriptarCesar(str, -3);
+        String strDescifrado = desencriptarCesar(strCifrado, -3);
 
         System.out.println(str);
         System.out.println(strCifrado);
@@ -18,7 +18,49 @@ public class CifradoCesar {
 
     }
 
+    
     public static String encriptarCesar(String cadena, int desplazamiento) {
+        String cadenaCifrada = "";
+
+        for(int i = 0; i < cadena.length(); i++){
+            cadenaCifrada = cadenaCifrada + cifrarCaracter(cadena.charAt(i), desplazamiento);
+        }
+
+        return cadenaCifrada;
+    }
+
+
+    private static char cifrarCaracter(char ch, int desplazamiento) {
+        char chCifrada;
+
+        String letrasCifrables = "abcdefghijklmnñoópqrstuüvwxyz";
+        int iLetra = letrasCifrables.indexOf(Character.toLowerCase(ch));
+
+        if (iLetra != -1){
+            int iLetraCifrada = (iLetra + desplazamiento) % letrasCifrables.length();
+
+            if (iLetraCifrada < 0){
+                iLetraCifrada = letrasCifrables.length() + iLetraCifrada;
+            }
+            
+            chCifrada = letrasCifrables.charAt(iLetraCifrada);
+        } else {
+            chCifrada = ch;
+        }
+
+        if (Character.isUpperCase(ch))
+            chCifrada = Character.toUpperCase(chCifrada);
+
+        return chCifrada;
+    }
+
+
+
+
+
+    // Versión que utiliza el código ASCII para realizar la conversión.
+    // No funciona bien con caracteres no anglosajones.
+    public static String encriptarCesar2(String cadena, int desplazamiento) {
         StringBuilder resultado = new StringBuilder();
 
         for (int i = 0; i < cadena.length(); i++) {

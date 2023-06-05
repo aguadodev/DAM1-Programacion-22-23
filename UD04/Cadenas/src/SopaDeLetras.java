@@ -1,4 +1,3 @@
-package Examen;
 
 /**
  * SopaDeLetras
@@ -23,12 +22,12 @@ public class SopaDeLetras {
         for(int i = 0; i < t.length; i++){
             for(int j = 0; j < t[0].length; j++){
                 int k = 0;
-                while (p.charAt(k) == t[i][j]){
+                /*while (p.charAt(k) == t[i][j]){
                     if(i == 1)
 
 
 
-                }
+                }*/
             }
         }
         return encontrado;
