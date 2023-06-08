@@ -43,7 +43,7 @@ public class Aparcamiento {
 
         int i = 0;
         while (i < capacidadMaxima && !cocheRetirado) {
-            if (plazas[i].equals(vehiculo)) {
+            if (plazas[i] != null && plazas[i].equals(vehiculo)) {
                 plazas[i] = null;
                 cocheRetirado = true;
             } else {
@@ -81,6 +81,18 @@ public class Aparcamiento {
         System.out.println("Plazas Libres: " + numPlazasLibres);
         System.out.println("Plazas Ocupadas: " + (plazas.length - numPlazasLibres));
     }
+
+
+    public void mostrarEstadoDetallado() {
+        System.out.println("ESTADO DETALLADO DEL APARCAMIENTO:");
+        System.out.println("==================================");
+        System.out.println("Plaza\tMatrícula");
+        System.out.println("-----\t---------");
+        //...
+
+    }
+
+
 
     Vehiculo consultarPlaza(int numeroPlaza) {
         if (numeroPlaza < 0 || numeroPlaza >= capacidadMaxima)
@@ -137,6 +149,7 @@ public class Aparcamiento {
         return cochesSacados;
     }
 
+
     List<Vehiculo> vehiculosAparcados() {
         return null;
     }
@@ -150,9 +163,9 @@ public class Aparcamiento {
         Aparcamiento p1 = new Aparcamiento(10);
         p1.mostrarEstado();
 
-        System.out.println("APARCO UN VEHICULO");
+        System.out.println("APARCO VEHICULOS");
         p1.aparcarVehiculo(new Vehiculo("1234AAA"));
-        p1.aparcarVehiculo(new Vehiculo("1234AAA"));
+        p1.aparcarVehiculo(new Vehiculo("1234AAA")); // Éste ya está aparcado, no lo aparcará
         p1.aparcarVehiculo(new Vehiculo("1234BBB"));
         p1.aparcarVehiculo(new Vehiculo("1234CCC"));
         p1.mostrarEstado();
@@ -180,8 +193,7 @@ public class Aparcamiento {
         listaCoches2.add(new Vehiculo("1234EEE"));
         listaCoches2.add(new Vehiculo("1234FFF"));
         System.out.println(p1.sacarGrupoVehiculos(listaCoches2));
-        System.out.println(Arrays.toString(p1.plazasLibres()));  
-         
+        System.out.println(Arrays.toString(p1.plazasLibres()));           
     }
 
 }
