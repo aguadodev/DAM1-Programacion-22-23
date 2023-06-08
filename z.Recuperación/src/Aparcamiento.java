@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Aparcamiento {
     private int capacidadMaxima;
     private Vehiculo[] plazas;
+    private int alturaMaxima;
 
     public Aparcamiento(int capacidadMaxima) {
         this.capacidadMaxima = capacidadMaxima;
@@ -20,18 +23,37 @@ public class Aparcamiento {
         return capacidadMaxima;
     }
 
+    public int getAlturaMaxima() {
+        return alturaMaxima;
+    }
+
+    public void setAlturaMaxima(int alturaMaxima) {
+        this.alturaMaxima = alturaMaxima;
+    }
+
     public boolean aparcarVehiculo(Vehiculo vehiculo) {
         boolean aparcado = false;
-
+        
         // Sólo intentamos aparcar el vehículo si no está ya en el aparcamiento
         if (consultarPlazaVehiculo(vehiculo) == -1) {
-            int i = 0;
-            while (i < capacidadMaxima && !aparcado) {
-                if (plazas[i] == null) {
-                    plazas[i] = vehiculo;
-                    aparcado = true;
-                } else
-                    i++;
+            boolean aparcable = true;
+            // Si se trata de un VehiculoPesado que supera la altura máxima no es aparcable.
+            if (vehiculo.getClass().getCanonicalName().equals("VehiculoPesado")){
+                VehiculoPesado vp = (VehiculoPesado) vehiculo;
+                if (vp.getAltura() > alturaMaxima){
+                    aparcable = false;
+                }
+            }
+
+            if (aparcable) {
+                int i = 0;
+                while (i < capacidadMaxima && !aparcado) {
+                    if (plazas[i] == null) {
+                        plazas[i] = vehiculo;
+                        aparcado = true;
+                    } else
+                        i++;
+                }                
             }
         }
 
@@ -61,6 +83,10 @@ public class Aparcamiento {
         return contador;
     }
 
+    public boolean estaVacio(){
+        return numPlazasLibres() == capacidadMaxima;
+    }    
+
     int[] plazasLibres() {
         int[] plazasLibres = new int[0];
 
@@ -82,17 +108,17 @@ public class Aparcamiento {
         System.out.println("Plazas Ocupadas: " + (plazas.length - numPlazasLibres));
     }
 
-
     public void mostrarEstadoDetallado() {
         System.out.println("ESTADO DETALLADO DEL APARCAMIENTO:");
         System.out.println("==================================");
         System.out.println("Plaza\tMatrícula");
         System.out.println("-----\t---------");
-        //...
+        for(int i = 0; i < capacidadMaxima; i++){
+            if (plazas[i] != null) 
+                System.out.println(i + "\t" + plazas[i].getMatricula());
+        }
 
     }
-
-
 
     Vehiculo consultarPlaza(int numeroPlaza) {
         if (numeroPlaza < 0 || numeroPlaza >= capacidadMaxima)
@@ -137,7 +163,6 @@ public class Aparcamiento {
         return aparcados;
     }
 
-
     boolean sacarGrupoVehiculos(List<Vehiculo> vehiculos){
         boolean cochesSacados = true;
 
@@ -151,11 +176,31 @@ public class Aparcamiento {
 
 
     List<Vehiculo> vehiculosAparcados() {
-        return null;
+        List<Vehiculo> lista = null;
+        if (!estaVacio()){  // Es menos eficiente, obliga a recorrer 2 veces el array
+            lista = new ArrayList<>();
+            for(Vehiculo v : plazas){
+                if (v != null)
+                    lista.add(v);
+            }
+            lista.sort(Comparator.naturalOrder());
+        }
+        return lista;
     }
 
-    static Map<Vehiculo, Integer> vehiculosAparcados(Aparcamiento p) {
-        return null;
+    Map<Integer, Vehiculo> plazasVehiculos() {
+        Map<Integer, Vehiculo> mapa = null;
+        
+        mapa = new HashMap<>();
+        for(int i = 0; i < capacidadMaxima; i++){            
+            if (plazas[i] != null)
+                mapa.put(i, plazas[i]);
+        }
+
+        if (mapa.isEmpty())
+            return null;
+        else
+            return mapa;
     }
 
     public static void main(String[] args) {
@@ -179,7 +224,7 @@ public class Aparcamiento {
 
         List<Vehiculo> listaCoches = new ArrayList<>();
         listaCoches.add(new Vehiculo("1234DDD"));
-        listaCoches.add(new Vehiculo("1234EEE"));
+        listaCoches.add(new VehiculoPesado("1234EEE", 200));
         listaCoches.add(new Vehiculo("1234FFF"));
         listaCoches.add(new Vehiculo("1234GGG"));
         listaCoches.add(new Vehiculo("1234HHH"));
@@ -187,18 +232,25 @@ public class Aparcamiento {
 
         System.out.println(p1.aparcarGrupoVehiculos(listaCoches));
         System.out.println(Arrays.toString(p1.plazasLibres()));
+        p1.mostrarEstadoDetallado();
+        List<Vehiculo> l = p1.vehiculosAparcados();
+        l.sort(Comparator.reverseOrder());
+        System.out.println("Lista ordenada de vehículos: " + l);
 
+
+        // Sacar Grupo de Vehículos
         List<Vehiculo> listaCoches2 = new ArrayList<>();
         listaCoches2.add(new Vehiculo("1234DDD"));
         listaCoches2.add(new Vehiculo("1234EEE"));
         listaCoches2.add(new Vehiculo("1234FFF"));
         System.out.println(p1.sacarGrupoVehiculos(listaCoches2));
+        p1.mostrarEstadoDetallado();
         System.out.println(Arrays.toString(p1.plazasLibres()));           
     }
 
 }
 
-class Vehiculo {
+class Vehiculo implements Comparable<Vehiculo>{
     private String matricula;
 
     public Vehiculo(String matricula) {
@@ -236,6 +288,35 @@ class Vehiculo {
         } else if (!matricula.equals(other.matricula))
             return false;
         return true;
+    }
+
+    @Override
+    public int compareTo(Vehiculo o) {
+        return matricula.compareTo(o.matricula);
+    }
+
+    @Override
+    public String toString() {
+        return matricula;
+    }
+
+}
+
+class VehiculoPesado extends Vehiculo {
+    private int peso; // kilos
+    private int altura; // altura
+
+    public VehiculoPesado(String matricula, int altura) {
+        super(matricula);
+        this.altura = altura;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
     }
 
 }
