@@ -20,7 +20,7 @@ public class Buscaminas {
         
     public static void main(String[] args) {       
         // Declaración de variables y constantes
-        int opcion, fila, columna;
+        int fila, columna;
         
         iniciarTableroMinas();
         iniciarTableroJuego();
@@ -29,7 +29,7 @@ public class Buscaminas {
             imprimirTableroJuego(); 
             //imprimirTableroMinas(); // Trampa => BORRAR
             imprimirMenu();
-            switch (opcion = leerOpcion()){
+            switch (leerOpcion()){
                 case 0: 
                     opcionSalir = true;
                     break;
@@ -187,8 +187,6 @@ static boolean comprobarMarcas() {
 }
     
     static void iniciarTableroJuego(){
-        int f, c;
-        
         // Inicializar tablero a false (no es necesario en Java)
         for(int i = 0; i < FILAS; i++)
             for(int j = 0; j < COLUMNAS; j++)        
