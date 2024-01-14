@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -36,6 +37,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        // Crea e inicializa el tablero de imágenes ocultas.
+        t = new Tablero(eligeTablero(null));    
+
         stage.setScene(createScene());
         stage.setResizable(false);
         stage.setTitle("Memory");
@@ -43,14 +47,11 @@ public class App extends Application {
     }
 
     private Scene createScene() throws FileNotFoundException {
-        // Inicializa las variables para el siguiente turno
+        // Inicializa las variables para el siguiente juego
         imageViewAnterior = null;
         imageViewActual = null;
         turnoJugador = 1; // Almacena el número del primer (y por ahora único) jugador
         numClicks = 0; // Cuenta el número de clicks que se han hecho en el juego
-
-        // Crea e inicializa el tablero de imágenes ocultas.
-        t = new Tablero();
 
         // Crea e inicializa las "vistas" de imágenes
         gridPane = new GridPane();
@@ -74,6 +75,64 @@ public class App extends Application {
         VBox vBox = new VBox(gridPane, lblAyuda);
         Scene scene = new Scene(vBox);
         return scene;
+    }
+
+    /**
+     * TODO: Muestra un cuadro de diálogo para que el jugador elija el tablero
+     * 
+     * @return
+     */
+    private String eligeTablero(Stage stage) {
+        // Ruta del directorio
+        String rutaDirectorio = "./src/img";
+        File[][] imgFiles = null;
+
+        // Crear un objeto File con la ruta del directorio
+        File directorio = new File(rutaDirectorio);
+
+        // Verificar si el directorio existe
+        if (directorio.exists() && directorio.isDirectory()) {
+            // Obtener la lista de archivos en el directorio
+            File[] archivos = directorio.listFiles();
+
+            // Verificar si hay archivos en el directorio
+            if (archivos != null) {
+                Alert alert = new Alert(Alert.AlertType.NONE);
+                alert.initModality(Modality.WINDOW_MODAL);
+                alert.initOwner(stage);
+                alert.setTitle("Imágenes disponibles");
+                alert.setHeaderText("Elige el juego de imágenes con las que quieres jugar.");
+
+                // Imprimir los nombres de los archivos en el directorio
+                System.out.println("Contenido del directorio " + rutaDirectorio + ":");
+                imgFiles = new File[archivos.length][];
+                for (int i = 0; i < archivos.length; i++) {
+                    System.out.print(archivos[i].getName());
+                    if (archivos[i].isDirectory()) {
+
+                        // Agrega botones al cuadro de diálogo
+                        ButtonType boton = new ButtonType(archivos[i].getName());
+                        alert.getButtonTypes().add(boton);
+
+                        // Muestra el cuadro de diálogo y devuelve true si respondió que sí
+                        imgFiles[i] = archivos[i].listFiles();
+                    }
+                }
+                ButtonType boton = alert.showAndWait().get();
+                if (boton != null) {
+                    return boton.getText();
+                }
+                // .filter(response -> response == botonSi).isPresent();
+
+            } else {
+                System.out.println("El directorio está vacío.");
+            }
+        } else {
+            System.out.println("El directorio no existe o no es un directorio válido.");
+        }
+        System.out.println();
+        return null;
+
     }
 
     /**
@@ -153,8 +212,10 @@ public class App extends Application {
                         System.out.println("Fin del Juego");
                         Stage stage = (Stage) imageViewActual.getScene().getWindow();
                         alertFinJuego(stage);
-                        
+
                         if (alertJugarOtraVez(stage)) {
+                            // Crea e inicializa el tablero de imágenes ocultas.
+                            t = new Tablero(eligeTablero(stage));                              
                             // Reiniciar Juego
                             t.barajarImagenes();
                             try {
@@ -193,6 +254,7 @@ public class App extends Application {
         /**
          * Muestra un cuadro de diálogo de Fin del Juego con el número de clicks
          * realizados
+         * 
          * @param stage
          */
         private void alertFinJuego(Stage stage) {
@@ -207,6 +269,7 @@ public class App extends Application {
 
         /**
          * Pregunta al jugador si quiere jugar otra vez
+         * 
          * @param stage
          * 
          * @return boolean
@@ -214,7 +277,7 @@ public class App extends Application {
         private boolean alertJugarOtraVez(Stage stage) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.initModality(Modality.WINDOW_MODAL);
-            alert.initOwner(stage);            
+            alert.initOwner(stage);
             alert.setTitle("Otra partida?");
             alert.setHeaderText("¿Quieres jugar otra vez?");
 
