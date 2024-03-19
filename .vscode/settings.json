@@ -4,11 +4,10 @@
         "UD05/Rol/lib/gson-2.10.jar"
     ],
     "java.project.sourcePaths": [
-        "UD04/Wordle/src",
-        "UD04/ProbasLibres/src",
         "UD04/ExamenUD4REC/src",
         "UD04/Arrays/src",
-        "Codigo variado/Java/ProbasLibres/src"
+        "Codigo variado/Java/ProbasLibres/src",
+        "Codigo variado/Java/memory/src"
     ],
     "java.completion.filteredTypes": [
         "com.sun.*",
