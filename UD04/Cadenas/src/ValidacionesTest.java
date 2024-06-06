@@ -15,9 +15,9 @@ public class ValidacionesTest {
         assertEquals(Validaciones.esMatriculaValida("1234B5B"), false);
         assertEquals(Validaciones.esMatriculaValida("1234BúB"), false);
         assertEquals(Validaciones.esMatriculaValida("1234BÚB"), false);
-        assertEquals(Validaciones.esMatriculaValida("1234BñB"), false);
-        
-        assertEquals(Validaciones.esMatriculaValida("1234BbB"), true);
+        assertEquals(Validaciones.esMatriculaValida("1234BñB"), false);        
+        assertEquals(Validaciones.esMatriculaValida("1234BbB"), false);
+
         assertEquals(Validaciones.esMatriculaValida("1234BBB"), true);
         assertEquals(Validaciones.esMatriculaValida("9999BBZ"), true);
         assertEquals(Validaciones.esMatriculaValida("9999BBD"), true);
@@ -31,7 +31,6 @@ public class ValidacionesTest {
 
     @Test
     public void testSiguienteMatricula() {
-        assertEquals(Validaciones.siguienteMatricula("1234BbB"), "1235BBB");
         assertEquals(Validaciones.siguienteMatricula("1234BBB"), "1235BBB");
         assertEquals(Validaciones.siguienteMatricula("9999BBZ"), "0000BCB");
         assertEquals(Validaciones.siguienteMatricula("9999BBD"), "0000BBF");
