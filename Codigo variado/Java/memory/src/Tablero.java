@@ -55,6 +55,19 @@ public class Tablero {
             };
             imagenes = imgDinos;
             imgReverso = new Image("img/dinos/paisaje.jpg");
+        } else if (tipo.equals("cars")) {
+            Image[] imgDinos = {
+                    new Image("img/cars/Daniel Swervez.jpg"),
+                    new Image("img/cars/Jackson Storm.jpg"),
+                    new Image("img/cars/El Rey.jpg"),
+                    new Image("img/cars/Francesco Bernoulli.jpg"),
+                    new Image("img/cars/Cruz Ramírez.jpg"),
+                    new Image("img/cars/Brick Yardley.jpg"),
+                    new Image("img/cars/Rayo McQueen.jpg"),
+                    new Image("img/cars/Mate.jpg"),
+            };
+            imagenes = imgDinos;
+            imgReverso = new Image("img/cars/Reverso.png");
         }
 
         crearTableroOculto();
